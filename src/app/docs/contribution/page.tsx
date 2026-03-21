@@ -20,7 +20,7 @@ async function fetchContributors(): Promise<Contributor[]> {
     REPOS.map(async (repo) => {
       const res = await fetch(
         `https://api.github.com/repos/${ORG}/${repo}/contributors?per_page=100`,
-        { headers, next: { revalidate: false } }
+        { headers, next: { revalidate: 3600 } }
       );
       if (!res.ok) return [];
       const data = await res.json();
@@ -46,7 +46,7 @@ async function fetchContributors(): Promise<Contributor[]> {
     Array.from(map.entries()).map(async ([login, data]) => {
       const res = await fetch(`https://api.github.com/users/${login}`, {
         headers,
-        next: { revalidate: false },
+        next: { revalidate: 3600 },
       });
       const user = res.ok ? await res.json() : {};
       return {
