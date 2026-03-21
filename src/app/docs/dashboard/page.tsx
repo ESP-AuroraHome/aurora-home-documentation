@@ -151,6 +151,39 @@ export default function DocsDashboard() {
         </div>
       </div>
 
+      {/* --- Bannière d'état --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Bannière d'état de la maison</h2>
+        <p className="text-neutral-400 mb-6">
+          Au-dessus des cartes capteurs, une bannière indique en permanence l'état de votre maison.
+        </p>
+        <div className="grid gap-3">
+          <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
+            <p className="text-sm font-medium text-emerald-300 mb-1">Maison en bonne santé</p>
+            <p className="text-sm text-neutral-400">Tous les capteurs sont dans les normes — aucune anomalie détectée.</p>
+          </div>
+          <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10">
+            <p className="text-sm font-medium text-red-200 mb-1">Alerte active</p>
+            <p className="text-sm text-neutral-400">
+              Une bannière colorée par anomalie (rouge / orange / jaune). Plusieurs alertes
+              s'empilent si plusieurs capteurs sont en anomalie simultanément.
+              Chaque bannière est fermable individuellement.
+            </p>
+          </div>
+          <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+            <p className="text-sm font-medium text-white mb-1">Surveillance en cours</p>
+            <p className="text-sm text-neutral-400">
+              Vous avez fermé les bannières mais des anomalies restent non résolues.
+              La bannière verte ne revient que lorsque les valeurs retournent dans les normes
+              ou que vous marquez les alertes comme résolues depuis le panneau de notifications.
+            </p>
+          </div>
+        </div>
+        <p className="text-sm text-neutral-500 mt-4">
+          → Voir <a href="/docs/alerts" className="text-blue-400 hover:underline">Alertes & Anomalies</a> pour le détail complet.
+        </p>
+      </div>
+
       {/* --- PWA --- */}
       <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
         <div className="flex items-start gap-4">
