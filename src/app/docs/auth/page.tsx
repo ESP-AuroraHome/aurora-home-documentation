@@ -1,4 +1,4 @@
-import { ArrowRight, KeyRound, Monitor, ShieldCheck, Home, LogOut, HelpCircle } from "lucide-react";
+import { ArrowRight, KeyRound, Monitor, ShieldCheck, Home, LogOut, HelpCircle, Mail } from "lucide-react";
 
 export default function DocsAuth() {
   return (
