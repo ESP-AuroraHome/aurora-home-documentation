@@ -51,10 +51,11 @@ export default function DocsProfile() {
                 <h3 className="font-semibold mb-2">Choisir un avatar</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
                   Survolez votre avatar actuel avec la souris (ou appuyez dessus sur mobile)
-                  pour voir un icône de modification apparaître. Cliquez dessus pour ouvrir
-                  une galerie de <strong className="text-white">13 styles d'avatars</strong> générés
-                  automatiquement à partir de votre nom d'utilisateur. Cliquez sur celui qui
-                  vous plaît pour le sélectionner.
+                  pour voir l'icône de modification apparaître. Cliquez dessus pour basculer
+                  la carte en mode sélection — une grille de{" "}
+                  <strong className="text-white">13 styles d'avatars</strong> générés
+                  automatiquement à partir de votre nom d'utilisateur s'affiche. Cliquez sur celui
+                  qui vous plaît pour le sélectionner, puis fermez le mode sélection.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {["adventurer", "avataaars", "bottts", "fun-emoji", "identicon", "lorelei", "micah", "miniavs", "open-peeps", "personas", "pixel-art", "shapes", "thumbs"].map((style) => (
