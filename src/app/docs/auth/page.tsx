@@ -1,4 +1,4 @@
-import { ArrowRight, KeyRound, Mail, ShieldCheck, Home, LogOut, HelpCircle } from "lucide-react";
+import { ArrowRight, KeyRound, Monitor, ShieldCheck, Home, LogOut, HelpCircle } from "lucide-react";
 
 export default function DocsAuth() {
   return (
@@ -13,8 +13,8 @@ export default function DocsAuth() {
         </div>
         <h1 className="text-4xl font-bold mb-4">Se connecter à Aurora Home</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Aurora Home n'utilise pas de mot de passe. À la place, un code à 6 chiffres est envoyé
-          par email à chaque connexion — c'est plus simple et plus sécurisé.
+          Aurora Home n'utilise pas de mot de passe. À la place, un code à 6 chiffres s'affiche
+          sur l'écran du boîtier à chaque connexion — c'est plus simple et plus sécurisé.
         </p>
       </div>
 
@@ -32,17 +32,17 @@ export default function DocsAuth() {
             },
             {
               step: "2",
-              icon: KeyRound,
+              icon: Monitor,
               color: "purple",
-              title: "Vérifiez votre boîte mail",
-              desc: "Vous allez recevoir un email contenant un code à 6 chiffres. Ce code n'est valable que quelques minutes, donc soyez rapide ! Si vous ne voyez rien, vérifiez le dossier Indésirables/Spam.",
+              title: "Regardez l'écran du boîtier",
+              desc: "Un code à 6 chiffres s'affiche sur l'écran du boîtier Aurora Home. Ce code n'est valable que quelques minutes, donc soyez rapide !",
             },
             {
               step: "3",
               icon: ShieldCheck,
               color: "green",
               title: "Entrez le code",
-              desc: "Revenez sur Aurora Home et saisissez le code à 6 chiffres reçu par email. Si le code est correct, vous êtes connecté.",
+              desc: "Revenez sur Aurora Home et saisissez le code à 6 chiffres affiché sur le boîtier. Si le code est correct, vous êtes connecté.",
             },
             {
               step: "4",
@@ -124,12 +124,12 @@ export default function DocsAuth() {
         <div className="grid gap-4">
           {[
             {
-              q: "Je n'ai pas reçu le code, que faire ?",
-              a: "Vérifiez d'abord votre dossier Spam ou Indésirables. Si rien n'apparaît après 2 minutes, retournez sur la page de connexion et recommencez. Chaque tentative génère un nouveau code.",
+              q: "Aucun code n'apparaît sur le boîtier, que faire ?",
+              a: "Vérifiez que le boîtier Aurora Home est bien allumé et que son écran fonctionne. Retournez ensuite sur la page de connexion et recommencez — chaque tentative génère un nouveau code.",
             },
             {
               q: "Le code ne fonctionne pas.",
-              a: "Le code n'est valable que quelques minutes. S'il est expiré, retournez sur la page de connexion pour en demander un nouveau. Vérifiez aussi que vous saisissez bien le dernier code reçu.",
+              a: "Le code n'est valable que quelques minutes. S'il est expiré, retournez sur la page de connexion pour en générer un nouveau qui s'affichera sur le boîtier. Vérifiez aussi que vous saisissez bien le code actuellement affiché.",
             },
             {
               q: "Dois-je créer un compte ?",
