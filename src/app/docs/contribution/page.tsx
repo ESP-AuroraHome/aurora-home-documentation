@@ -1,4 +1,72 @@
-import { ArrowRight, GitBranch, CheckCircle2, Terminal, Package, Users } from "lucide-react";
+import { ArrowRight, GitBranch, CheckCircle2, Terminal, Package } from "lucide-react";
+
+const ORG = "ESP-AuroraHome";
+const REPOS = ["aurora-home-app", "aurora-home-esp32", "aurora-home-orange-pi", "aurora-home-marketing", "aurora-home-documentation"];
+
+type Contributor = {
+  login: string;
+  name: string;
+  avatar: string;
+  url: string;
+  bio: string | null;
+  repos: { name: string; count: number }[];
+};
+
+async function fetchContributors(): Promise<Contributor[]> {
+  const token = process.env.GITHUB_TOKEN;
+  const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const repoContributors = await Promise.all(
+    REPOS.map(async (repo) => {
+      const res = await fetch(
+        `https://api.github.com/repos/${ORG}/${repo}/contributors?per_page=100`,
+        { headers, next: { revalidate: false } }
+      );
+      if (!res.ok) return [];
+      const data = await res.json();
+      return (data as { login: string; contributions: number }[]).map((c) => ({
+        repo,
+        login: c.login,
+        count: c.contributions,
+      }));
+    })
+  );
+
+  // Aggregate by login
+  const map = new Map<string, { repos: { name: string; count: number }[] }>();
+  for (const entries of repoContributors) {
+    for (const entry of entries) {
+      if (!map.has(entry.login)) map.set(entry.login, { repos: [] });
+      map.get(entry.login)!.repos.push({ name: entry.repo, count: entry.count });
+    }
+  }
+
+  // Fetch user profiles
+  const contributors = await Promise.all(
+    Array.from(map.entries()).map(async ([login, data]) => {
+      const res = await fetch(`https://api.github.com/users/${login}`, {
+        headers,
+        next: { revalidate: false },
+      });
+      const user = res.ok ? await res.json() : {};
+      return {
+        login,
+        name: (user.name as string) || login,
+        avatar: (user.avatar_url as string) || `https://avatars.githubusercontent.com/${login}`,
+        url: `https://github.com/${login}`,
+        bio: (user.bio as string | null) || null,
+        repos: data.repos,
+      } satisfies Contributor;
+    })
+  );
+
+  // Sort by total commits desc
+  return contributors.sort(
+    (a, b) =>
+      b.repos.reduce((s, r) => s + r.count, 0) -
+      a.repos.reduce((s, r) => s + r.count, 0)
+  );
+}
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
   return (
@@ -35,7 +103,9 @@ function Step({
   );
 }
 
-export default function DocsContribution() {
+export default async function DocsContribution() {
+  const contributors = await fetchContributors();
+
   return (
     <div>
       <div className="mb-12">
@@ -165,51 +235,7 @@ git push origin feature/ma-fonctionnalite`}</CodeBlock>
         </p>
 
         <div className="grid gap-4">
-          {[
-            {
-              login: "antoine-gourgue",
-              name: "Antoine Gourgue",
-              avatar: "https://avatars.githubusercontent.com/u/140335280?v=4",
-              url: "https://github.com/antoine-gourgue",
-              bio: "MSc2 - Epitech Rennes (promo 2026)",
-              repos: [{ name: "aurora-home-app", count: 30 }],
-            },
-            {
-              login: "Le22",
-              name: "Louis-Étienne Girard",
-              avatar: "https://avatars.githubusercontent.com/u/58168080?v=4",
-              url: "https://github.com/Le22",
-              bio: "Développeur full stack · TypeScript, React, Next.js, Node.js",
-              repos: [{ name: "aurora-home-app", count: 9 }],
-            },
-            {
-              login: "nathanCahgn",
-              name: "nathanCahgn",
-              avatar: "https://avatars.githubusercontent.com/u/101811360?v=4",
-              url: "https://github.com/nathanCahgn",
-              bio: null,
-              repos: [{ name: "aurora-home-app", count: 7 }],
-            },
-            {
-              login: "MarinCvl",
-              name: "Marin.cvl",
-              avatar: "https://avatars.githubusercontent.com/u/123023057?v=4",
-              url: "https://github.com/MarinCvl",
-              bio: null,
-              repos: [{ name: "aurora-home-esp32", count: 7 }],
-            },
-            {
-              login: "Doctormacfreeze",
-              name: "Macfreeze",
-              avatar: "https://avatars.githubusercontent.com/u/211643243?v=4",
-              url: "https://github.com/Doctormacfreeze",
-              bio: null,
-              repos: [
-                { name: "aurora-home-orange-pi", count: 1 },
-                { name: "aurora-home-marketing", count: 1 },
-              ],
-            },
-          ].map((contributor) => (
+          {contributors.map((contributor) => (
             <a
               key={contributor.login}
               href={contributor.url}
