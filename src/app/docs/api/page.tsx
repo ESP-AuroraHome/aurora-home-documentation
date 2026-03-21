@@ -133,6 +133,27 @@ data: {
           </div>
         </div>
 
+        {/* SSE alert_created */}
+        <div className="mb-4 p-4 rounded-lg bg-white/[0.02] border border-white/5">
+          <p className="text-xs text-neutral-500 mb-2">Le stream SSE envoie également les événements d'alertes :</p>
+          <CodeBlock title="Événement alert_created">{`data: {
+  "type": "alert_created",
+  "data": {
+    "id": "clxyz456",
+    "type": "THRESHOLD_HIGH",
+    "severity": "HIGH",
+    "sensorType": "CO2",
+    "value": 1620,
+    "threshold": 1500,
+    "message": "CO₂ élevé détecté (1620 ppm)",
+    "suggestions": ["Ouvrez une fenêtre", "Vérifiez la ventilation"],
+    "read": false,
+    "resolvedAt": null,
+    "createdAt": "2024-01-15T10:35:00.000Z"
+  }
+}`}</CodeBlock>
+        </div>
+
         {/* Locale */}
         <div className="mb-8 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
           <div className="flex items-center gap-3 mb-4">
@@ -155,6 +176,27 @@ data: {
   "success": true
 }`}</CodeBlock>
           </div>
+        </div>
+        {/* Dev inject-sensor */}
+        <div className="mb-8 p-6 rounded-xl border border-yellow-500/20 bg-yellow-500/5">
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="POST" />
+            <code className="text-sm text-neutral-300">/api/dev/inject-sensor</code>
+            <span className="text-xs px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 font-medium">dev only</span>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">
+            Endpoint de développement pour simuler des données capteurs sans ESP32 physique.
+            Retourne <code className="px-1.5 py-0.5 bg-white/5 rounded">403</code> si{" "}
+            <code className="px-1.5 py-0.5 bg-white/5 rounded">NODE_ENV !== "development"</code>.
+            Crée les DataPoints, lance la détection d'anomalies et émet les événements SSE.
+          </p>
+          <CodeBlock title="Body (JSON)">{`{
+  "temperature": "22.5",
+  "humidity":    "58.0",
+  "pressure":    "1013.2",
+  "co2":         "820",
+  "light":       "310"
+}`}</CodeBlock>
         </div>
       </div>
 
