@@ -96,8 +96,26 @@ export default function DocsDatabase() {
               fields: [
                 { name: "id", type: "String", note: "CUID" },
                 { name: "type", type: "DataType", note: "Enum : TEMPERATURE | HUMIDITY | PRESSURE | CO2 | LIGHT" },
-                { name: "value", type: "String", note: "Valeur brute avec unité (ex: '22.50 °C')" },
+                { name: "value", type: "String", note: "Valeur brute (ex: '22.50')" },
                 { name: "createdAt", type: "DateTime", note: "Horodatage du relevé" },
+              ],
+            },
+            {
+              name: "Alert",
+              color: "red",
+              desc: "Anomalie détectée sur un capteur.",
+              fields: [
+                { name: "id", type: "String", note: "CUID" },
+                { name: "type", type: "AlertType", note: "THRESHOLD_HIGH | THRESHOLD_LOW | SUDDEN_CHANGE" },
+                { name: "severity", type: "Severity", note: "WARNING | HIGH | CRITICAL" },
+                { name: "sensorType", type: "DataType", note: "Capteur concerné" },
+                { name: "value", type: "Float", note: "Valeur mesurée au moment de l'alerte" },
+                { name: "threshold", type: "Float?", note: "Seuil dépassé (null si variation soudaine)" },
+                { name: "message", type: "String", note: "Message affiché à l'utilisateur" },
+                { name: "suggestions", type: "String", note: "JSON stringifié — liste de suggestions" },
+                { name: "read", type: "Boolean", note: "false par défaut" },
+                { name: "resolvedAt", type: "DateTime?", note: "null tant que non résolue" },
+                { name: "createdAt", type: "DateTime", note: "" },
               ],
             },
           ].map((model) => (
@@ -137,20 +155,32 @@ export default function DocsDatabase() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Enum DataType</h2>
-        <CodeBlock title="prisma/schema.prisma">{`enum DataType {
+        <h2 className="text-2xl font-bold mb-6">Enums</h2>
+        <div className="grid gap-4">
+          <CodeBlock title="DataType">{`enum DataType {
   TEMPERATURE
   HUMIDITY
   PRESSURE
   CO2
   LIGHT
 }`}</CodeBlock>
+          <CodeBlock title="AlertType">{`enum AlertType {
+  THRESHOLD_HIGH   // Seuil haut dépassé
+  THRESHOLD_LOW    // Seuil bas dépassé
+  SUDDEN_CHANGE    // Variation brutale (± 25% de la moyenne glissante)
+}`}</CodeBlock>
+          <CodeBlock title="Severity">{`enum Severity {
+  WARNING   // Attention — légèrement hors norme
+  HIGH      // Problème — significativement hors norme
+  CRITICAL  // Urgent — valeur dangereuse
+}`}</CodeBlock>
+        </div>
         <div className="mt-4 p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
           <p className="text-sm text-orange-200/70">
-            <strong className="text-orange-300">Note :</strong> Le champ <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">value</code> est
-            stocké en <strong>String</strong> et non en Float. L'ESP32 envoie des chaînes du type "22.50 °C" — le
-            serveur extrait la valeur numérique avec une regex avant de calculer ou afficher les
-            graphiques.
+            <strong className="text-orange-300">Note :</strong> Le champ <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">value</code> de DataPoint est
+            stocké en <strong>String</strong> et non en Float. Le serveur extrait la valeur numérique avec{" "}
+            <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">parseFloat()</code> avant de calculer ou afficher les graphiques.
+            Le champ <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">suggestions</code> d'Alert est un tableau JSON stringifié.
           </p>
         </div>
       </div>
