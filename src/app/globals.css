@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* =========================================
+   DESIGN TOKENS — LIGHT MODE (défaut)
+   ========================================= */
+:root {
+  --bg-base: #ffffff;
+  --bg-card: rgba(0, 0, 0, 0.025);
+  --bg-muted: rgba(0, 0, 0, 0.05);
+  --bg-code: #f5f5f5;
+  --border: rgba(0, 0, 0, 0.09);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+}
+
+/* =========================================
+   DESIGN TOKENS — DARK MODE
+   ========================================= */
+.dark {
+  --bg-base: #0a0a0a;
+  --bg-card: rgba(255, 255, 255, 0.02);
+  --bg-muted: rgba(255, 255, 255, 0.05);
+  --bg-code: #0d0d0d;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --header-bg: rgba(10, 10, 10, 0.95);
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+  --text-muted: #525252;
+}
+
+/* =========================================
+   BASE STYLES
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* =========================================
+   LIGHT MODE — CONTENT OVERRIDES
+   Override les classes Tailwind codées en dur
+   pour le mode sombre quand on est en mode clair.
+   Utilise [class~="..."] pour cibler les tokens
+   de classe exacts sans toucher hover:/group- variants.
+   ========================================= */
+:root:not(.dark) {
+  /* Texte blanc → noir */
+  & [class~="text-white"] {
+    color: #0a0a0a;
+  }
+  & [class~="text-neutral-200"] {
+    color: #171717;
+  }
+  & [class~="text-neutral-300"] {
+    color: #525252;
+  }
+
+  /* Variantes colorées très claires → lisibles sur fond blanc */
+  & [class~="text-blue-200/70"] {
+    color: #1e40af;
+  }
+  & [class~="text-blue-200"] {
+    color: #1d4ed8;
+  }
+  & [class~="text-blue-300"] {
+    color: #1d4ed8;
+  }
+  & [class~="text-orange-200/70"] {
+    color: #9a3412;
+  }
+  & [class~="text-orange-200"] {
+    color: #c2410c;
+  }
+  & [class~="text-orange-300"] {
+    color: #c2410c;
+  }
+  & [class~="text-green-200/70"] {
+    color: #166534;
+  }
+  & [class~="text-green-200"] {
+    color: #15803d;
+  }
+  & [class~="text-green-300"] {
+    color: #15803d;
+  }
+  & [class~="text-red-200/70"] {
+    color: #991b1b;
+  }
+  & [class~="text-red-300"] {
+    color: #b91c1c;
+  }
+  & [class~="text-yellow-300"] {
+    color: #a16207;
+  }
+  & [class~="text-purple-300"] {
+    color: #7e22ce;
+  }
+
+  /* Fond des blocs de code */
+  & [class~="bg-[#0d0d0d]"] {
+    background-color: #f5f5f5;
+  }
+  & [class~="bg-[#111]"] {
+    background-color: #ffffff;
+  }
+
+  /* Fonds transparents blanc → transparents noir */
+  & [class~="bg-white/[0.02]"] {
+    background-color: rgba(0, 0, 0, 0.025);
+  }
+  & [class~="bg-white/5"] {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  & [class~="bg-white/10"] {
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+  & [class~="bg-white/[0.05]"] {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  /* Bordures transparentes blanc → transparentes noir */
+  & [class~="border-white/5"] {
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+  & [class~="border-white/10"] {
+    border-color: rgba(0, 0, 0, 0.09);
+  }
+  & [class~="border-white/20"] {
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+}
