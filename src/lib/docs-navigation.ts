@@ -12,6 +12,9 @@ import {
   Code,
   Microchip,
   GitBranch,
+  UserPlus,
+  Bell,
+  Terminal,
   type LucideIcon,
 } from "lucide-react";
 
@@ -39,7 +42,9 @@ export const navigation: NavSection[] = [
     title: "Documentation Utilisateur",
     items: [
       { title: "Tableau de bord", href: "/docs/dashboard", icon: LayoutDashboard },
+      { title: "Alertes & Anomalies", href: "/docs/alerts", icon: Bell },
       { title: "Authentification", href: "/docs/auth", icon: KeyRound },
+      { title: "Onboarding", href: "/docs/onboarding", icon: UserPlus },
       { title: "Profil", href: "/docs/profile", icon: UserCircle },
     ],
   },
@@ -55,6 +60,7 @@ export const navigation: NavSection[] = [
   {
     title: "Pour les développeurs",
     items: [
+      { title: "Simulateur de capteurs", href: "/docs/simulator", icon: Terminal },
       { title: "Conventions App", href: "/docs/code-app", icon: Code },
       { title: "Conventions ESP32", href: "/docs/code-esp32", icon: Microchip },
       { title: "Contribuer", href: "/docs/contribution", icon: GitBranch },
