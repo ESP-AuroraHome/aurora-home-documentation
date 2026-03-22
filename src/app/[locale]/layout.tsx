@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "../globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
@@ -10,13 +11,6 @@ export const metadata: Metadata = {
   title: "Aurora Home — Documentation",
   description: "Documentation Aurora Home",
 };
-
-const THEME_SCRIPT = `
-try {
-  const theme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-} catch(e) {}
-`;
 
 export default async function LocaleLayout({
   children,
@@ -34,7 +28,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme')||'dark';document.documentElement.classList.toggle('dark',t==='dark')}catch(e){}`,
+          }}
+        />
       </head>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>

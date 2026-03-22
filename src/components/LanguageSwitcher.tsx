@@ -1,6 +1,5 @@
 "use client";
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "@/lib/navigation";
 import { useState } from "react";
 import { Globe, Check } from "lucide-react";
 import { routing } from "@/i18n/routing";
@@ -14,12 +13,15 @@ const LOCALE_LABELS: Record<string, string> = {
 
 export function LanguageSwitcher() {
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
+    const current = window.location.pathname;
+    const newPath = current.replace(
+      new RegExp(`^/(${routing.locales.join("|")})`),
+      `/${newLocale}`,
+    );
+    window.location.href = newPath;
     setOpen(false);
   };
 
