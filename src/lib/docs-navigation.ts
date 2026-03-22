@@ -19,51 +19,51 @@ import {
 } from "lucide-react";
 
 export type NavItem = {
-  title: string;
+  titleKey: string;
   href: string;
   icon: LucideIcon;
 };
 
 export type NavSection = {
-  title: string;
+  titleKey: string;
   items: NavItem[];
 };
 
 export const navigation: NavSection[] = [
   {
-    title: "Pour commencer",
+    titleKey: "gettingStarted",
     items: [
-      { title: "Introduction", href: "/docs", icon: Book },
-      { title: "Installation App", href: "/docs/installation", icon: Download },
-      { title: "Installation ESP32", href: "/docs/installation-esp32", icon: Cpu },
+      { titleKey: "introduction", href: "/docs", icon: Book },
+      { titleKey: "installApp", href: "/docs/installation", icon: Download },
+      { titleKey: "installEsp32", href: "/docs/installation-esp32", icon: Cpu },
     ],
   },
   {
-    title: "Documentation Utilisateur",
+    titleKey: "userDoc",
     items: [
-      { title: "Tableau de bord", href: "/docs/dashboard", icon: LayoutDashboard },
-      { title: "Alertes & Anomalies", href: "/docs/alerts", icon: Bell },
-      { title: "Authentification", href: "/docs/auth", icon: KeyRound },
-      { title: "Onboarding", href: "/docs/onboarding", icon: UserPlus },
-      { title: "Profil", href: "/docs/profile", icon: UserCircle },
+      { titleKey: "dashboard", href: "/docs/dashboard", icon: LayoutDashboard },
+      { titleKey: "alerts", href: "/docs/alerts", icon: Bell },
+      { titleKey: "auth", href: "/docs/auth", icon: KeyRound },
+      { titleKey: "onboarding", href: "/docs/onboarding", icon: UserPlus },
+      { titleKey: "profile", href: "/docs/profile", icon: UserCircle },
     ],
   },
   {
-    title: "Documentation Technique",
+    titleKey: "techDoc",
     items: [
-      { title: "Architecture", href: "/docs/architecture", icon: Layers },
-      { title: "API REST", href: "/docs/api", icon: Server },
-      { title: "Base de données", href: "/docs/database", icon: Database },
-      { title: "MQTT & Capteurs", href: "/docs/mqtt", icon: Wifi },
+      { titleKey: "architecture", href: "/docs/architecture", icon: Layers },
+      { titleKey: "api", href: "/docs/api", icon: Server },
+      { titleKey: "database", href: "/docs/database", icon: Database },
+      { titleKey: "mqtt", href: "/docs/mqtt", icon: Wifi },
     ],
   },
   {
-    title: "Pour les développeurs",
+    titleKey: "devDoc",
     items: [
-      { title: "Simulateur de capteurs", href: "/docs/simulator", icon: Terminal },
-      { title: "Conventions App", href: "/docs/code-app", icon: Code },
-      { title: "Conventions ESP32", href: "/docs/code-esp32", icon: Microchip },
-      { title: "Contribuer", href: "/docs/contribution", icon: GitBranch },
+      { titleKey: "simulator", href: "/docs/simulator", icon: Terminal },
+      { titleKey: "codeApp", href: "/docs/code-app", icon: Code },
+      { titleKey: "codeEsp32", href: "/docs/code-esp32", icon: Microchip },
+      { titleKey: "contribution", href: "/docs/contribution", icon: GitBranch },
     ],
   },
 ];

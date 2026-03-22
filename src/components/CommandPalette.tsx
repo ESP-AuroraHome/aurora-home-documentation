@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, ArrowRight } from "lucide-react";
 import { navigation, allPages } from "@/lib/docs-navigation";
+import { useTranslations } from "next-intl";
 
 export function CommandPaletteButton({
   onOpen,
@@ -35,18 +36,18 @@ export function CommandPalette({
   const [selected, setSelected] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("nav");
 
   const filtered =
     query.trim() === ""
       ? allPages
-      : allPages.filter(
-          (p) =>
-            p.title.toLowerCase().includes(query.toLowerCase()) ||
-            navigation
-              .find((s) => s.items.some((i) => i.href === p.href))
-              ?.title.toLowerCase()
-              .includes(query.toLowerCase())
-        );
+      : allPages.filter((p) => {
+          const pageTitle = t(p.titleKey).toLowerCase();
+          const section = navigation.find((s) => s.items.some((i) => i.href === p.href));
+          const sectionTitle = section ? t(section.titleKey).toLowerCase() : "";
+          const q = query.toLowerCase();
+          return pageTitle.includes(q) || sectionTitle.includes(q);
+        });
 
   useEffect(() => {
     if (open) {
@@ -83,8 +84,10 @@ export function CommandPalette({
 
   if (!open) return null;
 
-  const getSectionTitle = (href: string) =>
-    navigation.find((s) => s.items.some((i) => i.href === href))?.title ?? "";
+  const getSectionTitle = (href: string) => {
+    const section = navigation.find((s) => s.items.some((i) => i.href === href));
+    return section ? t(section.titleKey) : "";
+  };
 
   return (
     <div
@@ -149,7 +152,7 @@ export function CommandPalette({
                     </div>
                     <div className="flex-1 min-w-0">
                       <span className={`text-sm ${isSelected ? "text-[var(--text-primary)]" : "text-[var(--text-secondary)]"}`}>
-                        {page.title}
+                        {t(page.titleKey)}
                       </span>
                       <span className="ml-2 text-xs text-[var(--text-muted)]">{section}</span>
                     </div>

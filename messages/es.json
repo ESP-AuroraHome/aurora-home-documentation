@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "gettingStarted": "Empezar",
+    "introduction": "Introducción",
+    "installApp": "Instalación App",
+    "installEsp32": "Instalación ESP32",
+    "userDoc": "Documentación de usuario",
+    "dashboard": "Panel de control",
+    "alerts": "Alertas y anomalías",
+    "auth": "Autenticación",
+    "onboarding": "Incorporación",
+    "profile": "Perfil",
+    "techDoc": "Documentación técnica",
+    "architecture": "Arquitectura",
+    "api": "API REST",
+    "database": "Base de datos",
+    "mqtt": "MQTT y sensores",
+    "devDoc": "Para desarrolladores",
+    "simulator": "Simulador de sensores",
+    "codeApp": "Convenciones App",
+    "codeEsp32": "Convenciones ESP32",
+    "contribution": "Contribuir"
+  },
+  "layout": {
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "searchPlaceholder": "Buscar en la documentación...",
+    "noResults": "Sin resultados",
+    "version": "v1.0.0"
+  }
+}

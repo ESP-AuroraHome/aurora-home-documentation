@@ -1,27 +1,25 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/lib/navigation";
+import { Link } from "@/lib/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Github } from "lucide-react";
 import { navigation, allPages } from "@/lib/docs-navigation";
 import { CommandPalette, CommandPaletteButton } from "@/components/CommandPalette";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslations } from "next-intl";
 
-export default function DocsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const t = useTranslations();
   const [paletteOpen, setPaletteOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
-  // Cmd+K shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -35,8 +33,7 @@ export default function DocsLayout({
 
   const currentIndex = allPages.findIndex((page) => page.href === pathname);
   const prevPage = currentIndex > 0 ? allPages[currentIndex - 1] : null;
-  const nextPage =
-    currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
+  const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
 
   return (
     <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
@@ -57,7 +54,8 @@ export default function DocsLayout({
           <div className="flex items-center gap-1">
             <CommandPaletteButton onOpen={() => setPaletteOpen(true)} />
             <ThemeToggle />
-            <span className="text-xs text-[var(--text-muted)] hidden md:block px-2">v1.0.0</span>
+            <LanguageSwitcher />
+            <span className="text-xs text-[var(--text-muted)] hidden md:block px-2">{t("layout.version")}</span>
             <a
               href="https://github.com/ESP-AuroraHome"
               target="_blank"
@@ -76,9 +74,9 @@ export default function DocsLayout({
         <aside className="hidden lg:block w-64 fixed left-0 top-14 bottom-0 overflow-y-auto border-r border-[var(--border-subtle)] bg-[var(--bg-base)]">
           <nav className="p-6 space-y-8">
             {navigation.map((section) => (
-              <div key={section.title}>
+              <div key={section.titleKey}>
                 <h3 className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-3">
-                  {section.title}
+                  {t(`nav.${section.titleKey}`)}
                 </h3>
                 <ul className="space-y-1">
                   {section.items.map((item) => {
@@ -95,7 +93,7 @@ export default function DocsLayout({
                           }`}
                         >
                           <Icon className="w-4 h-4" />
-                          {item.title}
+                          {t(`nav.${item.titleKey}`)}
                         </Link>
                       </li>
                     );
@@ -120,7 +118,7 @@ export default function DocsLayout({
                       : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]"
                   }`}
                 >
-                  {item.title}
+                  {t(`nav.${item.titleKey}`)}
                 </Link>
               );
             })}
@@ -136,28 +134,21 @@ export default function DocsLayout({
 
             <div className="mt-16 pt-8 border-t border-[var(--border-subtle)] flex items-center justify-between">
               {prevPage ? (
-                <Link
-                  href={prevPage.href}
-                  className="group flex flex-col items-start"
-                >
-                  <span className="text-xs text-[var(--text-muted)] mb-1">Précédent</span>
+                <Link href={prevPage.href} className="group flex flex-col items-start">
+                  <span className="text-xs text-[var(--text-muted)] mb-1">{t("layout.previous")}</span>
                   <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors flex items-center gap-2">
                     <ChevronRight className="w-4 h-4 rotate-180" />
-                    {prevPage.title}
+                    {t(`nav.${prevPage.titleKey}`)}
                   </span>
                 </Link>
               ) : (
                 <div />
               )}
-
               {nextPage ? (
-                <Link
-                  href={nextPage.href}
-                  className="group flex flex-col items-end"
-                >
-                  <span className="text-xs text-[var(--text-muted)] mb-1">Suivant</span>
+                <Link href={nextPage.href} className="group flex flex-col items-end">
+                  <span className="text-xs text-[var(--text-muted)] mb-1">{t("layout.next")}</span>
                   <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors flex items-center gap-2">
-                    {nextPage.title}
+                    {t(`nav.${nextPage.titleKey}`)}
                     <ChevronRight className="w-4 h-4" />
                   </span>
                 </Link>

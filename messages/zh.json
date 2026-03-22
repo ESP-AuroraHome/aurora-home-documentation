@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "gettingStarted": "快速开始",
+    "introduction": "简介",
+    "installApp": "应用安装",
+    "installEsp32": "ESP32 安装",
+    "userDoc": "用户文档",
+    "dashboard": "仪表板",
+    "alerts": "警报与异常",
+    "auth": "身份验证",
+    "onboarding": "新手引导",
+    "profile": "个人资料",
+    "techDoc": "技术文档",
+    "architecture": "架构",
+    "api": "REST API",
+    "database": "数据库",
+    "mqtt": "MQTT 与传感器",
+    "devDoc": "开发者",
+    "simulator": "传感器模拟器",
+    "codeApp": "应用规范",
+    "codeEsp32": "ESP32 规范",
+    "contribution": "贡献指南"
+  },
+  "layout": {
+    "previous": "上一页",
+    "next": "下一页",
+    "searchPlaceholder": "搜索文档...",
+    "noResults": "无结果",
+    "version": "v1.0.0"
+  }
+}

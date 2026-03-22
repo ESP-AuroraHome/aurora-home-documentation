@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "gettingStarted": "Getting started",
+    "introduction": "Introduction",
+    "installApp": "App installation",
+    "installEsp32": "ESP32 installation",
+    "userDoc": "User documentation",
+    "dashboard": "Dashboard",
+    "alerts": "Alerts & Anomalies",
+    "auth": "Authentication",
+    "onboarding": "Onboarding",
+    "profile": "Profile",
+    "techDoc": "Technical documentation",
+    "architecture": "Architecture",
+    "api": "REST API",
+    "database": "Database",
+    "mqtt": "MQTT & Sensors",
+    "devDoc": "For developers",
+    "simulator": "Sensor simulator",
+    "codeApp": "App conventions",
+    "codeEsp32": "ESP32 conventions",
+    "contribution": "Contributing"
+  },
+  "layout": {
+    "previous": "Previous",
+    "next": "Next",
+    "searchPlaceholder": "Search documentation...",
+    "noResults": "No results",
+    "version": "v1.0.0"
+  }
+}
