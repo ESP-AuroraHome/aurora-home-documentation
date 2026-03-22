@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, Terminal, Zap, AlertTriangle, Info } from "lucide-react";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
@@ -15,21 +16,22 @@ function CodeBlock({ children, title }: { children: string; title?: string }) {
   );
 }
 
-export default function DocsSimulator() {
+export default async function DocsSimulator() {
+  const t = await getTranslations("simulator");
+
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Pour les développeurs</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Simulateur de capteurs</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Simulateur de capteurs</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Un script Node.js pour tester le système d'alertes et les mises à jour
-          temps réel sans avoir de capteurs ESP32 physiques.
+          {t("description")}
         </p>
       </div>
 
@@ -37,29 +39,28 @@ export default function DocsSimulator() {
         <div className="flex items-start gap-3">
           <Info className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />
           <p className="text-sm text-orange-200/70">
-            Le simulateur utilise l'endpoint <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">POST /api/dev/inject-sensor</code> qui
-            n'est disponible qu'en mode <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">development</code>. Il retourne 403 en production.
+            {t("devOnlyNote")} <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">POST /api/dev/inject-sensor</code> {t("devOnlyNote2")} <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">development</code>{t("devOnlyNote3")}
           </p>
         </div>
       </div>
 
       {/* Commandes npm */}
       <div className="mb-12 mt-8">
-        <h2 className="text-2xl font-bold mb-6">Commandes npm</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("npmCommandsTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { cmd: "npm run simulate", desc: "Dérive naturelle — valeurs normales", color: "green" },
-            { cmd: "npm run simulate:co2", desc: "Montée progressive du CO₂ (→ anomalie)", color: "neutral" },
-            { cmd: "npm run simulate:temp", desc: "Montée de température (→ anomalie)", color: "yellow" },
-            { cmd: "npm run simulate:hum", desc: "Humidité croissante (→ anomalie)", color: "blue" },
-            { cmd: "npm run simulate:sudden", desc: "Pic brutal à l'étape 8 (CO₂ × 1.8, Temp × 1.4)", color: "red" },
-          ].map((item) => (
+            { cmd: "npm run simulate", descKey: "cmdSimulateDesc", color: "green" },
+            { cmd: "npm run simulate:co2", descKey: "cmdSimulateCo2Desc", color: "neutral" },
+            { cmd: "npm run simulate:temp", descKey: "cmdSimulateTempDesc", color: "yellow" },
+            { cmd: "npm run simulate:hum", descKey: "cmdSimulateHumDesc", color: "blue" },
+            { cmd: "npm run simulate:sudden", descKey: "cmdSimulateSuddenDesc", color: "red" },
+          ].map(({ cmd, descKey, color }) => (
             <div
-              key={item.cmd}
+              key={cmd}
               className="flex items-center justify-between p-4 rounded-lg bg-white/[0.02] border border-white/5"
             >
-              <code className={`text-sm text-${item.color}-400`}>{item.cmd}</code>
-              <span className="text-sm text-neutral-500 hidden sm:block">{item.desc}</span>
+              <code className={`text-sm text-${color}-400`}>{cmd}</code>
+              <span className="text-sm text-neutral-500 hidden sm:block">{t(descKey)}</span>
             </div>
           ))}
         </div>
@@ -67,7 +68,7 @@ export default function DocsSimulator() {
 
       {/* Options */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Options avancées</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("advancedTitle")}</h2>
         <CodeBlock title="scripts/simulate-sensors.mjs">{`# Intervalle personnalisé (défaut : 3000ms)
 node scripts/simulate-sensors.mjs --interval 2000
 
@@ -80,7 +81,7 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
 
       {/* Output */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Sortie console</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("consoleOutputTitle")}</h2>
         <CodeBlock title="Terminal">{`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Aurora Home — Simulateur de capteurs
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -97,10 +98,9 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
 
       {/* Endpoint dev */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Endpoint POST /api/dev/inject-sensor</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("endpointTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Le simulateur poste vers cet endpoint à chaque intervalle. Pour chaque capteur fourni,
-          le serveur crée un DataPoint, lance la détection d'anomalie et émet les événements SSE.
+          {t("endpointDesc")}
         </p>
         <CodeBlock title="Payload">{`{
   "temperature": "22.5",
@@ -111,17 +111,17 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
 }`}</CodeBlock>
         <div className="mt-4 grid gap-3">
           {[
-            { step: "1", desc: "Crée un DataPoint en base pour chaque capteur" },
-            { step: "2", desc: "Récupère les 6 derniers relevés pour calculer la moyenne glissante" },
-            { step: "3", desc: "Appelle detectAnomaly() — vérifie seuils et variation soudaine" },
-            { step: "4", desc: "Si anomalie détectée et aucune alerte récente → crée une Alert + émet alert_created via SSE" },
-            { step: "5", desc: "Émet sensor_update via SSE pour mettre à jour les cartes du dashboard" },
-          ].map((item) => (
-            <div key={item.step} className="flex items-start gap-4 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+            { step: "1", descKey: "step1Desc" },
+            { step: "2", descKey: "step2Desc" },
+            { step: "3", descKey: "step3Desc" },
+            { step: "4", descKey: "step4Desc" },
+            { step: "5", descKey: "step5Desc" },
+          ].map(({ step, descKey }) => (
+            <div key={step} className="flex items-start gap-4 p-3 rounded-lg bg-white/[0.02] border border-white/5">
               <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold flex-shrink-0">
-                {item.step}
+                {step}
               </span>
-              <p className="text-sm text-neutral-400">{item.desc}</p>
+              <p className="text-sm text-neutral-400">{t(descKey)}</p>
             </div>
           ))}
         </div>
@@ -134,15 +134,14 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
             <AlertTriangle className="w-5 h-5 text-red-400" />
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Tester le système d'alertes</h3>
+            <h3 className="font-semibold mb-2">{t("alertTestTitle")}</h3>
             <p className="text-sm text-neutral-400 mb-3">
-              Les modes anomalie font monter les valeurs progressivement sur ~20 étapes jusqu'à
-              dépasser les seuils WARNING puis HIGH. Exemple avec <code className="px-1.5 py-0.5 bg-white/5 rounded">--anomaly co2</code> :
+              {t("alertTestDesc")} <code className="px-1.5 py-0.5 bg-white/5 rounded">--anomaly co2</code> {t("alertTestDesc2")}
             </p>
             <ul className="text-sm text-neutral-500 space-y-1">
-              <li>→ Étape ~4 : CO₂ dépasse 800 ppm → alerte WARNING générée</li>
-              <li>→ Étape ~11 : CO₂ dépasse 1500 ppm → alerte HIGH générée</li>
-              <li>→ Étape ~16 : CO₂ dépasse 2000 ppm → alerte CRITICAL générée</li>
+              <li>{t("alertStep4")}</li>
+              <li>{t("alertStep11")}</li>
+              <li>{t("alertStep16")}</li>
             </ul>
           </div>
         </div>

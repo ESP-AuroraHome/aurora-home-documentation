@@ -1,41 +1,39 @@
 import { ArrowRight, Thermometer, Droplets, Gauge, Wind, Sun, MousePointer, Smartphone, RefreshCw, Info } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-export default function DocsDashboard() {
+export default async function DocsDashboard() {
+  const t = await getTranslations("dashboard");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Documentation Utilisateur</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Tableau de bord</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Tableau de bord</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          C'est l'écran principal d'Aurora Home. Il affiche en temps réel les mesures de votre
-          environnement : température, humidité, pression, CO₂ et luminosité.
+          {t("description")}
         </p>
       </div>
 
       {/* --- Mise à jour en temps réel --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">Mise à jour automatique</h2>
+        <h2 className="text-2xl font-bold mb-4">{t("realtimeTitle")}</h2>
         <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-green-500/10 flex-shrink-0">
               <RefreshCw className="w-5 h-5 text-green-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Les données se mettent à jour toutes seules</h3>
+              <h3 className="font-semibold mb-2">{t("realtimeCardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Vous n'avez rien à faire — les valeurs affichées se rafraîchissent automatiquement
-                dès que le capteur envoie une nouvelle mesure. Environ toutes les 10 secondes,
-                les chiffres se mettent à jour avec une animation fluide.
+                {t("realtimeCardDesc")}
               </p>
               <p className="text-sm text-neutral-500 mt-2">
-                Si votre connexion est coupée, le tableau de bord se reconnecte automatiquement
-                au bout de quelques secondes.
+                {t("realtimeReconnect")}
               </p>
             </div>
           </div>
@@ -44,52 +42,51 @@ export default function DocsDashboard() {
 
       {/* --- Les 5 capteurs --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Les 5 mesures affichées</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("sensorsTitle")}</h2>
         <p className="text-neutral-400 mb-6">
-          Le tableau de bord affiche cinq cartes, une par type de donnée.
-          Voici ce que chaque mesure représente et dans quelle unité elle s'exprime.
+          {t("sensorsIntro")}
         </p>
         <div className="grid gap-4">
           {[
             {
               icon: Thermometer,
               color: "yellow",
-              name: "Température",
+              name: t("tempName"),
               unit: "°C",
-              desc: "La température ambiante de la pièce, mesurée par deux capteurs dont la valeur est moyennée pour plus de précision.",
-              normal: "Entre 18 °C et 26 °C pour un intérieur confortable.",
+              desc: t("tempDesc"),
+              normal: t("tempNormal"),
             },
             {
               icon: Droplets,
               color: "blue",
-              name: "Humidité",
+              name: t("humName"),
               unit: "%",
-              desc: "Le taux d'humidité relative de l'air, moyenné entre deux capteurs.",
-              normal: "Entre 40 % et 60 % est idéal pour la santé et le confort.",
+              desc: t("humDesc"),
+              normal: t("humNormal"),
             },
             {
               icon: Gauge,
               color: "green",
-              name: "Pression atmosphérique",
+              name: t("pressName"),
               unit: "hPa",
-              desc: "La pression de l'air ambiant. Permet de suivre les variations météo.",
-              normal: "La pression standard au niveau de la mer est 1013 hPa.",
+              desc: t("pressDesc"),
+              normal: t("pressNormal"),
             },
             {
               icon: Wind,
               color: "neutral",
-              name: "CO₂",
+              name: t("co2Name"),
               unit: "ppm",
-              desc: "La concentration de dioxyde de carbone dans l'air. Indique la qualité de l'air et la ventilation de la pièce.",
-              normal: "En dessous de 800 ppm : air sain. Au dessus de 1500 ppm : aérez la pièce.",
+              desc: t("co2Desc"),
+              normal: t("co2Normal"),
             },
             {
               icon: Sun,
               color: "orange",
-              name: "Luminosité",
+              name: t("lightName"),
               unit: "lx",
-              desc: "Le niveau de lumière ambiante mesuré par le capteur BH1750.",
-              normal: "0 lx : obscurité totale. 500 lx : bonne lumière de bureau.",
+              desc: t("lightDesc"),
+              normal: t("lightNormal"),
             },
           ].map((s) => (
             <div key={s.name} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
@@ -114,7 +111,7 @@ export default function DocsDashboard() {
 
       {/* --- Interaction avec les cartes --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Interagir avec les cartes</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("interactTitle")}</h2>
         <div className="grid gap-4">
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-4">
@@ -122,11 +119,9 @@ export default function DocsDashboard() {
                 <MousePointer className="w-5 h-5 text-purple-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Cliquer sur une carte pour voir le graphique</h3>
+                <h3 className="font-semibold mb-2">{t("clickCardTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Chaque carte affiche un mini graphique. Cliquez dessus pour l'agrandir et voir
-                  l'historique des 20 dernières mesures avec la date, l'heure et la valeur exacte
-                  pour chaque point.
+                  {t("clickCardDesc")}
                 </p>
               </div>
             </div>
@@ -138,12 +133,9 @@ export default function DocsDashboard() {
                 <Info className="w-5 h-5 text-neutral-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Aucune donnée disponible</h3>
+                <h3 className="font-semibold mb-2">{t("noDataTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Si le capteur ESP32 n'est pas allumé ou n'a pas encore envoyé de mesure,
-                  la carte affiche <span className="text-white font-mono">-- °C</span> (ou l'unité
-                  correspondante) et le graphique est vide. C'est normal — les données
-                  apparaîtront dès que le capteur sera actif.
+                  {t("noDataDesc")} <span className="text-white font-mono">-- °C</span> {t("noDataDesc2")}
                 </p>
               </div>
             </div>
@@ -153,34 +145,30 @@ export default function DocsDashboard() {
 
       {/* --- Bannière d'état --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Bannière d'état de la maison</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("bannerTitle")}</h2>
         <p className="text-neutral-400 mb-6">
-          Au-dessus des cartes capteurs, une bannière indique en permanence l'état de votre maison.
+          {t("bannerIntro")}
         </p>
         <div className="grid gap-3">
           <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
-            <p className="text-sm font-medium text-emerald-300 mb-1">Maison en bonne santé</p>
-            <p className="text-sm text-neutral-400">Tous les capteurs sont dans les normes — aucune anomalie détectée.</p>
+            <p className="text-sm font-medium text-emerald-300 mb-1">{t("bannerHealthyTitle")}</p>
+            <p className="text-sm text-neutral-400">{t("bannerHealthyDesc")}</p>
           </div>
           <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10">
-            <p className="text-sm font-medium text-red-200 mb-1">Alerte active</p>
+            <p className="text-sm font-medium text-red-200 mb-1">{t("bannerAlertTitle")}</p>
             <p className="text-sm text-neutral-400">
-              Une bannière colorée par anomalie (rouge / orange / jaune). Plusieurs alertes
-              s'empilent si plusieurs capteurs sont en anomalie simultanément.
-              Chaque bannière est fermable individuellement.
+              {t("bannerAlertDesc")}
             </p>
           </div>
           <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-            <p className="text-sm font-medium text-white mb-1">Surveillance en cours</p>
+            <p className="text-sm font-medium text-white mb-1">{t("bannerWatchingTitle")}</p>
             <p className="text-sm text-neutral-400">
-              Vous avez fermé les bannières mais des anomalies restent non résolues.
-              La bannière verte ne revient que lorsque les valeurs retournent dans les normes
-              ou que vous marquez les alertes comme résolues depuis le panneau de notifications.
+              {t("bannerWatchingDesc")}
             </p>
           </div>
         </div>
         <p className="text-sm text-neutral-500 mt-4">
-          → Voir <a href="/docs/alerts" className="text-blue-400 hover:underline">Alertes & Anomalies</a> pour le détail complet.
+          → {t("bannerLinkText")} <a href="/docs/alerts" className="text-blue-400 hover:underline">{t("bannerLinkLabel")}</a> {t("bannerLinkSuffix")}
         </p>
       </div>
 
@@ -191,13 +179,9 @@ export default function DocsDashboard() {
             <Smartphone className="w-5 h-5 text-blue-400" />
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Installer l'application sur votre téléphone</h3>
+            <h3 className="font-semibold mb-2">{t("pwaTitle")}</h3>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Aurora Home peut s'installer comme une application native sur votre smartphone.
-              Sur <strong className="text-white">Android</strong>, ouvrez le site dans Chrome et
-              appuyez sur "Ajouter à l'écran d'accueil". Sur <strong className="text-white">iPhone</strong>,
-              utilisez le bouton Partager dans Safari, puis "Sur l'écran d'accueil". L'application
-              s'ouvre ensuite comme n'importe quelle autre app, sans barre de navigation du navigateur.
+              {t("pwaDesc")} <strong className="text-white">{t("pwaAndroid")}</strong>{t("pwaDescMid")} <strong className="text-white">{t("pwaIphone")}</strong>{t("pwaDescEnd")}
             </p>
           </div>
         </div>

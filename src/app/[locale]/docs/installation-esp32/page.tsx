@@ -1,4 +1,5 @@
 import { ArrowRight, CheckCircle2, AlertCircle, Terminal, Cpu } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
   return (
@@ -35,34 +36,34 @@ function Step({
   );
 }
 
-export default function DocsInstallationEsp32() {
+export default async function DocsInstallationEsp32() {
+  const t = await getTranslations("installationEsp32");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Pour commencer</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Installation ESP32</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Flash du firmware ESP32</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Guide complet pour compiler et flasher le firmware Aurora Home sur un ESP32 DevKit avec les
-          capteurs environnementaux.
+          {t("description")}
         </p>
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Prérequis matériels</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("hardwarePrereqTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { name: "ESP32 DevKit v1", desc: "ou tout board ESP32 compatible", required: true },
-            { name: "Capteur SCD30 (Sensirion)", desc: "CO₂, température, humidité", required: true },
-            { name: "Capteur BME280 (Bosch)", desc: "Température, humidité, pression", required: true },
-            { name: "Capteur BH1750", desc: "Luminosité ambiante", required: true },
-            { name: "Câble USB-C / micro-USB", desc: "Pour le flash et l'alimentation", required: true },
-            { name: "Fils de connexion I2C", desc: "Jumper wires 4 fils (VCC, GND, SDA, SCL)", required: true },
+            { name: t("hw1Name"), desc: t("hw1Desc"), required: true },
+            { name: t("hw2Name"), desc: t("hw2Desc"), required: true },
+            { name: t("hw3Name"), desc: t("hw3Desc"), required: true },
+            { name: t("hw4Name"), desc: t("hw4Desc"), required: true },
+            { name: t("hw5Name"), desc: t("hw5Desc"), required: true },
+            { name: t("hw6Name"), desc: t("hw6Desc"), required: true },
           ].map((item) => (
             <div
               key={item.name}
@@ -85,12 +86,12 @@ export default function DocsInstallationEsp32() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Prérequis logiciels</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("softwarePrereqTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { name: "PlatformIO IDE", desc: "Extension VS Code (recommandé) ou CLI", required: true },
-            { name: "Python 3.8+", desc: "Requis par PlatformIO", required: true },
-            { name: "Drivers USB-UART", desc: "CP2102 ou CH340 selon votre board", required: false },
+            { name: t("sw1Name"), desc: t("sw1Desc"), required: true },
+            { name: t("sw2Name"), desc: t("sw2Desc"), required: true },
+            { name: t("sw3Name"), desc: t("sw3Desc"), required: false },
           ].map((item) => (
             <div
               key={item.name}
@@ -113,20 +114,20 @@ export default function DocsInstallationEsp32() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Câblage I2C</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("wiringTitle")}</h2>
         <div className="p-6 rounded-xl bg-white/[0.02] border border-white/5 mb-4">
           <p className="text-sm text-neutral-400 mb-4">
-            Les 3 capteurs utilisent le bus I2C sur les broches <strong className="text-white">GPIO21 (SDA)</strong> et{" "}
-            <strong className="text-white">GPIO22 (SCL)</strong>. Tous les capteurs partagent les mêmes fils SDA/SCL.
+            {t("wiringDesc")} <strong className="text-white">GPIO21 (SDA)</strong> {t("wiringDesc2")}{" "}
+            <strong className="text-white">GPIO22 (SCL)</strong>. {t("wiringDesc3")}
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/10">
-                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">Capteur</th>
-                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">Adresse I2C</th>
-                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">VCC</th>
-                  <th className="text-left py-2 text-neutral-400 font-medium">Notes</th>
+                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">{t("tableHeaderSensor")}</th>
+                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">{t("tableHeaderAddr")}</th>
+                  <th className="text-left py-2 pr-6 text-neutral-400 font-medium">{t("tableHeaderVcc")}</th>
+                  <th className="text-left py-2 text-neutral-400 font-medium">{t("tableHeaderNotes")}</th>
                 </tr>
               </thead>
               <tbody className="text-neutral-300">
@@ -134,13 +135,13 @@ export default function DocsInstallationEsp32() {
                   <td className="py-3 pr-6">SCD30 (Sensirion)</td>
                   <td className="py-3 pr-6 font-mono text-blue-400">0x61</td>
                   <td className="py-3 pr-6">3.3V</td>
-                  <td className="py-3 text-neutral-500">Adresse fixe</td>
+                  <td className="py-3 text-neutral-500">{t("scd30Note")}</td>
                 </tr>
                 <tr className="border-b border-white/5">
                   <td className="py-3 pr-6">BME280 (Bosch)</td>
                   <td className="py-3 pr-6 font-mono text-purple-400">0x76 / 0x77</td>
                   <td className="py-3 pr-6">3.3V</td>
-                  <td className="py-3 text-neutral-500">Auto-détecté</td>
+                  <td className="py-3 text-neutral-500">{t("bme280Note")}</td>
                 </tr>
                 <tr>
                   <td className="py-3 pr-6">BH1750</td>
@@ -159,19 +160,19 @@ ESP32 GPIO22 (SCL) ──→  SCL (tous les capteurs)`}</CodeBlock>
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-8">Étapes d'installation</h2>
+        <h2 className="text-2xl font-bold mb-8">{t("stepsTitle")}</h2>
 
         <div className="space-y-2">
-          <Step number={1} title="Cloner le dépôt">
-            <p>Clonez le projet firmware depuis GitHub :</p>
+          <Step number={1} title={t("step1Title")}>
+            <p>{t("step1Desc")}</p>
             <CodeBlock title="Terminal">{`git clone https://github.com/antoinegourgue/aurora-home-esp32.git
 cd aurora-home-esp32/platformio_IDE`}</CodeBlock>
           </Step>
 
-          <Step number={2} title="Configurer le réseau WiFi">
+          <Step number={2} title={t("step2Title")}>
             <p>
-              Ouvrez <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">src/main.cpp</code> et
-              modifiez les lignes de configuration (lignes 10-13) :
+              {t("step2Desc")} <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">src/main.cpp</code>{" "}
+              {t("step2Desc2")}
             </p>
             <CodeBlock title="src/main.cpp">{`// --- Configuration ---
 const char *ssid = "ESP32-AP-Broker";  // Nom du réseau WiFi créé par l'ESP32
@@ -182,27 +183,25 @@ const char* mqtt_topic = "sensor/data";`}</CodeBlock>
               <div className="flex items-start gap-3">
                 <Terminal className="w-4 h-4 text-orange-400 mt-0.5" />
                 <div className="text-sm">
-                  <p className="text-orange-300 font-medium">Mode Access Point</p>
+                  <p className="text-orange-300 font-medium">{t("apModeTitle")}</p>
                   <p className="text-orange-200/70">
-                    L'ESP32 <strong>crée son propre réseau WiFi</strong> (il n'est pas client d'un
-                    routeur). L'Orange Pi doit se connecter à ce réseau "ESP32-AP-Broker" pour
-                    accéder au broker MQTT.
+                    {t("apModeDesc")} <strong>{t("apModeDesc2")}</strong> {t("apModeDesc3")}
                   </p>
                 </div>
               </div>
             </div>
           </Step>
 
-          <Step number={3} title="Compiler le firmware">
-            <p>Compilez le projet avec PlatformIO :</p>
+          <Step number={3} title={t("step3Title")}>
+            <p>{t("step3Desc")}</p>
             <CodeBlock title="Terminal">{`# Via CLI PlatformIO
 platformio run -e esp32dev
 
 # Ou via VS Code : cliquer sur ✓ Build dans la barre PlatformIO`}</CodeBlock>
           </Step>
 
-          <Step number={4} title="Flasher l'ESP32">
-            <p>Connectez l'ESP32 via USB et flashez le firmware :</p>
+          <Step number={4} title={t("step4Title")}>
+            <p>{t("step4Desc")}</p>
             <CodeBlock title="Terminal">{`# Flash automatique (détecte le port USB)
 platformio run -e esp32dev -t upload
 
@@ -210,10 +209,10 @@ platformio run -e esp32dev -t upload
 platformio run -e esp32dev -t upload --upload-port /dev/ttyUSB0`}</CodeBlock>
           </Step>
 
-          <Step number={5} title="Surveiller la sortie série">
-            <p>Ouvrez le moniteur série pour vérifier le démarrage :</p>
+          <Step number={5} title={t("step5Title")}>
+            <p>{t("step5Desc")}</p>
             <CodeBlock title="Terminal">{`platformio device monitor --baud 115200`}</CodeBlock>
-            <p>Sortie attendue :</p>
+            <p>{t("step5ExpectedOutput")}</p>
             <CodeBlock title="Sortie série">{`--- 1. Sensor Initialization ---
 BH1750 OK
 SCD30 OK
@@ -232,10 +231,10 @@ Publishing MQTT: {"temperature": "22.50 °C", "humidity": "55.10 %", "pressure":
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-6">Dépendances PlatformIO</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("depsTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Les librairies sont installées automatiquement par PlatformIO depuis{" "}
-          <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">platformio.ini</code> :
+          {t("depsDesc")}{" "}
+          <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">platformio.ini</code> {t("depsDesc2")}
         </p>
         <CodeBlock title="platformio.ini">{`lib_deps =
     Wire
@@ -248,12 +247,10 @@ Publishing MQTT: {"temperature": "22.50 °C", "humidity": "55.10 %", "pressure":
       <div className="p-6 rounded-xl bg-green-500/5 border border-green-500/20">
         <h3 className="font-semibold text-green-400 mb-3 flex items-center gap-2">
           <Cpu className="w-5 h-5" />
-          Vérification
+          {t("verificationTitle")}
         </h3>
         <p className="text-sm text-neutral-400">
-          Si vous voyez "Publishing MQTT" dans le moniteur série, le firmware fonctionne
-          correctement. Connectez maintenant l'Orange Pi au réseau "ESP32-AP-Broker" et démarrez
-          l'application web Aurora Home.
+          {t("verificationDesc")}
         </p>
       </div>
     </div>

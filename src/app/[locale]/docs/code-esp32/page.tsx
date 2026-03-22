@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, FileCode, AlertTriangle, Terminal } from "lucide-react";
 import { TreeView, type TreeItem } from "@/components/TreeView";
 
@@ -70,55 +71,57 @@ const esp32Tree: TreeItem[] = [
   },
 ];
 
-export default function DocsCodeEsp32() {
+export default async function DocsCodeEsp32() {
+  const t = await getTranslations("codeEsp32");
+
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Pour les développeurs</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Conventions ESP32</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Conventions — Firmware ESP32</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Standards de code C++ utilisés dans le projet{" "}
+          {t("description")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">aurora-home-esp32</code>.
         </p>
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Conventions de nommage</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("namingTitle")}</h2>
         <div className="grid gap-4">
           {[
             {
               rule: "snake_case",
-              scope: "Fonctions & variables",
+              scopeKey: "snakeCaseScope",
               color: "blue",
               examples: ["scd30_init()", "publish_data()", "mqtt_port", "ssid", "avg_temp"],
             },
             {
               rule: "UPPER_SNAKE_CASE",
-              scope: "Constantes & macros",
+              scopeKey: "upperSnakeCaseScope",
               color: "yellow",
               examples: ["NO_ERROR", "MQTT_PORT", "SCD30_I2C_ADDR_61"],
             },
             {
               rule: "camelCase",
-              scope: "Objets globaux",
+              scopeKey: "camelCaseScope",
               color: "purple",
               examples: ["espClient", "scd30", "bme280", "lightMeter"],
             },
-          ].map((item) => (
-            <div key={item.rule} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          ].map(({ rule, scopeKey, color, examples }) => (
+            <div key={rule} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
               <div className="flex items-center gap-3 mb-3">
-                <FileCode className={`w-4 h-4 text-${item.color}-400`} />
-                <code className={`text-sm font-bold text-${item.color}-400`}>{item.rule}</code>
-                <span className="text-sm text-neutral-500">— {item.scope}</span>
+                <FileCode className={`w-4 h-4 text-${color}-400`} />
+                <code className={`text-sm font-bold text-${color}-400`}>{rule}</code>
+                <span className="text-sm text-neutral-500">— {t(scopeKey)}</span>
               </div>
               <div className="flex gap-2 flex-wrap">
-                {item.examples.map((ex) => (
+                {examples.map((ex) => (
                   <code key={ex} className="text-xs px-2 py-1 rounded bg-white/5 text-neutral-400">
                     {ex}
                   </code>
@@ -130,14 +133,14 @@ export default function DocsCodeEsp32() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Structure du projet</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("folderStructureTitle")}</h2>
         <TreeView items={esp32Tree} title="aurora-home-esp32/" />
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Organisation de main.cpp</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("mainCppTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Le firmware est organisé en sections délimitées par des séparateurs commentés :
+          {t("mainCppDesc")}
         </p>
         <CodeBlock title="platformio_IDE/src/main.cpp">{`// --- Configuration ---
 // Constantes réseau et MQTT
@@ -170,10 +173,10 @@ export default function DocsCodeEsp32() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Pattern init / read</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("patternTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Chaque capteur a deux fonctions dédiées retournant un{" "}
-          <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-400">bool</code> :
+          {t("patternDesc")}{" "}
+          <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-400">bool</code> {t("patternDesc2")}
         </p>
         <CodeBlock title="Pattern de fonction capteur">{`// Initialisation — retourne true si OK
 bool bme280_init(Adafruit_BME280 &bme) {
@@ -197,16 +200,15 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Gestion des erreurs</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("errorHandlingTitle")}</h2>
         <div className="grid gap-4">
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold mb-2 text-red-300">Erreur critique (setup)</h3>
+                <h3 className="font-semibold mb-2 text-red-300">{t("criticalErrorTitle")}</h3>
                 <p className="text-sm text-neutral-400 mb-3">
-                  Si un capteur obligatoire (SCD30, BME280) échoue à l'initialisation, blocage
-                  indéfini :
+                  {t("criticalErrorDesc")}
                 </p>
                 <CodeBlock>{`if (!scd30_init(scd30)) {
     Serial.println("SCD30 ERROR");
@@ -220,10 +222,9 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold mb-2 text-yellow-300">Erreur non-critique (loop)</h3>
+                <h3 className="font-semibold mb-2 text-yellow-300">{t("nonCriticalErrorTitle")}</h3>
                 <p className="text-sm text-neutral-400 mb-3">
-                  Les erreurs de lecture dans la boucle sont loguées mais n'interrompent pas le
-                  cycle :
+                  {t("nonCriticalErrorDesc")}
                 </p>
                 <CodeBlock>{`if (!bme280_read(bme280, bme_temp, bme_hum, pres))
     Serial.println("Warn: BME280 fail");
@@ -237,7 +238,7 @@ if (!bh1750_read(bh1750, light))
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Boucle non-bloquante</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("nonBlockingTitle")}</h2>
         <CodeBlock title="void loop()">{`void loop() {
   if (WiFi.softAPgetStationNum() == 0) {
       delay(1000); return;  // Attendre client WiFi
@@ -263,7 +264,7 @@ if (!bh1750_read(bh1750, light))
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Configuration I2C</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("i2cConfigTitle")}</h2>
         <CodeBlock title="setup()">{`Wire.begin(21, 22);       // SDA=GPIO21, SCL=GPIO22
 Wire.setClock(50000);     // 50 kHz (SCD30 recommande ≤100 kHz)
 Wire.setTimeOut(3000);    // 3000ms pour clock stretching SCD30`}</CodeBlock>
@@ -275,20 +276,20 @@ Wire.setTimeOut(3000);    // 3000ms pour clock stretching SCD30`}</CodeBlock>
             <Terminal className="w-5 h-5 text-green-400" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold mb-3">Commandes PlatformIO</h3>
+            <h3 className="font-semibold mb-3">{t("platformioTitle")}</h3>
             <div className="grid gap-2">
               {[
-                { cmd: "platformio run -e esp32dev", desc: "Compiler" },
-                { cmd: "platformio run -e esp32dev -t upload", desc: "Compiler + Flasher" },
-                { cmd: "platformio device monitor --baud 115200", desc: "Moniteur série" },
-                { cmd: "platformio run -e esp32dev -t clean", desc: "Nettoyer le build" },
-              ].map((item) => (
+                { cmd: "platformio run -e esp32dev", descKey: "cmdCompile" },
+                { cmd: "platformio run -e esp32dev -t upload", descKey: "cmdUpload" },
+                { cmd: "platformio device monitor --baud 115200", descKey: "cmdMonitor" },
+                { cmd: "platformio run -e esp32dev -t clean", descKey: "cmdClean" },
+              ].map(({ cmd, descKey }) => (
                 <div
-                  key={item.cmd}
+                  key={cmd}
                   className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-white/5"
                 >
-                  <code className="text-xs text-green-400">{item.cmd}</code>
-                  <span className="text-xs text-neutral-500 hidden sm:block">{item.desc}</span>
+                  <code className="text-xs text-green-400">{cmd}</code>
+                  <span className="text-xs text-neutral-500 hidden sm:block">{t(descKey)}</span>
                 </div>
               ))}
             </div>

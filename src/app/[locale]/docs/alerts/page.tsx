@@ -1,4 +1,5 @@
 import { ArrowRight, Bell, AlertTriangle, ShieldCheck, CheckCheck, Eye, Zap, House } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
   return (
@@ -15,58 +16,54 @@ function CodeBlock({ children, title }: { children: string; title?: string }) {
   );
 }
 
-export default function DocsAlerts() {
+export default async function DocsAlerts() {
+  const t = await getTranslations("alerts");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Documentation Utilisateur</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Alertes & Anomalies</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Alertes & Anomalies</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Aurora Home analyse en continu les données de vos capteurs et vous alerte
-          dès qu'une valeur sort des normes ou évolue de façon anormale.
+          {t("description")}
         </p>
       </div>
 
       {/* Banner dashboard */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Bannière sur le tableau de bord</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("bannerTitle")}</h2>
         <p className="text-neutral-400 mb-6">
-          Au-dessus des cartes capteurs, une bannière indique en permanence l'état de votre maison.
-          Elle a trois états possibles :
+          {t("bannerIntro")}
         </p>
         <div className="grid gap-4">
           <div className="p-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
             <div className="flex items-center gap-3 mb-2">
               <House className="w-4 h-4 text-emerald-400" />
-              <h3 className="font-semibold text-emerald-300">Maison en bonne santé</h3>
+              <h3 className="font-semibold text-emerald-300">{t("healthyTitle")}</h3>
             </div>
             <p className="text-sm text-neutral-400">
-              Tous les capteurs sont dans les normes — aucune alerte active non résolue.
-              La bannière est verte avec l'icône maison.
+              {t("healthyDesc")}
             </p>
           </div>
 
           <div className="p-5 rounded-xl border border-red-500/30 bg-red-500/10">
             <div className="flex items-center gap-3 mb-2">
               <AlertTriangle className="w-4 h-4 text-red-300" />
-              <h3 className="font-semibold text-red-200">Alertes actives</h3>
+              <h3 className="font-semibold text-red-200">{t("activeAlertsTitle")}</h3>
             </div>
             <p className="text-sm text-neutral-400 mb-3">
-              Une bannière colorée par capteur en anomalie. Chaque alerte affiche :
-              le message, le badge de sévérité et la première suggestion.
-              Vous pouvez fermer individuellement chaque bannière avec le ×.
+              {t("activeAlertsDesc")}
             </p>
             <div className="flex gap-2 flex-wrap">
               {[
-                { label: "Urgent", color: "red" },
-                { label: "Problème", color: "orange" },
-                { label: "Attention", color: "yellow" },
+                { label: t("severityUrgent"), color: "red" },
+                { label: t("severityProblem"), color: "orange" },
+                { label: t("severityWarning"), color: "yellow" },
               ].map((s) => (
                 <span key={s.label} className={`text-xs px-2 py-0.5 rounded-full bg-${s.color}-500/20 text-${s.color}-300`}>
                   {s.label}
@@ -78,12 +75,10 @@ export default function DocsAlerts() {
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-              <h3 className="font-semibold">Surveillance en cours</h3>
+              <h3 className="font-semibold">{t("watchingTitle")}</h3>
             </div>
             <p className="text-sm text-neutral-400">
-              Vous avez fermé toutes les bannières d'alerte mais les anomalies n'ont pas encore
-              été résolues. Le système surveille toujours — la bannière verte n'apparaît que
-              lorsque les capteurs reviennent effectivement dans les normes.
+              {t("watchingDesc")}
             </p>
           </div>
         </div>
@@ -91,20 +86,16 @@ export default function DocsAlerts() {
 
       {/* Cloche */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Panneau de notifications</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("notifPanelTitle")}</h2>
         <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-purple-500/10 flex-shrink-0">
               <Bell className="w-5 h-5 text-purple-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Accéder aux alertes depuis le header</h3>
+              <h3 className="font-semibold mb-2">{t("bellCta")} <strong className="text-white">{t("bellCtaStrong")}</strong>{t("bellCta2")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed mb-3">
-                La cloche en haut à droite affiche un badge coloré dès qu'une alerte non lue existe.
-                La couleur reflète la sévérité la plus haute : rouge (Urgent), orange (Problème), jaune (Attention).
-              </p>
-              <p className="text-sm text-neutral-400">
-                Cliquez sur la cloche pour ouvrir le panneau <strong className="text-white">État de la maison</strong>.
+                {t("bellDesc")}
               </p>
             </div>
           </div>
@@ -112,17 +103,17 @@ export default function DocsAlerts() {
 
         <div className="mt-4 grid gap-3">
           {[
-            { icon: Bell, color: "blue", title: "Onglet Alertes", desc: "Toutes les alertes actives (non résolues), triées par date." },
-            { icon: Eye, color: "neutral", title: "Onglet Non vues", desc: "Alertes actives que vous n'avez pas encore lues." },
-            { icon: CheckCheck, color: "green", title: "Onglet Résolues", desc: "Historique des alertes marquées comme résolues." },
-          ].map((t) => (
-            <div key={t.title} className="flex items-start gap-4 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-              <div className={`p-2 rounded-lg bg-${t.color}-500/10 flex-shrink-0`}>
-                <t.icon className={`w-4 h-4 text-${t.color}-400`} />
+            { icon: Bell, color: "blue", title: t("tabAlertsTitle"), desc: t("tabAlertsDesc") },
+            { icon: Eye, color: "neutral", title: t("tabUnseenTitle"), desc: t("tabUnseenDesc") },
+            { icon: CheckCheck, color: "green", title: t("tabResolvedTitle"), desc: t("tabResolvedDesc") },
+          ].map((tab) => (
+            <div key={tab.title} className="flex items-start gap-4 p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+              <div className={`p-2 rounded-lg bg-${tab.color}-500/10 flex-shrink-0`}>
+                <tab.icon className={`w-4 h-4 text-${tab.color}-400`} />
               </div>
               <div>
-                <h4 className="font-medium text-sm mb-1">{t.title}</h4>
-                <p className="text-sm text-neutral-500">{t.desc}</p>
+                <h4 className="font-medium text-sm mb-1">{tab.title}</h4>
+                <p className="text-sm text-neutral-500">{tab.desc}</p>
               </div>
             </div>
           ))}
@@ -131,17 +122,16 @@ export default function DocsAlerts() {
 
       {/* Actions */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Actions disponibles sur une alerte</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("actionsTitle")}</h2>
         <div className="grid gap-3">
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-3">
               <Eye className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-sm mb-1">Marquer comme vue</h3>
+                <h3 className="font-semibold text-sm mb-1">{t("markSeenTitle")}</h3>
                 <p className="text-sm text-neutral-400">
-                  Cliquez sur une alerte pour la marquer comme lue. Le point blanc en haut à droite
-                  disparaît et le badge de la cloche se décrémente. Vous pouvez aussi cliquer
-                  <strong className="text-white"> Tout marquer comme vu</strong> pour traiter toutes les alertes d'un coup.
+                  {t("markSeenDesc")}
+                  <strong className="text-white"> {t("markSeenAll")}</strong> {t("markSeenDesc2")}
                 </p>
               </div>
             </div>
@@ -151,12 +141,9 @@ export default function DocsAlerts() {
             <div className="flex items-start gap-3">
               <CheckCheck className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-sm mb-1">Marquer comme résolu</h3>
+                <h3 className="font-semibold text-sm mb-1">{t("markResolvedTitle")}</h3>
                 <p className="text-sm text-neutral-400">
-                  Cliquez sur <strong className="text-white">Marquer comme résolu</strong> en bas de la carte pour
-                  archiver l'alerte. Elle passe dans l'onglet "Résolues". La bannière du tableau de bord
-                  se met à jour instantanément — si c'était la dernière anomalie, la bannière verte
-                  "Votre maison est en bonne santé" réapparaît.
+                  {t("markResolvedDesc")} <strong className="text-white">{t("markResolvedStrong")}</strong> {t("markResolvedDesc2")}
                 </p>
               </div>
             </div>
@@ -166,12 +153,12 @@ export default function DocsAlerts() {
 
       {/* Sévérités */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Niveaux de sévérité</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("severitiesTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { label: "WARNING — Attention", color: "yellow", desc: "Valeur légèrement hors norme. Pas urgent mais à surveiller." },
-            { label: "HIGH — Problème", color: "orange", desc: "Valeur significativement hors norme. Intervention recommandée." },
-            { label: "CRITICAL — Urgent", color: "red", desc: "Valeur dangereuse. Agissez rapidement." },
+            { label: t("warningLabel"), color: "yellow", desc: t("warningDesc") },
+            { label: t("highLabel"), color: "orange", desc: t("highDesc") },
+            { label: t("criticalLabel"), color: "red", desc: t("criticalDesc") },
           ].map((s) => (
             <div key={s.label} className={`p-4 rounded-xl border border-${s.color}-500/30 bg-${s.color}-500/5`}>
               <p className={`font-semibold text-sm text-${s.color}-300 mb-1`}>{s.label}</p>
@@ -183,44 +170,44 @@ export default function DocsAlerts() {
 
       {/* Seuils */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Seuils de détection</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("thresholdsTitle")}</h2>
         <p className="text-neutral-400 mb-6">
-          Les seuils utilisés par le détecteur d'anomalies pour chaque capteur :
+          {t("thresholdsIntro")}
         </p>
         <div className="grid gap-4">
           {[
             {
-              sensor: "Température",
+              sensor: t("tempSensor"),
               unit: "°C",
               color: "yellow",
               thresholds: [
-                { label: "Trop chaud", values: "> 28 (WARNING), > 32 (HIGH), > 38 (CRITICAL)" },
-                { label: "Trop froid", values: "< 14 (WARNING), < 10 (HIGH), < 5 (CRITICAL)" },
+                { label: t("tempHot"), values: t("tempHotValues") },
+                { label: t("tempCold"), values: t("tempColdValues") },
               ],
             },
             {
-              sensor: "Humidité",
+              sensor: t("humSensor"),
               unit: "%",
               color: "blue",
               thresholds: [
-                { label: "Trop humide", values: "> 70 (WARNING), > 80 (HIGH), > 90 (CRITICAL)" },
-                { label: "Trop sec", values: "< 25 (WARNING), < 18 (HIGH), < 10 (CRITICAL)" },
+                { label: t("humHigh"), values: t("humHighValues") },
+                { label: t("humLow"), values: t("humLowValues") },
               ],
             },
             {
-              sensor: "CO₂",
+              sensor: t("co2Sensor"),
               unit: "ppm",
               color: "neutral",
               thresholds: [
-                { label: "Trop élevé", values: "> 800 (WARNING), > 1500 (HIGH), > 2000 (CRITICAL)" },
+                { label: t("co2High"), values: t("co2HighValues") },
               ],
             },
             {
-              sensor: "Pression",
+              sensor: t("pressSensor"),
               unit: "hPa",
               color: "green",
               thresholds: [
-                { label: "Trop basse", values: "< 970 (WARNING), < 960 (HIGH)" },
+                { label: t("pressLow"), values: t("pressLowValues") },
               ],
             },
           ].map((s) => (
@@ -230,10 +217,10 @@ export default function DocsAlerts() {
                 <h3 className="font-semibold">{s.sensor}</h3>
               </div>
               <div className="grid gap-2">
-                {s.thresholds.map((t) => (
-                  <div key={t.label} className="flex items-center justify-between text-sm">
-                    <span className="text-neutral-500">{t.label}</span>
-                    <code className="text-neutral-300 text-xs">{t.values}</code>
+                {s.thresholds.map((threshold) => (
+                  <div key={threshold.label} className="flex items-center justify-between text-sm">
+                    <span className="text-neutral-500">{threshold.label}</span>
+                    <code className="text-neutral-300 text-xs">{threshold.values}</code>
                   </div>
                 ))}
               </div>
@@ -242,10 +229,7 @@ export default function DocsAlerts() {
         </div>
         <div className="mt-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
           <p className="text-sm text-blue-200/70">
-            <strong className="text-blue-300">Variation soudaine :</strong> En plus des seuils fixes,
-            le système détecte les variations brutales — si une valeur s'écarte de plus de 25% de la
-            moyenne des 5 dernières mesures, une alerte est générée même si les seuils absolus ne sont
-            pas atteints. La luminosité n'est pas soumise à ce contrôle.
+            <strong className="text-blue-300">{t("suddenChangeNote")}</strong> {t("suddenChangeDesc")}
           </p>
         </div>
       </div>
@@ -257,11 +241,9 @@ export default function DocsAlerts() {
             <ShieldCheck className="w-5 h-5 text-green-400" />
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Protection anti-spam</h3>
+            <h3 className="font-semibold mb-2">{t("antispamTitle")}</h3>
             <p className="text-sm text-neutral-400">
-              Pour éviter une avalanche de notifications, le système n'envoie pas de nouvelle alerte
-              pour un même capteur et un même type de problème si une alerte similaire non résolue
-              existe déjà dans les <strong className="text-white">30 dernières minutes</strong>.
+              {t("antispamDesc")} <strong className="text-white">{t("antispamTime")}</strong>{t("antispamDesc2")}
             </p>
           </div>
         </div>

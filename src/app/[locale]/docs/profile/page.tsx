@@ -1,46 +1,45 @@
 import { ArrowRight, UserCircle, Palette, Globe, Mail, Pencil, Save, CheckCircle } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-export default function DocsProfile() {
+export default async function DocsProfile() {
+  const t = await getTranslations("profile");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Documentation Utilisateur</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Profil</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Votre profil</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Depuis votre profil, vous pouvez personnaliser votre avatar, modifier votre nom
-          et changer la langue de l'interface.
+          {t("description")}
         </p>
       </div>
 
-      {/* --- Ouvrir le profil --- */}
+      {/* --- Open profile --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Accéder à votre profil</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("accessTitle")}</h2>
         <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-blue-500/10 flex-shrink-0">
               <UserCircle className="w-5 h-5 text-blue-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Cliquez sur votre avatar</h3>
+              <h3 className="font-semibold mb-2">{t("accessCardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Sur le tableau de bord, votre avatar est affiché en haut à droite de l'écran.
-                Cliquez dessus pour ouvrir un panneau latéral avec toutes vos informations
-                et les options de personnalisation.
+                {t("accessDesc")}
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* --- Ce que vous pouvez faire --- */}
+      {/* --- What you can change --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Ce que vous pouvez modifier</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("editTitle")}</h2>
         <div className="grid gap-4">
           <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-4">
@@ -48,14 +47,10 @@ export default function DocsProfile() {
                 <Palette className="w-5 h-5 text-blue-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Choisir un avatar</h3>
+                <h3 className="font-semibold mb-2">{t("avatarTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Survolez votre avatar actuel avec la souris (ou appuyez dessus sur mobile)
-                  pour voir l'icône de modification apparaître. Cliquez dessus pour basculer
-                  la carte en mode sélection — une grille de{" "}
-                  <strong className="text-white">13 styles d'avatars</strong> générés
-                  automatiquement à partir de votre nom d'utilisateur s'affiche. Cliquez sur celui
-                  qui vous plaît pour le sélectionner, puis fermez le mode sélection.
+                  {t("avatarDesc")}{" "}
+                  <strong className="text-white">{t("avatarStrong")}</strong> {t("avatarDesc2")}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {["adventurer", "avataaars", "bottts", "fun-emoji", "identicon", "lorelei", "micah", "miniavs", "open-peeps", "personas", "pixel-art", "shapes", "thumbs"].map((style) => (
@@ -74,11 +69,9 @@ export default function DocsProfile() {
                 <Pencil className="w-5 h-5 text-green-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Modifier votre nom</h3>
+                <h3 className="font-semibold mb-2">{t("nameTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Votre nom est affiché dans le profil. Cliquez sur l'icône de modification
-                  à côté de votre nom pour passer en mode édition, tapez le nouveau nom puis
-                  cliquez en dehors du champ pour confirmer.
+                  {t("nameDesc")}
                 </p>
               </div>
             </div>
@@ -90,11 +83,9 @@ export default function DocsProfile() {
                 <Mail className="w-5 h-5 text-purple-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Adresse email</h3>
+                <h3 className="font-semibold mb-2">{t("emailTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Votre email est affiché à titre informatif. C'est l'adresse sur laquelle
-                  vous recevez les codes de connexion. Elle ne peut pas être changée depuis
-                  l'interface.
+                  {t("emailDesc")}
                 </p>
               </div>
             </div>
@@ -106,13 +97,11 @@ export default function DocsProfile() {
                 <Globe className="w-5 h-5 text-orange-400" />
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Langue de l'interface</h3>
+                <h3 className="font-semibold mb-2">{t("langTitle")}</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Cliquez sur l'icône de modification à côté de la langue actuelle pour
-                  afficher un menu déroulant. Sélectionnez{" "}
-                  <strong className="text-white">Français</strong> ou{" "}
-                  <strong className="text-white">English</strong>. Le changement s'applique
-                  immédiatement à toute l'interface.
+                  {t("langDesc")}{" "}
+                  <strong className="text-white">{t("langFr")}</strong> {t("langOr")}{" "}
+                  <strong className="text-white">{t("langEn")}</strong>{t("langDesc2")}
                 </p>
               </div>
             </div>
@@ -120,20 +109,18 @@ export default function DocsProfile() {
         </div>
       </div>
 
-      {/* --- Enregistrer --- */}
+      {/* --- Save --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Enregistrer les modifications</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("saveTitle")}</h2>
         <div className="grid gap-4">
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-3">
               <Save className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-sm mb-2">Bouton "Enregistrer" visible si vous avez fait des changements</h3>
+                <h3 className="font-semibold text-sm mb-2">{t("saveCardTitle")}</h3>
                 <p className="text-sm text-neutral-400">
-                  Dès que vous modifiez votre nom, votre avatar ou votre langue, un bouton
-                  <strong className="text-white"> Enregistrer</strong> apparaît en bas du panneau.
-                  Cliquez dessus pour sauvegarder. Si vous fermez le panneau sans enregistrer,
-                  vos modifications sont perdues.
+                  {t("saveDesc")}
+                  <strong className="text-white"> {t("saveButton")}</strong> {t("saveDesc2")}
                 </p>
               </div>
             </div>
@@ -143,11 +130,9 @@ export default function DocsProfile() {
             <div className="flex items-start gap-3">
               <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-sm mb-2">La langue se sauvegarde automatiquement</h3>
+                <h3 className="font-semibold text-sm mb-2">{t("langAutoSaveTitle")}</h3>
                 <p className="text-sm text-neutral-400">
-                  Exception : lorsque vous changez la langue via le menu déroulant, la
-                  modification est appliquée et sauvegardée immédiatement — pas besoin de
-                  cliquer sur "Enregistrer".
+                  {t("langAutoSaveDesc")}
                 </p>
               </div>
             </div>

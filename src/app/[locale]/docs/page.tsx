@@ -1,28 +1,26 @@
 import { Cpu, Wifi, BarChart3, Shield, ArrowRight, Zap, Database, Monitor } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-export default function DocsIntroduction() {
+export default async function DocsIntroduction() {
+  const t = await getTranslations("introduction");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Introduction</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Documentation Aurora Home</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Aurora Home est une plateforme domotique complète combinant un firmware ESP32 et une
-          application web Next.js pour surveiller 5 capteurs environnementaux en temps réel.
+          {t("description")}
         </p>
       </div>
 
       <div className="prose prose-invert max-w-none mb-12">
         <p className="text-neutral-300 leading-relaxed">
-          Le système repose sur deux composants indépendants : un microcontrôleur ESP32 qui collecte
-          les données de capteurs environnementaux et les publie via MQTT, et une application web
-          Next.js qui consomme ces données, les stocke en base de données SQLite et les affiche sur
-          un dashboard en temps réel avec mise à jour via Server-Sent Events.
+          {t("systemDescription")}
         </p>
       </div>
 
@@ -33,11 +31,9 @@ export default function DocsIntroduction() {
               <Cpu className="w-5 h-5 text-blue-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Firmware ESP32</h3>
+              <h3 className="font-semibold mb-2">{t("esp32CardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Microcontrôleur ESP32 avec 3 capteurs I2C : SCD30 (CO₂, température, humidité),
-                BME280 (température, humidité, pression) et BH1750 (luminosité). Fonctionne en mode
-                point d'accès WiFi autonome.
+                {t("esp32CardDesc")}
               </p>
             </div>
           </div>
@@ -49,11 +45,9 @@ export default function DocsIntroduction() {
               <Wifi className="w-5 h-5 text-purple-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Communication MQTT</h3>
+              <h3 className="font-semibold mb-2">{t("mqttCardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                L'ESP32 crée son propre réseau WiFi (AP mode) et publie les données toutes les ~10
-                secondes sur le topic <code className="px-1.5 py-0.5 bg-white/5 rounded text-purple-300">sensor/data</code> via
-                un broker Mosquitto sur Orange Pi 3 LTS.
+                {t("mqttCardDesc")} <code className="px-1.5 py-0.5 bg-white/5 rounded text-purple-300">sensor/data</code> {t("mqttCardDesc2")}
               </p>
             </div>
           </div>
@@ -65,11 +59,9 @@ export default function DocsIntroduction() {
               <BarChart3 className="w-5 h-5 text-green-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Dashboard Temps Réel</h3>
+              <h3 className="font-semibold mb-2">{t("dashboardCardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Application Next.js avec mise à jour instantanée via Server-Sent Events, graphiques
-                Recharts pour l'historique, stockage SQLite via Prisma et support PWA pour
-                installation mobile.
+                {t("dashboardCardDesc")}
               </p>
             </div>
           </div>
@@ -81,10 +73,9 @@ export default function DocsIntroduction() {
               <Shield className="w-5 h-5 text-orange-400" />
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Authentification OTP</h3>
+              <h3 className="font-semibold mb-2">{t("authCardTitle")}</h3>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Système d'authentification sans mot de passe via Better Auth : l'utilisateur reçoit
-                un code OTP à 6 chiffres par email (ou sur afficheur I2C en mode hardware).
+                {t("authCardDesc")}
               </p>
             </div>
           </div>
@@ -94,38 +85,38 @@ export default function DocsIntroduction() {
       <div className="grid grid-cols-3 gap-4 mb-12">
         <div className="text-center p-6 rounded-xl bg-white/[0.02] border border-white/5">
           <div className="text-3xl font-bold text-white mb-1">5</div>
-          <div className="text-xs text-neutral-500">Types de capteurs</div>
+          <div className="text-xs text-neutral-500">{t("statSensors")}</div>
         </div>
         <div className="text-center p-6 rounded-xl bg-white/[0.02] border border-white/5">
           <div className="text-3xl font-bold text-white mb-1">SSE</div>
-          <div className="text-xs text-neutral-500">Mise à jour temps réel</div>
+          <div className="text-xs text-neutral-500">{t("statRealtime")}</div>
         </div>
         <div className="text-center p-6 rounded-xl bg-white/[0.02] border border-white/5">
           <div className="text-3xl font-bold text-white mb-1">PWA</div>
-          <div className="text-xs text-neutral-500">Installable sur mobile</div>
+          <div className="text-xs text-neutral-500">{t("statPwa")}</div>
         </div>
       </div>
 
       <div className="p-6 rounded-xl bg-gradient-to-r from-white/5 to-white/[0.02] border border-white/10 mb-12">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-semibold mb-1">Prêt à commencer ?</h3>
+            <h3 className="font-semibold mb-1">{t("ctaTitle")}</h3>
             <p className="text-sm text-neutral-400">
-              Suivez le guide d'installation pour démarrer en quelques minutes.
+              {t("ctaDesc")}
             </p>
           </div>
           <Link
             href="/docs/installation"
             className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-neutral-200 transition-colors whitespace-nowrap"
           >
-            Installation App
+            {t("ctaButton")}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
 
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Architecture du système</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("architectureTitle")}</h2>
         <div className="p-6 rounded-xl bg-white/[0.02] border border-white/5">
           <div className="flex items-center justify-between gap-2 overflow-x-auto pb-2">
             <div className="flex flex-col items-center min-w-[80px]">

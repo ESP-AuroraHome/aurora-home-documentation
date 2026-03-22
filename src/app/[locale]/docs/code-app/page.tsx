@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, Code, FileCode, TestTube, Layers, GitBranch, Zap } from "lucide-react";
 import { TreeView, type TreeItem } from "@/components/TreeView";
 
@@ -145,49 +146,51 @@ const appTree: TreeItem[] = [
   },
 ];
 
-export default function DocsCodeApp() {
+export default async function DocsCodeApp() {
+  const t = await getTranslations("codeApp");
+
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Pour les développeurs</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Conventions App</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Conventions — Application Next.js</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Standards de code et d'organisation adoptés dans le projet{" "}
+          {t("description")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">aurora-home-app</code>.
         </p>
       </div>
 
       {/* --- Stack --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Stack technique</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("stackTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { name: "Next.js 15", desc: "App Router, Server Components, Route Handlers, instrumentation.ts" },
-            { name: "React 19", desc: "Server Components + Client Components ('use client')" },
-            { name: "TypeScript 5", desc: "Mode strict activé — tous les types explicites" },
-            { name: "Tailwind CSS v4", desc: "Config via globals.css uniquement (pas de tailwind.config.js)" },
-            { name: "Better Auth", desc: "Authentification sans mot de passe — plugin emailOTP" },
-            { name: "Prisma + SQLite", desc: "ORM — schéma dans prisma/schema.prisma" },
-            { name: "next-intl", desc: "i18n — messages/fr.json et messages/en.json" },
-            { name: "Biome", desc: "Linting + formatting (remplace ESLint + Prettier)" },
-            { name: "Vitest", desc: "Tests unitaires — config dans vitest.config.ts" },
-            { name: "Recharts", desc: "Graphiques — AreaChart avec gradient blanc" },
-            { name: "shadcn/ui + Radix UI", desc: "Composants UI accessibles dans components/ui/" },
-            { name: "react-hook-form + Zod", desc: "Formulaires validés côté client et serveur" },
-            { name: "@dicebear/collection", desc: "Génération d'avatars SVG déterministes" },
-          ].map((item) => (
+            { name: "Next.js 15", descKey: "next15Desc" },
+            { name: "React 19", descKey: "react19Desc" },
+            { name: "TypeScript 5", descKey: "ts5Desc" },
+            { name: "Tailwind CSS v4", descKey: "tailwindDesc" },
+            { name: "Better Auth", descKey: "betterAuthDesc" },
+            { name: "Prisma + SQLite", descKey: "prismaDesc" },
+            { name: "next-intl", descKey: "nextIntlDesc" },
+            { name: "Biome", descKey: "biomeDesc" },
+            { name: "Vitest", descKey: "vitestDesc" },
+            { name: "Recharts", descKey: "rechartsDesc" },
+            { name: "shadcn/ui + Radix UI", descKey: "shadcnDesc" },
+            { name: "react-hook-form + Zod", descKey: "rhfDesc" },
+            { name: "@dicebear/collection", descKey: "dicebearDesc" },
+          ].map(({ name, descKey }) => (
             <div
-              key={item.name}
+              key={name}
               className="flex items-center gap-4 p-4 rounded-lg bg-white/[0.02] border border-white/5"
             >
-              <code className="text-sm text-green-400 min-w-[160px]">{item.name}</code>
-              <span className="text-sm text-neutral-500">{item.desc}</span>
+              <code className="text-sm text-green-400 min-w-[160px]">{name}</code>
+              <span className="text-sm text-neutral-500">{t(descKey)}</span>
             </div>
           ))}
         </div>
@@ -195,44 +198,44 @@ export default function DocsCodeApp() {
 
       {/* --- Structure --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Structure des dossiers</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("folderStructureTitle")}</h2>
         <TreeView items={appTree} title="aurora-home-app/" />
       </div>
 
       {/* --- Naming --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Conventions de nommage</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("namingTitle")}</h2>
         <div className="grid gap-4">
           {[
             {
               icon: FileCode,
               color: "blue",
-              title: "Fichiers",
+              titleKey: "filesTitle",
               rule: "kebab-case",
               examples: ["mqtt-client.ts", "sensor-emitter.ts", "datapoint-item.tsx", "use-sensor-data.ts"],
             },
             {
               icon: Code,
               color: "purple",
-              title: "Composants React",
+              titleKey: "componentsTitle",
               rule: "PascalCase",
               examples: ["ChartDatapoint.tsx", "LoginForm.tsx", "ProfileSheet.tsx", "AvatarSelector.tsx"],
             },
             {
               icon: Code,
               color: "green",
-              title: "Fonctions & Variables",
+              titleKey: "functionsTitle",
               rule: "camelCase",
               examples: ["parseNumericValue()", "getInitialDataPoints()", "sensorEmitter", "toDataPoints()"],
             },
           ].map((item) => (
-            <div key={item.title} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+            <div key={item.titleKey} className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
               <div className="flex items-center gap-3 mb-3">
                 <div className={`p-2 rounded-lg bg-${item.color}-500/10`}>
                   <item.icon className={`w-4 h-4 text-${item.color}-400`} />
                 </div>
                 <div>
-                  <span className="font-medium">{item.title}</span>
+                  <span className="font-medium">{t(item.titleKey)}</span>
                   <code className={`ml-2 text-xs px-2 py-0.5 rounded bg-${item.color}-500/10 text-${item.color}-400`}>
                     {item.rule}
                   </code>
@@ -252,12 +255,11 @@ export default function DocsCodeApp() {
 
       {/* --- Pattern usecase --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Pattern Usecase</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("usecaseTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Toute la logique métier est encapsulée dans des usecases. Le wrapper{" "}
+          {t("usecaseDesc")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">usecase(fn)</code>{" "}
-          dans <code className="px-1.5 py-0.5 bg-white/5 rounded">lib/usecase.ts</code> enveloppe
-          automatiquement la fonction dans un try/catch et retourne un type uniforme{" "}
+          {t("usecaseDesc2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">lib/usecase.ts</code> {t("usecaseDesc3")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">UsecaseResult&lt;T&gt;</code>.
         </p>
         <CodeBlock title="lib/usecase.ts">{`export default function usecase<TArgs, TResult>(
@@ -293,18 +295,18 @@ if (result.success) {
 }`}</CodeBlock>
         </div>
         <p className="text-sm text-neutral-500 mt-3">
-          Tous les usecases sont des Server Actions (<code className="px-1.5 py-0.5 bg-white/5 rounded">"use server"</code>).
-          Ils ne retournent jamais une exception — l'erreur est toujours capturée dans{" "}
+          {t("usecaseNote")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">"use server"</code>).
+          {t("usecaseNote2")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded">result.error</code>.
         </p>
       </div>
 
       {/* --- Pattern Repository --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Pattern Repository</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("repositoryTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Tous les accès Prisma passent par des repositories. Pas d'appel direct à{" "}
-          <code className="px-1.5 py-0.5 bg-white/5 rounded">prisma.*</code> en dehors des repositories.
+          {t("repositoryDesc")}{" "}
+          <code className="px-1.5 py-0.5 bg-white/5 rounded">prisma.*</code> {t("repositoryDesc2")}
         </p>
         <CodeBlock title="features/datapoint/repository/dataPointRepository.ts">{`export const dataPointRepository = {
   findLatestByType: (type: DataType, take = 20) =>
@@ -340,23 +342,23 @@ if (result.success) {
 
       {/* --- Server vs Client --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Server vs Client Components</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("serverVsClientTitle")}</h2>
         <div className="grid gap-4">
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
-            <h3 className="font-semibold mb-3 text-green-300">Server Components (défaut)</h3>
+            <h3 className="font-semibold mb-3 text-green-300">{t("serverComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />Pages et layouts (pas de <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />Accès direct à Prisma, <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>, variables d'environnement</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />Pas de hooks React (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />Exemples : <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>{t("serverLi2b")}</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi3")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></li>
             </ul>
           </div>
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
-            <h3 className="font-semibold mb-3 text-blue-300">Client Components</h3>
+            <h3 className="font-semibold mb-3 text-blue-300">{t("clientComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />Marqués <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> en première ligne</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />Composants avec hooks React, event listeners, SSE, animations</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />Exemples : <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> {t("clientLi1b")}</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi2")}</li>
+              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></li>
             </ul>
           </div>
         </div>
@@ -364,10 +366,10 @@ if (result.success) {
 
       {/* --- parseNumericValue --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Utilitaires datapoint</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("datapointUtilsTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          L'ESP32 envoie des valeurs brutes avec unité (ex : <code className="px-1.5 py-0.5 bg-white/5 rounded">"22.50 °C"</code>).
-          Ces fonctions font le pont entre la base et les graphiques.
+          {t("datapointUtilsDesc")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">"22.50 °C"</code>).
+          {t("datapointUtilsDesc2")}
         </p>
         <div className="grid gap-4">
           <CodeBlock title="features/datapoint/utils/parseNumericValue.ts">{`// Extrait la partie numérique d'une chaîne "22.50 °C" → 22.50
@@ -413,7 +415,7 @@ LIGHT       : [Math.max(0, floor(min - margin)), ceil(max + margin)]
 
       {/* --- Flux auth détaillé --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Flux d'authentification OTP</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("authFlowTitle")}</h2>
         <CodeBlock title="features/auth/usecase/login.ts — Schéma Zod">{`const loginSchema = z.object({
   email: z.string().email(),
   name: z.string().optional(),  // Optionnel — prénom pour premier compte
@@ -451,7 +453,7 @@ const extractNameFromEmail = (email: string): string => {
 
       {/* --- updateUserProfile --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Mise à jour du profil</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("updateProfileTitle")}</h2>
         <CodeBlock title="features/profile/usecase/updateUserProfile.ts — Schéma Zod">{`const updateProfileSchema = z.object({
   name:  z.string().min(1, "Le nom est requis"),
   email: z.string().email().min(1),
@@ -478,7 +480,7 @@ const extractNameFromEmail = (email: string): string => {
 
       {/* --- Hooks --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Hooks partagés</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("hooksTitle")}</h2>
         <div className="grid gap-4">
           <CodeBlock title="hooks/useAnimatedValue.ts">{`// Anime une valeur numérique vers une cible avec easeOutCubic
 useAnimatedValue(targetValue: number, duration: number = 800): number
@@ -527,18 +529,18 @@ es.onerror = () => {
 
       {/* --- OTP Display --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Affichage OTP — lib/otp-display.ts</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("otpDisplayTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Deux modes d'affichage du code OTP contrôlés par des variables d'environnement :
+          {t("otpDisplayDesc")}
         </p>
         <div className="grid gap-3 mb-4">
           {[
-            { var: "DISPLAY_OTP_DEV_MODE=true", desc: "Affiche le code OTP dans la console Next.js (ASCII art). Aucun matériel requis — pour le développement local." },
-            { var: "DISPLAY_OTP_ENABLED=true", desc: "Envoie le code à l'écran I2C physique via un script Node.js (Linux uniquement, Orange Pi)." },
+            { var: "DISPLAY_OTP_DEV_MODE=true", descKey: "otpDevModeDesc" },
+            { var: "DISPLAY_OTP_ENABLED=true", descKey: "otpHardwareDesc" },
           ].map((item) => (
             <div key={item.var} className="p-4 rounded-lg bg-white/[0.02] border border-white/5 text-sm">
               <code className="text-orange-400 block mb-1">{item.var}</code>
-              <span className="text-neutral-400">{item.desc}</span>
+              <span className="text-neutral-400">{t(item.descKey)}</span>
             </div>
           ))}
         </div>
@@ -554,10 +556,9 @@ es.onerror = () => {
 
       {/* --- TypeScript --- */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Configuration TypeScript</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("tsConfigTitle")}</h2>
         <p className="text-neutral-400 mb-4">
-          Le mode <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">strict</code> est
-          activé. Voici les règles effectives qui en découlent et les autres options importantes du{" "}
+          {t("tsConfigDesc")} <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">strict</code> {t("tsConfigDesc2")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded">tsconfig.json</code> :
         </p>
         <CodeBlock title="tsconfig.json">{`{
@@ -577,37 +578,37 @@ es.onerror = () => {
 }`}</CodeBlock>
 
         <div className="mt-6">
-          <h3 className="font-semibold mb-4 text-neutral-200">Ce que <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">strict: true</code> impose</h3>
+          <h3 className="font-semibold mb-4 text-neutral-200">{t("strictImposes")} <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">strict: true</code> {t("strictImposes2")}</h3>
           <div className="grid gap-3">
             {[
               {
                 flag: "strictNullChecks",
-                desc: "null et undefined ne sont pas assignables aux autres types. Il faut explicitement gérer les cas null.",
+                descKey: "strictNullChecksDesc",
                 example: "const name: string = user.name ?? \"\"  // pas juste user.name",
               },
               {
                 flag: "noImplicitAny",
-                desc: "Interdit les types any implicites. Tout paramètre de fonction doit avoir un type explicite.",
+                descKey: "noImplicitAnyDesc",
                 example: "function fn(x: number) {}  // pas function fn(x) {}",
               },
               {
                 flag: "strictFunctionTypes",
-                desc: "Vérifie la contravariance des paramètres de fonctions — évite les erreurs de type dans les callbacks.",
+                descKey: "strictFunctionTypesDesc",
                 example: "",
               },
               {
                 flag: "strictPropertyInitialization",
-                desc: "Les propriétés de classe doivent être initialisées dans le constructeur ou déclarées avec !.",
+                descKey: "strictPropertyInitDesc",
                 example: "",
               },
               {
                 flag: "noImplicitThis",
-                desc: "Interdit l'usage de this implicitement typé any.",
+                descKey: "noImplicitThisDesc",
                 example: "",
               },
               {
                 flag: "alwaysStrict",
-                desc: "Injecte \"use strict\" dans chaque fichier compilé.",
+                descKey: "alwaysStrictDesc",
                 example: "",
               },
             ].map((item) => (
@@ -615,7 +616,7 @@ es.onerror = () => {
                 <div className="flex items-start gap-3">
                   <code className="text-xs text-blue-400 min-w-[220px] pt-0.5">{item.flag}</code>
                   <div>
-                    <p className="text-sm text-neutral-400">{item.desc}</p>
+                    <p className="text-sm text-neutral-400">{t(item.descKey)}</p>
                     {item.example && (
                       <code className="text-xs text-neutral-600 mt-1 block">{item.example}</code>
                     )}
@@ -627,32 +628,32 @@ es.onerror = () => {
         </div>
 
         <div className="mt-6">
-          <h3 className="font-semibold mb-4 text-neutral-200">Règles de style TypeScript appliquées dans le projet</h3>
+          <h3 className="font-semibold mb-4 text-neutral-200">{t("tsStyleRulesTitle")}</h3>
           <div className="grid gap-3">
             {[
               {
                 rule: "import type",
-                desc: "Utiliser import type pour les imports de types uniquement. Réduit le bundle et clarifie les dépendances.",
+                descKey: "importTypeDesc",
                 example: "import type { User } from \"@prisma/client\";",
               },
               {
                 rule: "Pas de any explicite",
-                desc: "Le type any est banni. Utiliser unknown puis narrowing, ou un type précis.",
+                descKey: "noAnyDesc",
                 example: "// ❌ (data: any)  ✓ (data: unknown)",
               },
               {
                 rule: "Types de retour implicites",
-                desc: "Les fonctions simples peuvent laisser TypeScript inférer le type de retour. Les usecases et repositories ont des types de retour explicites.",
+                descKey: "implicitReturnDesc",
                 example: "",
               },
               {
                 rule: "Alias @/*",
-                desc: "Tous les imports internes utilisent l'alias @/ (racine du projet). Pas de chemins relatifs ../../../.",
+                descKey: "aliasDesc",
                 example: "import usecase from \"@/lib/usecase\";",
               },
               {
                 rule: "isolatedModules",
-                desc: "Chaque fichier .ts/.tsx doit avoir au moins un import ou export pour être un module ES. Requis pour la compatibilité Babel/SWC.",
+                descKey: "isolatedModulesDesc",
                 example: "",
               },
             ].map((item) => (
@@ -660,7 +661,7 @@ es.onerror = () => {
                 <div className="flex items-start gap-3">
                   <code className="text-xs text-green-400 min-w-[180px] pt-0.5">{item.rule}</code>
                   <div>
-                    <p className="text-sm text-neutral-400">{item.desc}</p>
+                    <p className="text-sm text-neutral-400">{t(item.descKey)}</p>
                     {item.example && (
                       <code className="text-xs text-neutral-600 mt-1 block">{item.example}</code>
                     )}
@@ -679,11 +680,9 @@ es.onerror = () => {
             <TestTube className="w-5 h-5 text-purple-400" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold mb-2">Tests & Qualité du code</h3>
+            <h3 className="font-semibold mb-2">{t("testsTitle")}</h3>
             <p className="text-sm text-neutral-400 mb-4">
-              <strong className="text-white">Biome</strong> pour le linting et le formatting
-              (remplace ESLint + Prettier). <strong className="text-white">Vitest</strong> pour
-              les tests unitaires.
+              {t("testsDesc")} {t("testsDesc2")}
             </p>
             <CodeBlock>{`# Vérifier le code (lint + format)
 npx biome check .

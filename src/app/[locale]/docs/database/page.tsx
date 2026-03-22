@@ -1,4 +1,5 @@
 import { ArrowRight, Database, Table, GitBranch } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
   return (
@@ -15,39 +16,39 @@ function CodeBlock({ children, title }: { children: string; title?: string }) {
   );
 }
 
-export default function DocsDatabase() {
+export default async function DocsDatabase() {
+  const t = await getTranslations("database");
   return (
     <div>
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
-          <span>Docs</span>
+          <span>{t("breadcrumbDocs")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span>Documentation Technique</span>
+          <span>{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
-          <span className="text-white">Base de données</span>
+          <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">Base de données</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-neutral-400 leading-relaxed">
-          Aurora Home utilise Prisma ORM avec SQLite. Le schéma est défini dans{" "}
-          <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">prisma/schema.prisma</code> à
-          la racine du projet.
+          {t("description")}{" "}
+          <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">prisma/schema.prisma</code> {t("description2")}
         </p>
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Modèles</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("modelsTitle")}</h2>
         <div className="grid gap-4">
           {[
             {
               name: "User",
               color: "blue",
-              desc: "Compte utilisateur de l'application.",
+              desc: t("userDesc"),
               fields: [
-                { name: "id", type: "String", note: "CUID, clé primaire" },
-                { name: "name", type: "String?", note: "Nom d'affichage" },
-                { name: "email", type: "String", note: "Unique — identifiant de connexion" },
+                { name: "id", type: "String", note: t("userIdNote") },
+                { name: "name", type: "String?", note: t("userNameNote") },
+                { name: "email", type: "String", note: t("userEmailNote") },
                 { name: "emailVerified", type: "Boolean", note: "" },
-                { name: "image", type: "String?", note: "URL avatar DiceBear" },
+                { name: "image", type: "String?", note: t("userImageNote") },
                 { name: "createdAt", type: "DateTime", note: "" },
                 { name: "updatedAt", type: "DateTime", note: "" },
               ],
@@ -55,66 +56,66 @@ export default function DocsDatabase() {
             {
               name: "Session",
               color: "purple",
-              desc: "Session authentifiée — gérée par Better Auth.",
+              desc: t("sessionDesc"),
               fields: [
                 { name: "id", type: "String", note: "CUID" },
-                { name: "token", type: "String", note: "Unique — transmis via cookie" },
-                { name: "expiresAt", type: "DateTime", note: "Expiration de la session" },
-                { name: "ipAddress", type: "String?", note: "IP du client" },
-                { name: "userAgent", type: "String?", note: "User-Agent du navigateur" },
-                { name: "userId", type: "String", note: "FK → User" },
+                { name: "token", type: "String", note: t("sessionTokenNote") },
+                { name: "expiresAt", type: "DateTime", note: t("sessionExpiresNote") },
+                { name: "ipAddress", type: "String?", note: t("sessionIpNote") },
+                { name: "userAgent", type: "String?", note: t("sessionUaNote") },
+                { name: "userId", type: "String", note: t("sessionUserIdNote") },
               ],
             },
             {
               name: "Account",
               color: "green",
-              desc: "Compte lié à un provider OAuth (Better Auth).",
+              desc: t("accountDesc"),
               fields: [
                 { name: "id", type: "String", note: "" },
-                { name: "providerId", type: "String", note: "ex: 'credential'" },
+                { name: "providerId", type: "String", note: t("accountProviderNote") },
                 { name: "accountId", type: "String", note: "" },
                 { name: "accessToken", type: "String?", note: "" },
                 { name: "refreshToken", type: "String?", note: "" },
-                { name: "userId", type: "String", note: "FK → User" },
+                { name: "userId", type: "String", note: t("accountUserIdNote") },
               ],
             },
             {
               name: "Verification",
               color: "yellow",
-              desc: "Token de vérification OTP — généré à chaque demande de connexion.",
+              desc: t("verificationDesc"),
               fields: [
                 { name: "id", type: "String", note: "" },
-                { name: "identifier", type: "String", note: "Email de l'utilisateur" },
-                { name: "value", type: "String", note: "Code OTP haché" },
-                { name: "expiresAt", type: "DateTime", note: "Expiration du code" },
+                { name: "identifier", type: "String", note: t("verificationIdentifierNote") },
+                { name: "value", type: "String", note: t("verificationValueNote") },
+                { name: "expiresAt", type: "DateTime", note: t("verificationExpiresNote") },
               ],
             },
             {
               name: "DataPoint",
               color: "orange",
-              desc: "Relevé de capteur — créé à chaque message MQTT reçu.",
+              desc: t("dataPointDesc"),
               fields: [
-                { name: "id", type: "String", note: "CUID" },
-                { name: "type", type: "DataType", note: "Enum : TEMPERATURE | HUMIDITY | PRESSURE | CO2 | LIGHT" },
-                { name: "value", type: "String", note: "Valeur brute (ex: '22.50')" },
-                { name: "createdAt", type: "DateTime", note: "Horodatage du relevé" },
+                { name: "id", type: "String", note: t("dataPointIdNote") },
+                { name: "type", type: "DataType", note: t("dataPointTypeNote") },
+                { name: "value", type: "String", note: t("dataPointValueNote") },
+                { name: "createdAt", type: "DateTime", note: t("dataPointCreatedNote") },
               ],
             },
             {
               name: "Alert",
               color: "red",
-              desc: "Anomalie détectée sur un capteur.",
+              desc: t("alertDesc"),
               fields: [
-                { name: "id", type: "String", note: "CUID" },
-                { name: "type", type: "AlertType", note: "THRESHOLD_HIGH | THRESHOLD_LOW | SUDDEN_CHANGE" },
-                { name: "severity", type: "Severity", note: "WARNING | HIGH | CRITICAL" },
-                { name: "sensorType", type: "DataType", note: "Capteur concerné" },
-                { name: "value", type: "Float", note: "Valeur mesurée au moment de l'alerte" },
-                { name: "threshold", type: "Float?", note: "Seuil dépassé (null si variation soudaine)" },
-                { name: "message", type: "String", note: "Message affiché à l'utilisateur" },
-                { name: "suggestions", type: "String", note: "JSON stringifié — liste de suggestions" },
-                { name: "read", type: "Boolean", note: "false par défaut" },
-                { name: "resolvedAt", type: "DateTime?", note: "null tant que non résolue" },
+                { name: "id", type: "String", note: t("alertIdNote") },
+                { name: "type", type: "AlertType", note: t("alertTypeNote") },
+                { name: "severity", type: "Severity", note: t("alertSeverityNote") },
+                { name: "sensorType", type: "DataType", note: t("alertSensorTypeNote") },
+                { name: "value", type: "Float", note: t("alertValueNote") },
+                { name: "threshold", type: "Float?", note: t("alertThresholdNote") },
+                { name: "message", type: "String", note: t("alertMessageNote") },
+                { name: "suggestions", type: "String", note: t("alertSuggestionsNote") },
+                { name: "read", type: "Boolean", note: t("alertReadNote") },
+                { name: "resolvedAt", type: "DateTime?", note: t("alertResolvedNote") },
                 { name: "createdAt", type: "DateTime", note: "" },
               ],
             },
@@ -129,9 +130,9 @@ export default function DocsDatabase() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-white/5">
-                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">Champ</th>
-                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">Type</th>
-                      <th className="text-left py-2 text-neutral-500 font-medium">Notes</th>
+                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>
+                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableTypeHeader")}</th>
+                      <th className="text-left py-2 text-neutral-500 font-medium">{t("tableNotesHeader")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -155,7 +156,7 @@ export default function DocsDatabase() {
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Enums</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("enumsTitle")}</h2>
         <div className="grid gap-4">
           <CodeBlock title="DataType">{`enum DataType {
   TEMPERATURE
@@ -177,23 +178,23 @@ export default function DocsDatabase() {
         </div>
         <div className="mt-4 p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
           <p className="text-sm text-orange-200/70">
-            <strong className="text-orange-300">Note :</strong> Le champ <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">value</code> de DataPoint est
-            stocké en <strong>String</strong> et non en Float. Le serveur extrait la valeur numérique avec{" "}
-            <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">parseFloat()</code> avant de calculer ou afficher les graphiques.
-            Le champ <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">suggestions</code> d'Alert est un tableau JSON stringifié.
+            <strong className="text-orange-300">{t("enumNote")}</strong> {t("enumDesc")} <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">value</code> {t("enumDesc2")}
+            <strong>{t("enumDesc3")}</strong> {t("enumDesc4")}{" "}
+            <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">parseFloat()</code> {t("enumDesc5")}
+            <code className="px-1.5 py-0.5 bg-orange-500/20 rounded">suggestions</code> {t("enumDesc6")}
           </p>
         </div>
       </div>
 
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Commandes Prisma</h2>
+        <h2 className="text-2xl font-bold mb-6">{t("prismaCommandsTitle")}</h2>
         <div className="grid gap-3">
           {[
-            { cmd: "npx prisma db push", desc: "Applique le schéma sans créer de migration" },
-            { cmd: "npx prisma migrate dev", desc: "Crée et applique une migration versionnée" },
-            { cmd: "npx prisma studio", desc: "Interface graphique pour explorer la DB" },
-            { cmd: "npx tsx prisma/seedFakeData.ts", desc: "Remplit la DB avec des données de test (Faker.js)" },
-            { cmd: "npx tsx prisma/clearData.ts", desc: "Vide toutes les tables de données" },
+            { cmd: "npx prisma db push", desc: t("prismaCmd1Desc") },
+            { cmd: "npx prisma migrate dev", desc: t("prismaCmd2Desc") },
+            { cmd: "npx prisma studio", desc: t("prismaCmd3Desc") },
+            { cmd: "npx tsx prisma/seedFakeData.ts", desc: t("prismaCmd4Desc") },
+            { cmd: "npx tsx prisma/clearData.ts", desc: t("prismaCmd5Desc") },
           ].map((item) => (
             <div
               key={item.cmd}
@@ -212,12 +213,10 @@ export default function DocsDatabase() {
             <GitBranch className="w-5 h-5 text-blue-400" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold mb-2">Pattern Repository</h3>
+            <h3 className="font-semibold mb-2">{t("repositoryTitle")}</h3>
             <p className="text-sm text-neutral-400 mb-3">
-              Tous les accès à la base de données passent par des repositories dédiés qui encapsulent
-              les requêtes Prisma. Les usecases retournent un type{" "}
-              <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">UsecaseResult&lt;T&gt;</code> pour une
-              gestion uniforme des erreurs.
+              {t("repositoryDesc")}{" "}
+              <code className="px-1.5 py-0.5 bg-white/5 rounded text-blue-300">UsecaseResult&lt;T&gt;</code> {t("repositoryDesc2")}
             </p>
             <CodeBlock title="Exemple">{`// features/datapoint/repository/dataPointRepository.ts
 export const dataPointRepository = {
