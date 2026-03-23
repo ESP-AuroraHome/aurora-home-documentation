@@ -171,6 +171,75 @@ data: {
 }`}</CodeBlock>
           </div>
         </div>
+        {/* GET /api/datapoints */}
+        <div className="mb-8 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="GET" />
+            <code className="text-sm text-neutral-300">/api/datapoints</code>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">{t("datapointsEndpointDesc")}</p>
+          <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+            <div>
+              <p className="text-neutral-500 mb-1">?type</p>
+              <span className="text-neutral-400 text-xs">{t("datapointsParamType")}</span>
+            </div>
+            <div>
+              <p className="text-neutral-500 mb-1">?period</p>
+              <span className="text-neutral-400 text-xs">{t("datapointsParamPeriod")}</span>
+            </div>
+          </div>
+          <CodeBlock title="Exemple">{`GET /api/datapoints?type=CO2&period=6h`}</CodeBlock>
+        </div>
+
+        {/* GET|POST /api/thresholds */}
+        <div className="mb-8 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="GET" />
+            <code className="text-sm text-neutral-300">/api/thresholds</code>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">{t("thresholdsGetDesc")}</p>
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="POST" />
+            <code className="text-sm text-neutral-300">/api/thresholds</code>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">{t("thresholdsPostDesc")}</p>
+          <CodeBlock title={t("thresholdsPostBody")}>{`{
+  "sensorType":    "CO2",          // DataType enum
+  "highValue":     1500,           // Float ou null
+  "highSeverity":  "HIGH",         // Severity ou null
+  "lowValue":      null,
+  "lowSeverity":   null
+}`}</CodeBlock>
+        </div>
+
+        {/* GET|POST /api/preferences */}
+        <div className="mb-8 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="GET" />
+            <code className="text-sm text-neutral-300">/api/preferences</code>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">{t("preferencesGetDesc")}</p>
+          <div className="flex items-center gap-3 mb-4">
+            <MethodBadge method="POST" />
+            <code className="text-sm text-neutral-300">/api/preferences</code>
+          </div>
+          <p className="text-sm text-neutral-400 mb-4">{t("preferencesPostDesc")}</p>
+          <CodeBlock title={t("preferencesPostBody")}>{`// Préférence capteur
+{
+  "type":        "sensor",
+  "sensorType":  "TEMPERATURE",
+  "enabled":     true,
+  "minSeverity": "WARNING"
+}
+
+// Paramètres globaux
+{
+  "type":        "settings",
+  "quietStart":  23,
+  "quietEnd":    7
+}`}</CodeBlock>
+        </div>
+
         {/* Dev inject-sensor */}
         <div className="mb-8 p-6 rounded-xl border border-yellow-500/20 bg-yellow-500/5">
           <div className="flex items-center gap-3 mb-4">

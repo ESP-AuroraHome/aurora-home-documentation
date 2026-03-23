@@ -155,6 +155,111 @@ export default async function DocsDatabase() {
         </div>
       </div>
 
+      {/* --- Nouveaux modèles --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">{t("newModelsTitle")}</h2>
+        <div className="grid gap-4">
+          {[
+            {
+              name: "SystemThreshold",
+              color: "orange",
+              desc: t("systemThresholdDesc"),
+              fields: [
+                { name: "id", type: "String", note: "CUID" },
+                { name: "sensorType", type: "DataType", note: t("dataPointTypeNote") },
+                { name: "highValue", type: "Float?", note: t("systemThresholdHighValueNote") },
+                { name: "highSeverity", type: "Severity?", note: t("systemThresholdHighSeverityNote") },
+                { name: "lowValue", type: "Float?", note: t("systemThresholdLowValueNote") },
+                { name: "lowSeverity", type: "Severity?", note: t("systemThresholdLowSeverityNote") },
+                { name: "updatedAt", type: "DateTime", note: "" },
+              ],
+            },
+            {
+              name: "SensorPreference",
+              color: "purple",
+              desc: t("sensorPreferenceDesc"),
+              fields: [
+                { name: "id", type: "String", note: "CUID" },
+                { name: "sensorType", type: "DataType", note: t("dataPointTypeNote") },
+                { name: "enabled", type: "Boolean", note: t("sensorPrefEnabledNote") },
+                { name: "minSeverity", type: "Severity", note: t("sensorPrefMinSeverityNote") },
+                { name: "updatedAt", type: "DateTime", note: "" },
+              ],
+            },
+            {
+              name: "NotificationSettings",
+              color: "blue",
+              desc: t("notificationSettingsDesc"),
+              fields: [
+                { name: "id", type: "String", note: t("notifSettingsIdNote") },
+                { name: "quietStart", type: "Int?", note: t("notifSettingsQuietStartNote") },
+                { name: "quietEnd", type: "Int?", note: t("notifSettingsQuietEndNote") },
+                { name: "updatedAt", type: "DateTime", note: "" },
+              ],
+            },
+          ].map((model) => (
+            <div key={model.name} className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
+              <div className={`px-6 py-4 bg-${model.color}-500/5 border-b border-white/5 flex items-center gap-3`}>
+                <Table className={`w-4 h-4 text-${model.color}-400`} />
+                <h3 className="font-semibold">{model.name}</h3>
+                <span className="text-sm text-neutral-500">{model.desc}</span>
+              </div>
+              <div className="p-4">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/5">
+                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>
+                      <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableTypeHeader")}</th>
+                      <th className="text-left py-2 text-neutral-500 font-medium">{t("tableNotesHeader")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {model.fields.map((field) => (
+                      <tr key={field.name} className="border-b border-white/5 last:border-0">
+                        <td className="py-2 pr-4">
+                          <code className="text-green-400">{field.name}</code>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <code className="text-blue-400 text-xs">{field.type}</code>
+                        </td>
+                        <td className="py-2 text-neutral-500 text-xs">{field.note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <CodeBlock title="prisma/schema.prisma — nouveaux modèles">{`model SystemThreshold {
+  id           String    @id @default(cuid())
+  sensorType   DataType  @unique
+  highValue    Float?
+  highSeverity Severity?
+  lowValue     Float?
+  lowSeverity  Severity?
+  updatedAt    DateTime  @updatedAt
+}
+
+model SensorPreference {
+  id          String   @id @default(cuid())
+  sensorType  DataType @unique
+  enabled     Boolean  @default(true)
+  minSeverity Severity @default(WARNING)
+  updatedAt   DateTime @updatedAt
+}
+
+model NotificationSettings {
+  id         String   @id @default("default")
+  quietStart Int?
+  quietEnd   Int?
+  updatedAt  DateTime @updatedAt
+}`}</CodeBlock>
+        </div>
+      </div>
+
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6">{t("enumsTitle")}</h2>
         <div className="grid gap-4">

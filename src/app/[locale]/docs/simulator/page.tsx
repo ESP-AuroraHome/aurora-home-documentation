@@ -128,7 +128,7 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
       </div>
 
       {/* Anomaly modes */}
-      <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+      <div className="mb-12 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
         <div className="flex items-start gap-4">
           <div className="p-3 rounded-lg bg-red-500/10 flex-shrink-0">
             <AlertTriangle className="w-5 h-5 text-red-400" />
@@ -144,6 +144,31 @@ node scripts/simulate-sensors.mjs --anomaly co2 --interval 1000`}</CodeBlock>
               <li>{t("alertStep16")}</li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      {/* Commandes de seeding */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">{t("seedCommandsTitle")}</h2>
+        <p className="text-neutral-400 mb-6">{t("seedCommandsIntro")}</p>
+        <div className="grid gap-3">
+          {[
+            { cmd: "npm run seed:7days", descKey: "cmdSeed7daysDesc", color: "green" },
+            { cmd: "npm run seed:7days:clear", descKey: "cmdSeed7daysClearDesc", color: "yellow" },
+            { cmd: "npm run test:iaq", descKey: "cmdTestIaqDesc", color: "blue" },
+            { cmd: "npm run test:iaq:excellent", descKey: "cmdTestIaqExcellentDesc", color: "emerald" },
+            { cmd: "npm run test:iaq:good", descKey: "cmdTestIaqGoodDesc", color: "green" },
+            { cmd: "npm run test:iaq:moderate", descKey: "cmdTestIaqModerateDesc", color: "yellow" },
+            { cmd: "npm run test:iaq:poor", descKey: "cmdTestIaqPoorDesc", color: "red" },
+          ].map(({ cmd, descKey, color }) => (
+            <div
+              key={cmd}
+              className="flex items-center justify-between p-4 rounded-lg bg-white/[0.02] border border-white/5"
+            >
+              <code className={`text-sm text-${color}-400`}>{cmd}</code>
+              <span className="text-sm text-neutral-500 hidden sm:block">{t(descKey)}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
