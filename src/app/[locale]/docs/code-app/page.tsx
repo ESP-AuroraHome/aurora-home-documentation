@@ -34,6 +34,9 @@ const appTree: TreeItem[] = [
               { name: "auth", type: "folder", children: [{ name: "[...all]", type: "folder", comment: "Better Auth catch-all" }] },
               { name: "sensor-stream", type: "folder", comment: "SSE temps réel" },
               { name: "locale", type: "folder", comment: "Préférence langue" },
+              { name: "datapoints", type: "folder", comment: "Historique capteurs + période" },
+              { name: "thresholds", type: "folder", comment: "Seuils personnalisés" },
+              { name: "preferences", type: "folder", comment: "Préférences notification" },
             ],
           },
           {
@@ -55,6 +58,7 @@ const appTree: TreeItem[] = [
           },
           { name: "profile", type: "folder" },
           { name: "docs", type: "folder" },
+          { name: "settings", type: "folder", comment: "Seuils & préférences alerte" },
         ],
       },
       {
@@ -75,10 +79,10 @@ const appTree: TreeItem[] = [
             name: "datapoint",
             type: "folder",
             children: [
-              { name: "components", type: "folder", comment: "ChartDatapoint, DatapointItem, DashboardDatapoints" },
+              { name: "components", type: "folder", comment: "ChartDatapoint, DatapointItem, DashboardDatapoints, IaqScore" },
               { name: "usecase", type: "folder", comment: "getInitialDataPoints" },
-              { name: "repository", type: "folder", comment: "dataPointRepository" },
-              { name: "utils", type: "folder", comment: "calculateChartDomain, toDataPoints" },
+              { name: "repository", type: "folder", comment: "dataPointRepository, thresholdRepository, preferenceRepository" },
+              { name: "utils", type: "folder", comment: "calculateChartDomain, toDataPoints, calculateIaq, downsample" },
             ],
           },
           {
@@ -123,6 +127,7 @@ const appTree: TreeItem[] = [
         children: [
           { name: "useAnimatedValue.ts", type: "file", comment: "Animation numérique easeOutCubic" },
           { name: "useSensorData.ts", type: "file", comment: "Hook SSE temps réel" },
+          { name: "useTrend.ts", type: "file", comment: "Direction de tendance par capteur" },
         ],
       },
       {
@@ -139,6 +144,7 @@ const appTree: TreeItem[] = [
         children: [
           { name: "schema.prisma", type: "file", comment: "Schéma base de données" },
           { name: "seedFakeData.ts", type: "file", comment: "Données de test Faker.js" },
+          { name: "seed7days.ts", type: "file", comment: "7 jours de données réalistes (1pt/5min)" },
           { name: "clearData.ts", type: "file", comment: "Vider toutes les tables" },
         ],
       },
@@ -674,7 +680,7 @@ es.onerror = () => {
       </div>
 
       {/* --- Tests et qualité --- */}
-      <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+      <div className="mb-12 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
         <div className="flex items-start gap-4">
           <div className="p-3 rounded-lg bg-purple-500/10 flex-shrink-0">
             <TestTube className="w-5 h-5 text-purple-400" />
@@ -698,6 +704,29 @@ npm run test:watch`}</CodeBlock>
           </div>
         </div>
       </div>
+
+      {/* --- Nouveaux hooks --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">{t("newHooksTitle")}</h2>
+        <CodeBlock title="hooks/useTrend.ts">{`// Signature
+useTrend(type: DataType, values: number[]): "up" | "down" | "stable"
+
+// Seuils de stabilité par type
+// TEMPERATURE : ± 0.5
+// HUMIDITY    : ± 1
+// PRESSURE    : ± 0.5
+// CO2         : ± 20
+// LIGHT       : ± 30
+
+// Comportement
+// 1. Calcule la moyenne des 3 valeurs précédentes (values[1..3])
+// 2. Compare values[0] (la plus récente) à cette moyenne
+// 3. Si delta > seuil → "up"
+// 4. Si delta < -seuil → "down"
+// 5. Sinon → "stable"`}</CodeBlock>
+        <p className="text-sm text-neutral-500 mt-3">{t("useTrendDesc")}</p>
+      </div>
+
     </div>
   );
 }
