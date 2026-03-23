@@ -1,4 +1,4 @@
-import { ArrowRight, Thermometer, Droplets, Gauge, Wind, Sun, MousePointer, Smartphone, RefreshCw, Info } from "lucide-react";
+import { ArrowRight, Thermometer, Droplets, Gauge, Wind, Sun, MousePointer, Smartphone, RefreshCw, Info, TrendingUp, BarChart2, Download, Leaf } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function DocsDashboard() {
@@ -170,6 +170,116 @@ export default async function DocsDashboard() {
         <p className="text-sm text-neutral-500 mt-4">
           → {t("bannerLinkText")} <a href="/docs/alerts" className="text-blue-400 hover:underline">{t("bannerLinkLabel")}</a> {t("bannerLinkSuffix")}
         </p>
+      </div>
+
+      {/* --- Score IAQ --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-4">{t("iaqTitle")}</h2>
+        <p className="text-neutral-400 mb-6">{t("iaqIntro")}</p>
+        <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02] mb-4">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-lg bg-teal-500/10 flex-shrink-0">
+              <Leaf className="w-5 h-5 text-teal-400" />
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">{t("iaqScoreCardTitle")}</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed">{t("iaqScoreCardDesc")}</p>
+            </div>
+          </div>
+        </div>
+        <h3 className="font-semibold mb-3 text-neutral-200">{t("iaqLevelsTitle")}</h3>
+        <div className="grid gap-3">
+          {[
+            { label: t("iaqExcellent"), desc: t("iaqExcellentDesc"), color: "emerald" },
+            { label: t("iaqGood"), desc: t("iaqGoodDesc"), color: "green" },
+            { label: t("iaqModerate"), desc: t("iaqModerateDesc"), color: "yellow" },
+            { label: t("iaqPoor"), desc: t("iaqPoorDesc"), color: "red" },
+          ].map((level) => (
+            <div key={level.label} className={`p-4 rounded-xl border border-${level.color}-500/30 bg-${level.color}-500/5`}>
+              <p className={`font-semibold text-sm text-${level.color}-300 mb-1`}>{level.label}</p>
+              <p className="text-sm text-neutral-400">{level.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Indicateurs de tendance --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-4">{t("trendTitle")}</h2>
+        <p className="text-neutral-400 mb-6">{t("trendIntro")}</p>
+        <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02] mb-4">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-lg bg-blue-500/10 flex-shrink-0">
+              <TrendingUp className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">{t("trendCardTitle")}</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed">{t("trendCardDesc")}</p>
+            </div>
+          </div>
+        </div>
+        <h3 className="font-semibold mb-3 text-neutral-200">{t("trendThresholdsTitle")}</h3>
+        <div className="grid gap-2">
+          {[
+            t("trendTempThreshold"),
+            t("trendHumThreshold"),
+            t("trendPressThreshold"),
+            t("trendCo2Threshold"),
+            t("trendLightThreshold"),
+          ].map((threshold) => (
+            <div key={threshold} className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/5">
+              <Info className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
+              <span className="text-sm text-neutral-400">{threshold}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Filtre de période & Export CSV --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-4">{t("chartPeriodTitle")}</h2>
+        <p className="text-neutral-400 mb-6">{t("chartPeriodIntro")}</p>
+        <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02] mb-4">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-lg bg-purple-500/10 flex-shrink-0">
+              <BarChart2 className="w-5 h-5 text-purple-400" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold mb-3">{t("chartPeriodButtons")}</h3>
+              <div className="flex gap-2 flex-wrap mb-4">
+                {["Live", "1h", "6h", "24h", "7j"].map((btn) => (
+                  <span key={btn} className="text-xs px-3 py-1 rounded-full bg-white/10 text-white font-mono font-medium">
+                    {btn}
+                  </span>
+                ))}
+              </div>
+              <ul className="space-y-1.5 text-sm text-neutral-400">
+                <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />{t("chartPeriodLive")}</li>
+                <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />{t("chartPeriod1h")}</li>
+                <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />{t("chartPeriod6h")}</li>
+                <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />{t("chartPeriod24h")}</li>
+                <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />{t("chartPeriod7d")}</li>
+              </ul>
+              <p className="text-sm text-neutral-500 mt-3">{t("chartPeriodDownsample")}</p>
+              <p className="text-sm text-neutral-500 mt-1">{t("chartPeriodXAxis")}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-lg bg-green-500/10 flex-shrink-0">
+              <Download className="w-5 h-5 text-green-400" />
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">{t("csvExportTitle")}</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed">{t("csvExportDesc")}</p>
+              <p className="text-sm text-neutral-500 mt-2">
+                <Info className="w-3 h-3 inline mr-1" />{t("csvExportFormat")}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* --- PWA --- */}
