@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, AlertTriangle, ShieldCheck, CheckCheck, Eye, Zap, House } from "lucide-react";
+import { ArrowRight, Bell, AlertTriangle, ShieldCheck, CheckCheck, Eye, Zap, House, Settings, Globe } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
@@ -235,7 +235,7 @@ export default async function DocsAlerts() {
       </div>
 
       {/* Anti-spam */}
-      <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+      <div className="mb-12 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
         <div className="flex items-start gap-4">
           <div className="p-3 rounded-lg bg-green-500/10 flex-shrink-0">
             <ShieldCheck className="w-5 h-5 text-green-400" />
@@ -245,6 +245,65 @@ export default async function DocsAlerts() {
             <p className="text-sm text-neutral-400">
               {t("antispamDesc")} <strong className="text-white">{t("antispamTime")}</strong>{t("antispamDesc2")}
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* --- Configuration des seuils & préférences --- */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">{t("settingsTitle")}</h2>
+        <p className="text-neutral-400 mb-6">{t("settingsIntro")}</p>
+
+        <div className="grid gap-4 mb-6">
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-orange-500/10 flex-shrink-0">
+                <Settings className="w-5 h-5 text-orange-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">{t("thresholdConfigTitle")}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">{t("thresholdConfigDesc")}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-purple-500/10 flex-shrink-0">
+                <Bell className="w-5 h-5 text-purple-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-3">{t("notifPrefsTitle")}</h3>
+                <p className="text-sm text-neutral-400 mb-3">{t("notifPrefsDesc")}</p>
+                <ul className="space-y-2 text-sm text-neutral-400">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
+                    {t("notifPrefToggle")}
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
+                    {t("notifPrefSeverity")}
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
+                    {t("notifPrefQuiet")}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- i18n --- */}
+      <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+        <div className="flex items-start gap-4">
+          <div className="p-3 rounded-lg bg-blue-500/10 flex-shrink-0">
+            <Globe className="w-5 h-5 text-blue-400" />
+          </div>
+          <div>
+            <h3 className="font-semibold mb-2">{t("i18nTitle")}</h3>
+            <p className="text-sm text-neutral-400 leading-relaxed">{t("i18nDesc")}</p>
           </div>
         </div>
       </div>
