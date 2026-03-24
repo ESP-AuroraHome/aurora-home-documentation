@@ -1,5 +1,6 @@
 import { ArrowRight, KeyRound, Monitor, ShieldCheck, Home, LogOut, HelpCircle, Mail } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import AuthPreview from "@/components/demos/AuthPreview";
 
 export default async function DocsAuth() {
   const t = await getTranslations("auth");
@@ -17,6 +18,11 @@ export default async function DocsAuth() {
         <p className="text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
+      </div>
+
+      {/* ── Interactive preview ── */}
+      <div className="mb-12">
+        <AuthPreview />
       </div>
 
       {/* --- Comment ça marche --- */}

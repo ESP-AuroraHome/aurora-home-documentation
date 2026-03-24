@@ -1,5 +1,6 @@
 import { ArrowRight, UserCircle, Palette, Globe, Mail, Pencil, Save, CheckCircle } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import ProfilePreview from "@/components/demos/ProfilePreview";
 
 export default async function DocsProfile() {
   const t = await getTranslations("profile");
@@ -17,6 +18,11 @@ export default async function DocsProfile() {
         <p className="text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
+      </div>
+
+      {/* ── Interactive preview ── */}
+      <div className="mb-12">
+        <ProfilePreview />
       </div>
 
       {/* --- Open profile --- */}
