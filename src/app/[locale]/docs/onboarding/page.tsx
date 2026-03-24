@@ -1,5 +1,6 @@
 import { ArrowRight, UserPlus, User, Image, Globe, CheckCircle2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import OnboardingPreview from "@/components/demos/OnboardingPreview";
 
 function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
@@ -34,6 +35,11 @@ export default async function DocsOnboarding() {
         <p className="text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
+      </div>
+
+      {/* ── Interactive preview ── */}
+      <div className="mb-12">
+        <OnboardingPreview />
       </div>
 
       {/* Trigger */}
