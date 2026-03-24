@@ -1,5 +1,6 @@
 import { ArrowRight, Bell, AlertTriangle, ShieldCheck, CheckCheck, Eye, Zap, House, Settings, Globe } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import AlertsPreview from "@/components/demos/AlertsPreview";
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
   return (
@@ -32,6 +33,11 @@ export default async function DocsAlerts() {
         <p className="text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
+      </div>
+
+      {/* ── Interactive preview ── */}
+      <div className="mb-12">
+        <AlertsPreview />
       </div>
 
       {/* Banner dashboard */}
