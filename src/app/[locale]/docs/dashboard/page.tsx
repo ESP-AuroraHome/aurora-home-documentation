@@ -1,5 +1,6 @@
 import { ArrowRight, Thermometer, Droplets, Gauge, Wind, Sun, MousePointer, Smartphone, RefreshCw, Info, TrendingUp, BarChart2, Download, Leaf } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import DashboardPreview from "@/components/demos/DashboardPreview";
 
 export default async function DocsDashboard() {
   const t = await getTranslations("dashboard");
@@ -17,6 +18,11 @@ export default async function DocsDashboard() {
         <p className="text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
+      </div>
+
+      {/* ── Interactive preview ── */}
+      <div className="mb-12">
+        <DashboardPreview />
       </div>
 
       {/* --- Mise à jour en temps réel --- */}
