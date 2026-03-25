@@ -353,18 +353,18 @@ if (result.success) {
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <h3 className="font-semibold mb-3 text-green-300">{t("serverComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>{t("serverLi2b")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi3")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>{t("serverLi2b")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi3")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></span></li>
             </ul>
           </div>
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <h3 className="font-semibold mb-3 text-blue-300">{t("clientComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> {t("clientLi1b")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi2")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> {t("clientLi1b")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi2")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></span></li>
             </ul>
           </div>
         </div>

@@ -86,32 +86,17 @@ export default async function DocsArchitecture() {
         <div className="grid gap-4">
           <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-4">
-              <div className="p-3 rounded-lg bg-blue-500/10">
+              <div className="p-3 rounded-lg bg-blue-500/10 shrink-0">
                 <Cpu className="w-5 h-5 text-blue-400" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold mb-3">{t("esp32LayerTitle")}</h3>
                 <ul className="space-y-2 text-sm text-neutral-400">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 flex-shrink-0" />
-                    {t("esp32Li1")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 flex-shrink-0" />
-                    {t("esp32Li2")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 flex-shrink-0" />
-                    {t("esp32Li3")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 flex-shrink-0" />
-                    {t("esp32Li4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">sensor/data</code> {t("esp32Li4b")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 flex-shrink-0" />
-                    {t("esp32Li5")}
-                  </li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("esp32Li1")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("esp32Li2")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("esp32Li3")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("esp32Li4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">sensor/data</code> {t("esp32Li4b")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("esp32Li5")}</span></li>
                 </ul>
               </div>
             </div>
@@ -119,32 +104,17 @@ export default async function DocsArchitecture() {
 
           <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-4">
-              <div className="p-3 rounded-lg bg-purple-500/10">
+              <div className="p-3 rounded-lg bg-purple-500/10 shrink-0">
                 <Layers className="w-5 h-5 text-purple-400" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold mb-3">{t("serverLayerTitle")}</h3>
                 <ul className="space-y-2 text-sm text-neutral-400">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
-                    <code className="px-1.5 py-0.5 bg-white/5 rounded">instrumentation.ts</code> {t("serverLi1")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
-                    <code className="px-1.5 py-0.5 bg-white/5 rounded">lib/mqtt-client.ts</code> {t("serverLi2")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
-                    <code className="px-1.5 py-0.5 bg-white/5 rounded">lib/sensor-emitter.ts</code> {t("serverLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">sensor_update</code> {t("serverLi3b")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
-                    <code className="px-1.5 py-0.5 bg-white/5 rounded">api/sensor-stream/route.ts</code> {t("serverLi4")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 flex-shrink-0" />
-                    {t("serverLi5")}
-                  </li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" /><span><code className="px-1.5 py-0.5 bg-white/5 rounded">instrumentation.ts</code> {t("serverLi1")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" /><span><code className="px-1.5 py-0.5 bg-white/5 rounded">lib/mqtt-client.ts</code> {t("serverLi2")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" /><span><code className="px-1.5 py-0.5 bg-white/5 rounded">lib/sensor-emitter.ts</code> {t("serverLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">sensor_update</code> {t("serverLi3b")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" /><span><code className="px-1.5 py-0.5 bg-white/5 rounded">api/sensor-stream/route.ts</code> {t("serverLi4")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" /><span>{t("serverLi5")}</span></li>
                 </ul>
               </div>
             </div>
@@ -152,32 +122,17 @@ export default async function DocsArchitecture() {
 
           <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
             <div className="flex items-start gap-4">
-              <div className="p-3 rounded-lg bg-green-500/10">
+              <div className="p-3 rounded-lg bg-green-500/10 shrink-0">
                 <Monitor className="w-5 h-5 text-green-400" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold mb-3">{t("frontendLayerTitle")}</h3>
                 <ul className="space-y-2 text-sm text-neutral-400">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />
-                    {t("frontendLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">useSensorData</code> {t("frontendLi1b")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />
-                    {t("frontendLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">getInitialDataPoints</code>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />
-                    {t("frontendLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">useAnimatedValue</code> {t("frontendLi3b")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />
-                    {t("frontendLi4")}
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 flex-shrink-0" />
-                    {t("frontendLi5")}
-                  </li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("frontendLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">useSensorData</code> {t("frontendLi1b")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("frontendLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">getInitialDataPoints</code></span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("frontendLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">useAnimatedValue</code> {t("frontendLi3b")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("frontendLi4")}</span></li>
+                  <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("frontendLi5")}</span></li>
                 </ul>
               </div>
             </div>

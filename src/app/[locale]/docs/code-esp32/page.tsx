@@ -202,7 +202,7 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6">{t("errorHandlingTitle")}</h2>
         <div className="grid gap-4">
-          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
@@ -218,7 +218,7 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
             </div>
           </div>
 
-          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">

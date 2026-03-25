@@ -148,8 +148,8 @@ export default async function DocsMqtt() {
         <h2 className="text-2xl font-bold mb-6">{t("fusionTitle")}</h2>
         <div className="p-6 rounded-xl bg-orange-500/5 border border-orange-500/20">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-orange-400 mt-0.5" />
-            <div>
+            <AlertTriangle className="w-5 h-5 text-orange-400 mt-0.5 shrink-0" />
+            <div className="min-w-0">
               <h3 className="font-semibold text-orange-300 mb-2">{t("fusionCardTitle")}</h3>
               <p className="text-sm text-orange-200/70 mb-4">
                 {t("fusionDesc")}
@@ -182,10 +182,10 @@ float avg_hum  = (scd_hum  + bme_hum)  / 2.0;
                 <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono flex-shrink-0 mt-0.5">
                   {item.step}
                 </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-0.5">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2 flex-wrap mb-0.5">
                     <span className="text-white font-medium">{item.label}</span>
-                    <code className="text-xs text-neutral-500 bg-white/5 px-1.5 py-0.5 rounded">
+                    <code className="text-xs text-neutral-500 bg-white/5 px-1.5 py-0.5 rounded break-all">
                       {item.code}
                     </code>
                   </div>

@@ -236,7 +236,7 @@ git push origin feature/ma-fonctionnalite`}</CodeBlock>
               href={contributor.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/20 transition-all group"
+              className="flex items-center gap-4 p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/20 transition-all group overflow-hidden"
             >
               <img
                 src={contributor.avatar}
@@ -272,10 +272,10 @@ git push origin feature/ma-fonctionnalite`}</CodeBlock>
 
       <div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
         <div className="flex items-start gap-4">
-          <div className="p-3 rounded-lg bg-green-500/10">
+          <div className="p-3 rounded-lg bg-green-500/10 shrink-0">
             <Terminal className="w-5 h-5 text-green-400" />
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <h3 className="font-semibold mb-4">{t("devSetupTitle")}</h3>
             <div className="space-y-4">
               <div>
