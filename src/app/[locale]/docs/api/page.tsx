@@ -71,7 +71,7 @@ export default async function DocsApi() {
           <p className="text-sm text-neutral-400 mb-4">
             {t("sseDesc")}
           </p>
-          <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-sm">
             <div>
               <p className="text-neutral-500 mb-1">{t("contentTypeLabel")}</p>
               <code className="text-green-400">text/event-stream</code>
@@ -178,7 +178,7 @@ data: {
             <code className="text-sm text-neutral-300">/api/datapoints</code>
           </div>
           <p className="text-sm text-neutral-400 mb-4">{t("datapointsEndpointDesc")}</p>
-          <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-sm">
             <div>
               <p className="text-neutral-500 mb-1">?type</p>
               <span className="text-neutral-400 text-xs">{t("datapointsParamType")}</span>
