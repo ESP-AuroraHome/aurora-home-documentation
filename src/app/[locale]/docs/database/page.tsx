@@ -23,13 +23,13 @@ export default async function DocsDatabase() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">prisma/schema.prisma</code> {t("description2")}
         </p>
@@ -126,8 +126,8 @@ export default async function DocsDatabase() {
                 <h3 className="font-semibold">{model.name}</h3>
                 <span className="text-sm text-neutral-500">{model.desc}</span>
               </div>
-              <div className="p-4">
-                <table className="w-full text-sm">
+              <div className="p-4 overflow-x-auto">
+                <table className="w-full text-sm min-w-[360px]">
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>
@@ -204,8 +204,8 @@ export default async function DocsDatabase() {
                 <h3 className="font-semibold">{model.name}</h3>
                 <span className="text-sm text-neutral-500">{model.desc}</span>
               </div>
-              <div className="p-4">
-                <table className="w-full text-sm">
+              <div className="p-4 overflow-x-auto">
+                <table className="w-full text-sm min-w-[360px]">
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>

@@ -23,20 +23,20 @@ export default async function DocsMqtt() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
       </div>
 
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6">{t("brokerConfigTitle")}</h2>
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           {[
             { label: t("brokerLabel"), value: "Mosquitto (Orange Pi 3 LTS)" },
             { label: t("ipLabel"), value: "192.168.4.2" },
@@ -148,8 +148,8 @@ export default async function DocsMqtt() {
         <h2 className="text-2xl font-bold mb-6">{t("fusionTitle")}</h2>
         <div className="p-6 rounded-xl bg-orange-500/5 border border-orange-500/20">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-orange-400 mt-0.5" />
-            <div>
+            <AlertTriangle className="w-5 h-5 text-orange-400 mt-0.5 shrink-0" />
+            <div className="min-w-0">
               <h3 className="font-semibold text-orange-300 mb-2">{t("fusionCardTitle")}</h3>
               <p className="text-sm text-orange-200/70 mb-4">
                 {t("fusionDesc")}
@@ -182,10 +182,10 @@ float avg_hum  = (scd_hum  + bme_hum)  / 2.0;
                 <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-mono flex-shrink-0 mt-0.5">
                   {item.step}
                 </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-0.5">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2 flex-wrap mb-0.5">
                     <span className="text-white font-medium">{item.label}</span>
-                    <code className="text-xs text-neutral-500 bg-white/5 px-1.5 py-0.5 rounded">
+                    <code className="text-xs text-neutral-500 bg-white/5 px-1.5 py-0.5 rounded break-all">
                       {item.code}
                     </code>
                   </div>

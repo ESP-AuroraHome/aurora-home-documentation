@@ -36,13 +36,13 @@ export default async function DocsApi() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
       </div>
@@ -71,7 +71,7 @@ export default async function DocsApi() {
           <p className="text-sm text-neutral-400 mb-4">
             {t("sseDesc")}
           </p>
-          <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-sm">
             <div>
               <p className="text-neutral-500 mb-1">{t("contentTypeLabel")}</p>
               <code className="text-green-400">text/event-stream</code>
@@ -122,8 +122,8 @@ data: {
                 key={endpoint.path}
                 className="flex items-center gap-4 p-3 rounded-lg bg-white/[0.02] border border-white/5"
               >
-                <code className="text-xs text-neutral-400 flex-1">{endpoint.path}</code>
-                <span className="text-xs text-neutral-600">{endpoint.desc}</span>
+                <code className="text-xs text-neutral-400 flex-1 min-w-0 truncate">{endpoint.path}</code>
+                <span className="text-xs text-neutral-600 hidden sm:block shrink-0">{endpoint.desc}</span>
               </div>
             ))}
           </div>
@@ -178,7 +178,7 @@ data: {
             <code className="text-sm text-neutral-300">/api/datapoints</code>
           </div>
           <p className="text-sm text-neutral-400 mb-4">{t("datapointsEndpointDesc")}</p>
-          <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-sm">
             <div>
               <p className="text-neutral-500 mb-1">?type</p>
               <span className="text-neutral-400 text-xs">{t("datapointsParamType")}</span>

@@ -9,13 +9,13 @@ export default async function DocsSettings() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
       </div>
@@ -67,7 +67,8 @@ export default async function DocsSettings() {
         <h2 className="text-2xl font-bold mb-6">{t("threshTitle")}</h2>
         <p className="text-neutral-400 mb-6">{t("threshIntro")}</p>
         <div className="rounded-xl border border-white/10 overflow-hidden">
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[360px]">
             <thead>
               <tr className="border-b border-white/10 bg-white/[0.03]">
                 <th className="text-left px-4 py-3 text-neutral-300 font-semibold">{t("threshColSensor")}</th>
@@ -91,6 +92,7 @@ export default async function DocsSettings() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
         <p className="text-sm text-neutral-500 mt-3">{t("threshNote")}</p>
       </div>

@@ -160,13 +160,13 @@ export default async function DocsCodeApp() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">aurora-home-app</code>.
         </p>
@@ -353,18 +353,18 @@ if (result.success) {
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <h3 className="font-semibold mb-3 text-green-300">{t("serverComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>{t("serverLi2b")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi3")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />{t("serverLi4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code>)</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi2")} <code className="px-1.5 py-0.5 bg-white/5 rounded">auth.api.*</code>{t("serverLi2b")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi3")} (<code className="px-1.5 py-0.5 bg-white/5 rounded">useState</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">useEffect</code>)</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" /><span>{t("serverLi4")} <code className="px-1.5 py-0.5 bg-white/5 rounded">app/(connected)/page.tsx</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileSheetProvider</code></span></li>
             </ul>
           </div>
           <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
             <h3 className="font-semibold mb-3 text-blue-300">{t("clientComponentsTitle")}</h3>
             <ul className="space-y-1.5 text-sm text-neutral-400">
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> {t("clientLi1b")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi2")}</li>
-              <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />{t("clientLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi1")} <code className="px-1.5 py-0.5 bg-white/5 rounded">"use client"</code> {t("clientLi1b")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi2")}</span></li>
+              <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500/50 mt-1.5 shrink-0" /><span>{t("clientLi3")} <code className="px-1.5 py-0.5 bg-white/5 rounded">ChartDatapoint</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">LoginForm</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">ProfileCard</code>, <code className="px-1.5 py-0.5 bg-white/5 rounded">AvatarSelector</code></span></li>
             </ul>
           </div>
         </div>

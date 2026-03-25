@@ -79,13 +79,13 @@ export default async function DocsCodeEsp32() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}{" "}
           <code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">aurora-home-esp32</code>.
         </p>
@@ -202,7 +202,7 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-6">{t("errorHandlingTitle")}</h2>
         <div className="grid gap-4">
-          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
@@ -218,7 +218,7 @@ bool scd30_read(SensirionI2cScd30 &scd30, float &co2, float &temp, float &hum) {
             </div>
           </div>
 
-          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+          <div className="p-5 rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1 min-w-0">
