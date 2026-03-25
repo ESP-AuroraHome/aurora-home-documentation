@@ -17,8 +17,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const [paletteOpen, setPaletteOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
   useEffect(() => {
