@@ -12,8 +12,8 @@ export default async function DocsIntroduction() {
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
       </div>

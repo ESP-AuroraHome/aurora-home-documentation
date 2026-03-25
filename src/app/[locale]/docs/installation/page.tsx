@@ -43,13 +43,13 @@ export default async function DocsInstallation() {
       <div className="mb-12">
         <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
           <span>{t("breadcrumbDocs")}</span>
-          <ArrowRight className="w-3 h-3" />
-          <span>{t("breadcrumbSection")}</span>
+          <ArrowRight className="hidden sm:block w-3 h-3" />
+          <span className="hidden sm:inline">{t("breadcrumbSection")}</span>
           <ArrowRight className="w-3 h-3" />
           <span className="text-white">{t("breadcrumbCurrent")}</span>
         </div>
-        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
-        <p className="text-xl text-neutral-400 leading-relaxed">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-4">{t("title")}</h1>
+        <p className="text-base sm:text-xl text-neutral-400 leading-relaxed">
           {t("description")}
         </p>
       </div>
