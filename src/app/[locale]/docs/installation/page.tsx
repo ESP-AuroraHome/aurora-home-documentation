@@ -164,8 +164,8 @@ DISPLAY_OTP_DEV_MODE="true"`}</CodeBlock>
               key={item.cmd}
               className="flex items-center justify-between p-4 rounded-lg bg-white/[0.02] border border-white/5"
             >
-              <code className="text-sm text-green-400">{item.cmd}</code>
-              <span className="text-sm text-neutral-500">{item.desc}</span>
+              <code className="text-sm text-green-400 min-w-0 truncate">{item.cmd}</code>
+              <span className="text-sm text-neutral-500 hidden sm:block shrink-0">{item.desc}</span>
             </div>
           ))}
         </div>

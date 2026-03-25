@@ -122,8 +122,8 @@ data: {
                 key={endpoint.path}
                 className="flex items-center gap-4 p-3 rounded-lg bg-white/[0.02] border border-white/5"
               >
-                <code className="text-xs text-neutral-400 flex-1">{endpoint.path}</code>
-                <span className="text-xs text-neutral-600">{endpoint.desc}</span>
+                <code className="text-xs text-neutral-400 flex-1 min-w-0 truncate">{endpoint.path}</code>
+                <span className="text-xs text-neutral-600 hidden sm:block shrink-0">{endpoint.desc}</span>
               </div>
             ))}
           </div>
