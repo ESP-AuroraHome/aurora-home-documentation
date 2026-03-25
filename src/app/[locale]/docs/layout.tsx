@@ -36,7 +36,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] overflow-x-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-subtle)]">
         <div className="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/docs" className="flex items-center gap-2.5">
@@ -104,8 +104,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </aside>
 
-        <div className="lg:hidden fixed top-14 left-0 right-0 z-40 bg-[var(--bg-base)] border-b border-[var(--border-subtle)] overflow-x-auto">
-          <nav className="flex gap-1 p-2 min-w-max">
+        <div className="lg:hidden fixed top-14 left-0 right-0 z-40 bg-[var(--bg-base)] border-b border-[var(--border-subtle)]" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <nav className="flex gap-1 p-2" style={{ width: "max-content" }}>
             {allPages.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -125,10 +125,10 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </div>
 
-        <main className="flex-1 lg:ml-64 min-h-screen">
+        <main className="flex-1 min-w-0 lg:ml-64 min-h-screen">
           <div
             key={pathname}
-            className="max-w-3xl mx-auto px-6 py-12 lg:py-16 mt-12 lg:mt-0 animate-fade-in"
+            className="max-w-3xl mx-auto px-4 sm:px-6 py-10 lg:py-16 mt-12 lg:mt-0 animate-fade-in"
           >
             {children}
 
