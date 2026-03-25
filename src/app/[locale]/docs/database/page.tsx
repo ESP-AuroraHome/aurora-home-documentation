@@ -126,8 +126,8 @@ export default async function DocsDatabase() {
                 <h3 className="font-semibold">{model.name}</h3>
                 <span className="text-sm text-neutral-500">{model.desc}</span>
               </div>
-              <div className="p-4">
-                <table className="w-full text-sm">
+              <div className="p-4 overflow-x-auto">
+                <table className="w-full text-sm min-w-[360px]">
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>
@@ -204,8 +204,8 @@ export default async function DocsDatabase() {
                 <h3 className="font-semibold">{model.name}</h3>
                 <span className="text-sm text-neutral-500">{model.desc}</span>
               </div>
-              <div className="p-4">
-                <table className="w-full text-sm">
+              <div className="p-4 overflow-x-auto">
+                <table className="w-full text-sm min-w-[360px]">
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="text-left py-2 pr-4 text-neutral-500 font-medium">{t("tableFieldHeader")}</th>

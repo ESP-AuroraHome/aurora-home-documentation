@@ -67,7 +67,8 @@ export default async function DocsSettings() {
         <h2 className="text-2xl font-bold mb-6">{t("threshTitle")}</h2>
         <p className="text-neutral-400 mb-6">{t("threshIntro")}</p>
         <div className="rounded-xl border border-white/10 overflow-hidden">
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[360px]">
             <thead>
               <tr className="border-b border-white/10 bg-white/[0.03]">
                 <th className="text-left px-4 py-3 text-neutral-300 font-semibold">{t("threshColSensor")}</th>
@@ -91,6 +92,7 @@ export default async function DocsSettings() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
         <p className="text-sm text-neutral-500 mt-3">{t("threshNote")}</p>
       </div>
