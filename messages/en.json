@@ -19,7 +19,8 @@
     "simulator": "Sensor simulator",
     "codeApp": "App conventions",
     "codeEsp32": "ESP32 conventions",
-    "contribution": "Contributing"
+    "contribution": "Contributing",
+    "marketing": "Marketing Site"
   },
   "layout": {
     "previous": "Previous",
@@ -831,5 +832,23 @@
     "devSetupTitle": "Development environment setup",
     "devSetupAppLabel": "aurora-home-app",
     "devSetupEsp32Label": "aurora-home-esp32"
+  },
+  "marketing": {
+    "breadcrumbDocs": "Docs",
+    "breadcrumbSection": "For developers",
+    "breadcrumbCurrent": "Marketing Site",
+    "title": "Marketing Site",
+    "description": "The Aurora Home storefront and e-commerce site — a Vue 3 SPA showcasing the Aurora One product and handling orders.",
+    "stackTitle": "Tech stack",
+    "routesTitle": "Pages and routes",
+    "setupTitle": "Running the project",
+    "route_home": "Home page — hero, product introduction",
+    "route_product": "Product page with interactive 3D viewer",
+    "route_about": "About the project",
+    "route_cart": "Shopping cart (state persisted in localStorage)",
+    "route_confirmation": "Order confirmation",
+    "route_admin": "Admin panel (lazy-loaded)",
+    "noteTitleStripe": "Stripe payment",
+    "noteDescStripe": "Payments are handled via Stripe. The site communicates with a backend on port 3000 to create payment intents."
   }
 }

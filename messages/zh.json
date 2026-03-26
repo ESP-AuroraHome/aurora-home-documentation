@@ -19,7 +19,8 @@
     "simulator": "传感器模拟器",
     "codeApp": "应用规范",
     "codeEsp32": "ESP32 规范",
-    "contribution": "贡献指南"
+    "contribution": "贡献指南",
+    "marketing": "营销网站"
   },
   "layout": {
     "previous": "上一页",
@@ -831,5 +832,23 @@
     "devSetupTitle": "开发环境配置",
     "devSetupAppLabel": "aurora-home-app",
     "devSetupEsp32Label": "aurora-home-esp32"
+  },
+  "marketing": {
+    "breadcrumbDocs": "文档",
+    "breadcrumbSection": "开发者",
+    "breadcrumbCurrent": "营销网站",
+    "title": "营销网站",
+    "description": "Aurora Home 的展示与电商网站 —— 基于 Vue 3 的单页应用，用于展示 Aurora One 产品并处理订单。",
+    "stackTitle": "技术栈",
+    "routesTitle": "页面与路由",
+    "setupTitle": "运行项目",
+    "route_home": "首页 —— 英雄区、产品介绍",
+    "route_product": "产品页，含交互式 3D 查看器",
+    "route_about": "关于项目",
+    "route_cart": "购物车（状态持久化至 localStorage）",
+    "route_confirmation": "订单确认",
+    "route_admin": "管理员面板（懒加载）",
+    "noteTitleStripe": "Stripe 支付",
+    "noteDescStripe": "支付通过 Stripe 处理。网站与 3000 端口的后端通信以创建支付意图。"
   }
 }

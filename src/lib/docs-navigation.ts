@@ -15,6 +15,7 @@ import {
   UserPlus,
   Bell,
   Terminal,
+  Megaphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -63,6 +64,7 @@ export const navigation: NavSection[] = [
       { titleKey: "simulator", href: "/docs/simulator", icon: Terminal },
       { titleKey: "codeApp", href: "/docs/code-app", icon: Code },
       { titleKey: "codeEsp32", href: "/docs/code-esp32", icon: Microchip },
+      { titleKey: "marketing", href: "/docs/marketing", icon: Megaphone },
       { titleKey: "contribution", href: "/docs/contribution", icon: GitBranch },
     ],
   },
