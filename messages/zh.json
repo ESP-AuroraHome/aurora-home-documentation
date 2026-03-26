@@ -831,7 +831,8 @@
     "commitsLabel": "次提交",
     "devSetupTitle": "开发环境配置",
     "devSetupAppLabel": "aurora-home-app",
-    "devSetupEsp32Label": "aurora-home-esp32"
+    "devSetupEsp32Label": "aurora-home-esp32",
+    "devSetupMarketingLabel": "aurora-home-marketing"
   },
   "marketing": {
     "breadcrumbDocs": "文档",

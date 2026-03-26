@@ -291,6 +291,11 @@ npm run dev  # http://localhost:3000`}</CodeBlock>
 # Upload : Ctrl+Alt+U
 # Monitor : Ctrl+Alt+S`}</CodeBlock>
               </div>
+              <div>
+                <p className="text-sm text-neutral-400 mb-2 font-medium">{t("devSetupMarketingLabel")}</p>
+                <CodeBlock>{`npm install
+npm run dev  # http://localhost:5173`}</CodeBlock>
+              </div>
             </div>
           </div>
         </div>

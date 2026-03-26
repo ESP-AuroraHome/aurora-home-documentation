@@ -831,7 +831,8 @@
     "commitsLabel": "commits",
     "devSetupTitle": "Development environment setup",
     "devSetupAppLabel": "aurora-home-app",
-    "devSetupEsp32Label": "aurora-home-esp32"
+    "devSetupEsp32Label": "aurora-home-esp32",
+    "devSetupMarketingLabel": "aurora-home-marketing"
   },
   "marketing": {
     "breadcrumbDocs": "Docs",
