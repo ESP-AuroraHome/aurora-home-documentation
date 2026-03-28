@@ -1,0 +1,108 @@
+name: PR Agent
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  models: read
+
+jobs:
+  describe:
+    name: Auto-describe PR
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.body == '' || github.event.pull_request.body == null
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get diff
+        id: diff
+        run: |
+          git fetch origin main
+          DIFF=$(git diff origin/main...HEAD --stat | head -50)
+          echo "stat<<EOF" >> $GITHUB_OUTPUT
+          echo "$DIFF" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          FILES=$(git diff origin/main...HEAD --name-only | head -30 | tr '\n' ', ')
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+
+          COMMITS=$(git log origin/main..HEAD --oneline | head -10)
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate description with GitHub Models
+        uses: actions/github-script@v7
+        env:
+          DIFF_STAT: ${{ steps.diff.outputs.stat }}
+          FILES: ${{ steps.diff.outputs.files }}
+          COMMITS: ${{ steps.diff.outputs.commits }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
+        with:
+          script: |
+            const prompt = `You are a helpful assistant that writes clear and concise GitHub pull request descriptions in English.
+
+            PR Title: ${process.env.PR_TITLE}
+
+            Commits:
+            ${process.env.COMMITS}
+
+            Files changed:
+            ${process.env.FILES}
+
+            Diff summary:
+            ${process.env.DIFF_STAT}
+
+            Write a PR description in English with these sections:
+            ## Summary
+            (2-4 bullet points describing what changed and why)
+
+            ## Type of change
+            (one of: ✨ New feature / 🐛 Bug fix / ♻️ Refactoring / 🧪 Tests / 📦 Configuration)
+
+            ## Test plan
+            (2-3 bullet points on how to verify the changes)
+
+            Be concise. Do not add extra sections.`
+
+            const response = await fetch("https://models.inference.ai.azure.com/chat/completions", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.GH_MODELS_TOKEN}`,
+              },
+              body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [{ role: "user", content: prompt }],
+                max_tokens: 500,
+                temperature: 0.3,
+              }),
+            })
+
+            if (!response.ok) {
+              console.log(`GitHub Models API error: ${response.status} ${await response.text()}`)
+              return
+            }
+
+            const data = await response.json()
+            const body = data.choices?.[0]?.message?.content?.trim()
+
+            if (!body) {
+              console.log("No content generated")
+              return
+            }
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: body,
+            })
+
+            console.log("PR description updated successfully")
