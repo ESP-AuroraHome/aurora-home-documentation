@@ -926,6 +926,7 @@
 		"precommitNextjsLi1": "Husky + lint-staged 在 package.json 中配置",
 		"precommitNuxtLi1": "Husky + lint-staged 在 package.json 中配置",
 		"summaryTitle": "一切皆自动化",
-		"summaryDesc": "从分支推送的那一刻起，流水线负责处理 lint、测试、覆盖率报告、PR 描述、预览部署和 AI 代码审查 — 分支保护确保没有任何内容在未通过所有检查的情况下进入 main。"
+		"summaryDesc": "从分支推送的那一刻起，流水线负责处理 lint、测试、覆盖率报告、PR 描述、预览部署和 AI 代码审查 — 分支保护确保没有任何内容在未通过所有检查的情况下进入 main。",
+		"vercelScope": "仅适用于 aurora-home-documentation 和 aurora-home-marketing。aurora-home-app（嵌入式 Next.js 应用）不使用 Vercel。"
 	}
 }

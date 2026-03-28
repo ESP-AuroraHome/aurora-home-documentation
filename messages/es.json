@@ -926,6 +926,7 @@
 		"precommitNextjsLi1": "Husky + lint-staged configurados en package.json",
 		"precommitNuxtLi1": "Husky + lint-staged configurados en package.json",
 		"summaryTitle": "Todo está automatizado",
-		"summaryDesc": "Desde el momento en que se sube una rama, el pipeline gestiona el lint, las pruebas, el informe de cobertura, la descripción de PR, el despliegue de vista previa y la revisión de código IA — con la protección de ramas garantizando que nada llega a main sin pasar todas las verificaciones."
+		"summaryDesc": "Desde el momento en que se sube una rama, el pipeline gestiona el lint, las pruebas, el informe de cobertura, la descripción de PR, el despliegue de vista previa y la revisión de código IA — con la protección de ramas garantizando que nada llega a main sin pasar todas las verificaciones.",
+		"vercelScope": "Solo aplica a aurora-home-documentation y aurora-home-marketing. El proyecto aurora-home-app (aplicación Next.js embebida) no utiliza Vercel."
 	}
 }

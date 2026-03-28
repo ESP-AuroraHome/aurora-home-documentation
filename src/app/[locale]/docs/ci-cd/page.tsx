@@ -98,18 +98,6 @@ export default async function DocsCiCd() {
 						</div>
 						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
 						<div className="flex flex-col items-center min-w-[80px]">
-							<div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-2">
-								<CheckCircle className="w-6 h-6 text-blue-400" />
-							</div>
-							<span className="text-xs text-neutral-400 text-center">
-								Vercel
-							</span>
-							<span className="text-xs text-neutral-600 text-center">
-								preview
-							</span>
-						</div>
-						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
-						<div className="flex flex-col items-center min-w-[80px]">
 							<div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-2">
 								<ShieldCheck className="w-6 h-6 text-green-400" />
 							</div>
@@ -318,7 +306,10 @@ jobs:
 			{/* Vercel */}
 			<div className="mb-12">
 				<h2 className="text-2xl font-bold mb-6">{t("vercelTitle")}</h2>
-				<p className="text-neutral-400 mb-6">{t("vercelDescription")}</p>
+				<p className="text-neutral-400 mb-2">{t("vercelDescription")}</p>
+				<p className="text-sm text-neutral-500 mb-6 italic">
+					{t("vercelScope")}
+				</p>
 				<div className="grid sm:grid-cols-2 gap-4">
 					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
 						<div className="flex items-start gap-4">
