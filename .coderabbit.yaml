@@ -1,0 +1,25 @@
+language: "en"
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!**/*.lock"
+    - "!**/node_modules/**"
+  path_instructions:
+    - path: "**/*.test.ts"
+      instructions: "Check that mocks are realistic, edge cases are covered, and no implementation details leak into tests."
+    - path: "**/*.test.tsx"
+      instructions: "Check that mocks are realistic, edge cases are covered, and no implementation details leak into tests."
+    - path: "src/components/**/*.tsx"
+      instructions: "Check accessibility (aria, role), loading/error state handling, and that props are properly typed."
+    - path: "src/lib/**/*.ts"
+      instructions: "Check error handling, return types, and that functions are as pure as possible."
+chat:
+  auto_reply: true
