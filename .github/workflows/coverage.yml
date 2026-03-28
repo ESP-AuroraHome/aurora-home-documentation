@@ -3,6 +3,9 @@ name: Coverage
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -99,10 +102,10 @@ jobs:
               const tableRows = rows.map(({ key, label, threshold }) => {
                 const cur = t[key];
                 const pct = cur.pct;
-                const delta = base ? pct - base[key].pct : 0;
+                const change = base ? changeIcon(pct - base[key].pct) : '—';
                 const covered = cur.covered;
                 const total = cur.total;
-                return `| ${statusIcon(pct, threshold)} | ${label} | ${pct.toFixed(2)}% (🎯 ${threshold}%) | ${changeIcon(delta)} | ${covered} / ${total} |`;
+                return `| ${statusIcon(pct, threshold)} | ${label} | ${pct.toFixed(2)}% (🎯 ${threshold}%) | ${change} | ${covered} / ${total} |`;
               });
 
               summary = [
