@@ -1,4 +1,4 @@
-language: "fr"
+language: "en"
 reviews:
   profile: "chill"
   request_changes_workflow: false
@@ -14,12 +14,12 @@ reviews:
     - "!**/node_modules/**"
   path_instructions:
     - path: "**/*.test.ts"
-      instructions: "Vérifie que les mocks sont réalistes, les cas limites couverts, et qu'aucun détail d'implémentation ne transparaît dans les tests."
+      instructions: "Check that mocks are realistic, edge cases are covered, and no implementation details leak into tests."
     - path: "**/*.test.tsx"
-      instructions: "Vérifie que les mocks sont réalistes, les cas limites couverts, et qu'aucun détail d'implémentation ne transparaît dans les tests."
+      instructions: "Check that mocks are realistic, edge cases are covered, and no implementation details leak into tests."
     - path: "src/components/**/*.tsx"
-      instructions: "Vérifie l'accessibilité (aria, role), la gestion des états de chargement/erreur, et que les props sont bien typées."
+      instructions: "Check accessibility (aria, role), loading/error state handling, and that props are properly typed."
     - path: "src/lib/**/*.ts"
-      instructions: "Vérifie la gestion des erreurs, les types de retour, et que les fonctions sont pures autant que possible."
+      instructions: "Check error handling, return types, and that functions are as pure as possible."
 chat:
   auto_reply: true
