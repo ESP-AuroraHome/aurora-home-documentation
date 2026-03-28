@@ -1,7 +1,9 @@
 import {
 	ArrowRight,
 	Bot,
+	CheckCircle,
 	GitBranch,
+	GitPullRequest,
 	Shield,
 	ShieldCheck,
 	Terminal,
@@ -24,42 +26,12 @@ function CodeBlock({ children, title }: { children: string; title?: string }) {
 	);
 }
 
-function Section({
-	icon: Icon,
-	title,
-	description,
-	children,
-	iconColor = "text-blue-400",
-	bgColor = "bg-blue-500/10",
-}: {
-	icon: React.ElementType;
-	title: string;
-	description: string;
-	children?: React.ReactNode;
-	iconColor?: string;
-	bgColor?: string;
-}) {
-	return (
-		<div className="mb-10 p-6 rounded-xl border border-white/10 bg-white/[0.02]">
-			<div className="flex items-start gap-4 mb-4">
-				<div className={`p-3 rounded-lg ${bgColor} shrink-0`}>
-					<Icon className={`w-5 h-5 ${iconColor}`} />
-				</div>
-				<div>
-					<h2 className="text-xl font-bold mb-1">{title}</h2>
-					<p className="text-neutral-400 text-sm">{description}</p>
-				</div>
-			</div>
-			{children && <div className="space-y-4 mt-4">{children}</div>}
-		</div>
-	);
-}
-
 export default async function DocsCiCd() {
 	const t = await getTranslations("ciCd");
 
 	return (
 		<div>
+			{/* Header */}
 			<div className="mb-12">
 				<div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
 					<span>{t("breadcrumbDocs")}</span>
@@ -74,176 +46,478 @@ export default async function DocsCiCd() {
 				</p>
 			</div>
 
-			<Section
-				icon={Zap}
-				title={t("ciTitle")}
-				description={t("ciDescription")}
-				iconColor="text-yellow-400"
-				bgColor="bg-yellow-500/10"
-			>
-				<div className="grid sm:grid-cols-2 gap-4">
-					<div className="p-4 rounded-lg bg-white/[0.03] border border-white/5">
-						<p className="text-sm font-medium text-neutral-300 mb-2">Next.js</p>
-						<p className="text-xs text-neutral-500">{t("ciNextjs")}</p>
-						<CodeBlock title="biome">{`npx biome check .`}</CodeBlock>
-					</div>
-					<div className="p-4 rounded-lg bg-white/[0.03] border border-white/5">
-						<p className="text-sm font-medium text-neutral-300 mb-2">Nuxt</p>
-						<p className="text-xs text-neutral-500">{t("ciNuxt")}</p>
-						<CodeBlock title="eslint">{`npx eslint .`}</CodeBlock>
+			{/* Pipeline flow diagram */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("pipelineTitle")}</h2>
+				<div className="p-6 rounded-xl bg-white/[0.02] border border-white/5">
+					<div className="flex items-center justify-between gap-2 overflow-x-auto pb-2">
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-2">
+								<GitPullRequest className="w-6 h-6 text-blue-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">
+								Pull Request
+							</span>
+							<span className="text-xs text-neutral-600 text-center">
+								opened
+							</span>
+						</div>
+						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center mb-2">
+								<Zap className="w-6 h-6 text-yellow-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">CI</span>
+							<span className="text-xs text-neutral-600 text-center">
+								lint + build
+							</span>
+						</div>
+						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-2">
+								<Shield className="w-6 h-6 text-green-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">
+								Coverage
+							</span>
+							<span className="text-xs text-neutral-600 text-center">
+								Vitest + v8
+							</span>
+						</div>
+						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-2">
+								<Bot className="w-6 h-6 text-purple-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">
+								PR Agent
+							</span>
+							<span className="text-xs text-neutral-600 text-center">
+								auto-describe
+							</span>
+						</div>
+						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-2">
+								<CheckCircle className="w-6 h-6 text-blue-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">
+								Vercel
+							</span>
+							<span className="text-xs text-neutral-600 text-center">
+								preview
+							</span>
+						</div>
+						<ArrowRight className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+						<div className="flex flex-col items-center min-w-[80px]">
+							<div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-2">
+								<ShieldCheck className="w-6 h-6 text-green-400" />
+							</div>
+							<span className="text-xs text-neutral-400 text-center">
+								Merge
+							</span>
+							<span className="text-xs text-neutral-600 text-center">
+								all checks pass
+							</span>
+						</div>
 					</div>
 				</div>
-			</Section>
+			</div>
 
-			<Section
-				icon={Shield}
-				title={t("coverageTitle")}
-				description={t("coverageDescription")}
-				iconColor="text-green-400"
-				bgColor="bg-green-500/10"
-			>
-				<p className="text-sm text-neutral-400">{t("coverageThresholds")}</p>
-				<p className="text-sm text-neutral-400">{t("coverageComment")}</p>
-				<CodeBlock title="Coverage comment format">{`| Status | Category   | Percentage 🎯 | Change | Covered/Total |
-|--------|------------|---------------|--------|---------------|
-| 🔵     | Statements | 82.5%         | 🟢 +2% | 165/200       |
-| 🔵     | Branches   | 78.0%         | 🟰 0%  | 78/100        |
-| 🔴     | Functions  | 65.0%         | 🔴 -1% | 52/80         |`}</CodeBlock>
-			</Section>
+			{/* CI Pipeline */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("ciTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("ciDescription")}</p>
+				<div className="grid sm:grid-cols-2 gap-4">
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-yellow-500/10 shrink-0">
+								<Zap className="w-5 h-5 text-yellow-400" />
+							</div>
+							<div className="min-w-0">
+								<h3 className="font-semibold mb-3">Next.js</h3>
+								<ul className="space-y-2 text-sm text-neutral-400">
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 mt-1.5 shrink-0" />
+										<span>
+											{t("ciNextjsLi1")}{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												npx biome check .
+											</code>
+										</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 mt-1.5 shrink-0" />
+										<span>
+											{t("ciNextjsLi2")}{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												npx next build
+											</code>
+										</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 mt-1.5 shrink-0" />
+										<span>{t("ciNextjsLi3")}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-green-500/10 shrink-0">
+								<Zap className="w-5 h-5 text-green-400" />
+							</div>
+							<div className="min-w-0">
+								<h3 className="font-semibold mb-3">Nuxt</h3>
+								<ul className="space-y-2 text-sm text-neutral-400">
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" />
+										<span>
+											{t("ciNuxtLi1")}{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												npx nuxt prepare
+											</code>
+										</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" />
+										<span>
+											{t("ciNuxtLi2")}{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												npx eslint .
+											</code>
+										</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-green-500/50 mt-1.5 shrink-0" />
+										<span>
+											{t("ciNuxtLi3")}{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												npx nuxt typecheck
+											</code>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<Section
-				icon={Bot}
-				title={t("prAgentTitle")}
-				description={t("prAgentDescription")}
-				iconColor="text-purple-400"
-				bgColor="bg-purple-500/10"
-			>
-				<p className="text-sm text-neutral-400">{t("prAgentSetup")}</p>
-				<p className="text-sm text-neutral-400">
-					{t("prAgentSecret")}{" "}
-					<code className="px-1.5 py-0.5 bg-white/5 rounded text-purple-300">
-						GH_MODELS_TOKEN
-					</code>
-				</p>
-				<CodeBlock title=".github/workflows/pr-agent.yml">{`on:
+			{/* Coverage */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("coverageTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("coverageDescription")}</p>
+				<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02] mb-6">
+					<div className="flex items-start gap-4">
+						<div className="p-3 rounded-lg bg-green-500/10 shrink-0">
+							<Shield className="w-5 h-5 text-green-400" />
+						</div>
+						<div className="min-w-0 w-full">
+							<h3 className="font-semibold mb-3">
+								{t("coverageCommentTitle")}
+							</h3>
+							<p className="text-sm text-neutral-400 mb-4">
+								{t("coverageCommentDesc")}
+							</p>
+							<CodeBlock title="PR comment — coverage table">{`| Status | Category   | Percentage      | Change    | Covered / Total |
+|--------|------------|-----------------|-----------|-----------------|
+| 🔵     | Lines      | 84.20% (🎯 80%) | 🟢 +1.40% | 168 / 200       |
+| 🔵     | Statements | 82.50% (🎯 80%) | 🟰 ±0%    | 165 / 200       |
+| 🔴     | Functions  | 79.50% (🎯 80%) | 🔴 -0.50% | 63 / 80         |
+| 🔵     | Branches   | 71.00% (🎯 70%) | 🟢 +2.00% | 71 / 100        |`}</CodeBlock>
+						</div>
+					</div>
+				</div>
+				<div className="grid sm:grid-cols-2 gap-4">
+					<div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+						<h3 className="font-semibold mb-2 text-yellow-300">
+							{t("coverageThresholdsNextjsTitle")}
+						</h3>
+						<ul className="space-y-1 text-sm text-neutral-400">
+							<li className="flex items-center gap-2">
+								<span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 shrink-0" />
+								{t("coverageLinesStmtFn")} 80%
+							</li>
+							<li className="flex items-center gap-2">
+								<span className="w-1.5 h-1.5 rounded-full bg-yellow-500/50 shrink-0" />
+								{t("coverageBranches")} 70%
+							</li>
+						</ul>
+					</div>
+					<div className="p-5 rounded-xl border border-white/10 bg-white/[0.02]">
+						<h3 className="font-semibold mb-2 text-green-300">
+							{t("coverageThresholdsNuxtTitle")}
+						</h3>
+						<ul className="space-y-1 text-sm text-neutral-400">
+							<li className="flex items-center gap-2">
+								<span className="w-1.5 h-1.5 rounded-full bg-green-500/50 shrink-0" />
+								{t("coverageLinesStmtFn")} 70%
+							</li>
+							<li className="flex items-center gap-2">
+								<span className="w-1.5 h-1.5 rounded-full bg-green-500/50 shrink-0" />
+								{t("coverageBranches")} 60%
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			{/* PR Agent */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("prAgentTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("prAgentDescription")}</p>
+				<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+					<div className="flex items-start gap-4">
+						<div className="p-3 rounded-lg bg-purple-500/10 shrink-0">
+							<Bot className="w-5 h-5 text-purple-400" />
+						</div>
+						<div className="min-w-0 w-full">
+							<h3 className="font-semibold mb-3">{t("prAgentHowTitle")}</h3>
+							<ul className="space-y-2 text-sm text-neutral-400 mb-4">
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" />
+									<span>{t("prAgentLi1")}</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" />
+									<span>
+										{t("prAgentLi2")}{" "}
+										<code className="px-1.5 py-0.5 bg-white/5 rounded text-purple-300">
+											GH_MODELS_TOKEN
+										</code>{" "}
+										{t("prAgentLi2b")}
+									</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-purple-500/50 mt-1.5 shrink-0" />
+									<span>{t("prAgentLi3")}</span>
+								</li>
+							</ul>
+							<CodeBlock title=".github/workflows/pr-agent.yml">{`on:
   pull_request:
     types: [opened, reopened]
 
 jobs:
-  pr-agent:
+  describe:
     if: github.event.pull_request.body == ''
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
         env:
           GH_MODELS_TOKEN: \${{ secrets.GH_MODELS_TOKEN }}
         with:
           script: |
-            // Call GitHub Models API (gpt-4o-mini)
-            // and update PR body`}</CodeBlock>
-			</Section>
-
-			<Section
-				icon={Zap}
-				title={t("vercelTitle")}
-				description={t("vercelDescription")}
-				iconColor="text-blue-400"
-				bgColor="bg-blue-500/10"
-			>
-				<div className="grid sm:grid-cols-2 gap-4">
-					<div className="p-4 rounded-lg bg-white/[0.03] border border-white/5">
-						<p className="text-sm font-medium text-neutral-300 mb-1">
-							{t("vercelPreview")}
-						</p>
-						<p className="text-xs text-neutral-500">
-							Every PR → unique preview URL
-						</p>
-					</div>
-					<div className="p-4 rounded-lg bg-white/[0.03] border border-white/5">
-						<p className="text-sm font-medium text-neutral-300 mb-1">
-							{t("vercelProd")}
-						</p>
-						<p className="text-xs text-neutral-500">
-							Merge to main → production
-						</p>
+            // Calls GitHub Models API (gpt-4o-mini)
+            // Updates PR body with generated description`}</CodeBlock>
+						</div>
 					</div>
 				</div>
-			</Section>
+			</div>
 
-			<Section
-				icon={Bot}
-				title={t("coderabbitTitle")}
-				description={t("coderabbitDescription")}
-				iconColor="text-orange-400"
-				bgColor="bg-orange-500/10"
-			>
-				<p className="text-sm text-neutral-400">{t("coderabbitConfig")}</p>
-				<CodeBlock title=".coderabbit.yaml">{`reviews:
-  profile: chill
+			{/* Vercel */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("vercelTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("vercelDescription")}</p>
+				<div className="grid sm:grid-cols-2 gap-4">
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-blue-500/10 shrink-0">
+								<GitPullRequest className="w-5 h-5 text-blue-400" />
+							</div>
+							<div>
+								<h3 className="font-semibold mb-2">
+									{t("vercelPreviewTitle")}
+								</h3>
+								<p className="text-sm text-neutral-400">
+									{t("vercelPreviewDesc")}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-green-500/10 shrink-0">
+								<CheckCircle className="w-5 h-5 text-green-400" />
+							</div>
+							<div>
+								<h3 className="font-semibold mb-2">{t("vercelProdTitle")}</h3>
+								<p className="text-sm text-neutral-400">
+									{t("vercelProdDesc")}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* CodeRabbit */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("coderabbitTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("coderabbitDescription")}</p>
+				<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+					<div className="flex items-start gap-4">
+						<div className="p-3 rounded-lg bg-orange-500/10 shrink-0">
+							<Bot className="w-5 h-5 text-orange-400" />
+						</div>
+						<div className="min-w-0 w-full">
+							<h3 className="font-semibold mb-3">
+								{t("coderabbitConfigTitle")}
+							</h3>
+							<ul className="space-y-2 text-sm text-neutral-400 mb-4">
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 mt-1.5 shrink-0" />
+									<span>
+										{t("coderabbitLi1")}{" "}
+										<code className="px-1.5 py-0.5 bg-white/5 rounded">
+											profile: chill
+										</code>
+									</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 mt-1.5 shrink-0" />
+									<span>{t("coderabbitLi2")}</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-orange-500/50 mt-1.5 shrink-0" />
+									<span>{t("coderabbitLi3")}</span>
+								</li>
+							</ul>
+							<CodeBlock title=".coderabbit.yaml">{`language: "en"
+reviews:
+  profile: "chill"
   path_instructions:
-    - path: "src/app/**"
-      instructions: "Focus on Next.js best practices"
-    - path: "*.test.tsx"
-      instructions: "Ensure test coverage is meaningful"`}</CodeBlock>
-			</Section>
-
-			<Section
-				icon={ShieldCheck}
-				title={t("branchTitle")}
-				description={t("branchDescription")}
-				iconColor="text-red-400"
-				bgColor="bg-red-500/10"
-			>
-				<p className="text-sm text-neutral-400">{t("branchChecks")}</p>
-				<p className="text-sm text-neutral-400">{t("branchBypass")}</p>
-				<div className="flex flex-wrap gap-2 mt-2">
-					{["CI", "Coverage", "Vercel"].map((check) => (
-						<span
-							key={check}
-							className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300"
-						>
-							{check}
-						</span>
-					))}
+    - path: "**/*.test.ts"
+      instructions: "Check mocks are realistic and edge cases covered."
+    - path: "src/components/**/*.tsx"
+      instructions: "Check accessibility and props typing."
+    - path: "src/lib/**/*.ts"
+      instructions: "Check error handling and return types."`}</CodeBlock>
+						</div>
+					</div>
 				</div>
-			</Section>
+			</div>
 
-			<Section
-				icon={Terminal}
-				title={t("precommitTitle")}
-				description={t("precommitDescription")}
-				iconColor="text-cyan-400"
-				bgColor="bg-cyan-500/10"
-			>
+			{/* Branch protection */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("branchTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("branchDescription")}</p>
+				<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+					<div className="flex items-start gap-4">
+						<div className="p-3 rounded-lg bg-red-500/10 shrink-0">
+							<ShieldCheck className="w-5 h-5 text-red-400" />
+						</div>
+						<div className="min-w-0 w-full">
+							<h3 className="font-semibold mb-3">{t("branchRulesTitle")}</h3>
+							<ul className="space-y-2 text-sm text-neutral-400 mb-4">
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-red-500/50 mt-1.5 shrink-0" />
+									<span>{t("branchLi1")}</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-red-500/50 mt-1.5 shrink-0" />
+									<span>{t("branchLi2")}</span>
+								</li>
+								<li className="flex items-start gap-2">
+									<span className="w-1.5 h-1.5 rounded-full bg-red-500/50 mt-1.5 shrink-0" />
+									<span>{t("branchLi3")}</span>
+								</li>
+							</ul>
+							<div className="flex flex-wrap gap-2">
+								{["Lint & Build", "Run Tests & Post Coverage", "Vercel"].map(
+									(check) => (
+										<span
+											key={check}
+											className="text-xs px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300"
+										>
+											{check}
+										</span>
+									),
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Pre-commit */}
+			<div className="mb-12">
+				<h2 className="text-2xl font-bold mb-6">{t("precommitTitle")}</h2>
+				<p className="text-neutral-400 mb-6">{t("precommitDescription")}</p>
 				<div className="grid sm:grid-cols-2 gap-4">
-					<div>
-						<p className="text-sm font-medium text-neutral-300 mb-2">
-							{t("precommitNextjs")}
-						</p>
-						<CodeBlock title=".husky/pre-commit (Next.js)">{`npx lint-staged
-# lint-staged runs:
-# npx biome check --write`}</CodeBlock>
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-cyan-500/10 shrink-0">
+								<Terminal className="w-5 h-5 text-cyan-400" />
+							</div>
+							<div className="min-w-0 w-full">
+								<h3 className="font-semibold mb-3">Next.js — Biome</h3>
+								<ul className="space-y-2 text-sm text-neutral-400 mb-4">
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-cyan-500/50 mt-1.5 shrink-0" />
+										<span>{t("precommitNextjsLi1")}</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-cyan-500/50 mt-1.5 shrink-0" />
+										<code className="px-1.5 py-0.5 bg-white/5 rounded">
+											biome check --write
+										</code>
+									</li>
+								</ul>
+								<CodeBlock title="package.json">{`"lint-staged": {
+  "*.{ts,tsx,js,json}": [
+    "biome check --write"
+  ]
+}`}</CodeBlock>
+							</div>
+						</div>
 					</div>
-					<div>
-						<p className="text-sm font-medium text-neutral-300 mb-2">
-							{t("precommitNuxt")}
-						</p>
-						<CodeBlock title=".husky/pre-commit (Nuxt)">{`npx lint-staged
-# lint-staged runs:
-# eslint --fix
-# prettier --write`}</CodeBlock>
+					<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
+						<div className="flex items-start gap-4">
+							<div className="p-3 rounded-lg bg-violet-500/10 shrink-0">
+								<Terminal className="w-5 h-5 text-violet-400" />
+							</div>
+							<div className="min-w-0 w-full">
+								<h3 className="font-semibold mb-3">Nuxt — ESLint + Prettier</h3>
+								<ul className="space-y-2 text-sm text-neutral-400 mb-4">
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-violet-500/50 mt-1.5 shrink-0" />
+										<span>{t("precommitNuxtLi1")}</span>
+									</li>
+									<li className="flex items-start gap-2">
+										<span className="w-1.5 h-1.5 rounded-full bg-violet-500/50 mt-1.5 shrink-0" />
+										<span>
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												eslint --fix
+											</code>{" "}
+											+{" "}
+											<code className="px-1.5 py-0.5 bg-white/5 rounded">
+												prettier --write
+											</code>
+										</span>
+									</li>
+								</ul>
+								<CodeBlock title="package.json">{`"lint-staged": {
+  "*.{vue,ts,js,mjs}": [
+    "eslint --fix",
+    "prettier --write"
+  ]
+}`}</CodeBlock>
+							</div>
+						</div>
 					</div>
 				</div>
-			</Section>
+			</div>
 
+			{/* Summary card */}
 			<div className="p-6 rounded-xl border border-white/10 bg-white/[0.02]">
 				<div className="flex items-start gap-4">
 					<div className="p-3 rounded-lg bg-green-500/10 shrink-0">
 						<GitBranch className="w-5 h-5 text-green-400" />
 					</div>
 					<div>
-						<h3 className="font-semibold mb-2">{t("branchTitle")}</h3>
-						<p className="text-sm text-neutral-400">{t("branchDescription")}</p>
+						<h3 className="font-semibold mb-2">{t("summaryTitle")}</h3>
+						<p className="text-sm text-neutral-400">{t("summaryDesc")}</p>
 					</div>
 				</div>
 			</div>

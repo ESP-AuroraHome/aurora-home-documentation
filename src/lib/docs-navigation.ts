@@ -66,8 +66,8 @@ export const navigation: NavSection[] = [
 			{ titleKey: "codeApp", href: "/docs/code-app", icon: Code },
 			{ titleKey: "codeEsp32", href: "/docs/code-esp32", icon: Microchip },
 			{ titleKey: "marketing", href: "/docs/marketing", icon: Megaphone },
-			{ titleKey: "contribution", href: "/docs/contribution", icon: GitBranch },
 			{ titleKey: "ciCd", href: "/docs/ci-cd", icon: ShieldCheck },
+			{ titleKey: "contribution", href: "/docs/contribution", icon: GitBranch },
 		],
 	},
 ];
