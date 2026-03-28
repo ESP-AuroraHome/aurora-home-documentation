@@ -7,6 +7,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  actions: read
 
 jobs:
   test-and-coverage:
@@ -25,32 +26,96 @@ jobs:
       - name: Run tests with coverage
         run: npx vitest run --coverage
 
+      - name: Download base coverage artifact
+        id: base-coverage
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const artifacts = await github.rest.actions.listArtifactsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'coverage-summary',
+                per_page: 10,
+              });
+              const mainArtifacts = artifacts.data.artifacts.filter(
+                a => a.workflow_run?.head_branch === 'main' && !a.expired
+              );
+              if (mainArtifacts.length === 0) return null;
+              const latest = mainArtifacts[0];
+              const download = await github.rest.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: latest.id,
+                archive_format: 'zip',
+              });
+              const fs = require('fs');
+              const path = require('path');
+              require('child_process').execSync('mkdir -p /tmp/base-coverage');
+              fs.writeFileSync('/tmp/base-coverage.zip', Buffer.from(download.data));
+              require('child_process').execSync('unzip -o /tmp/base-coverage.zip -d /tmp/base-coverage');
+              return 'ok';
+            } catch {
+              return null;
+            }
+
       - name: Post coverage comment
         if: always()
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            let summary = '';
+
+            const THRESHOLDS = { lines: 80, statements: 80, functions: 80, branches: 70 };
+
+            function statusIcon(pct, threshold) {
+              return pct >= threshold ? '🔵' : '🔴';
+            }
+
+            function changeIcon(delta) {
+              if (Math.abs(delta) < 0.05) return '🟰 ±0%';
+              return delta > 0 ? `🟢 +${delta.toFixed(2)}%` : `🔴 ${delta.toFixed(2)}%`;
+            }
+
+            let summary = '## Coverage Report\n\n⚠️ Coverage data not available.';
+
             try {
               const json = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json', 'utf8'));
               const t = json.total;
-              const pct = (v) => `${v.pct.toFixed(1)}%`;
-              const icon = (v) => v.pct >= 80 ? '✅' : '❌';
+
+              let base = null;
+              try {
+                const baseJson = JSON.parse(fs.readFileSync('/tmp/base-coverage/coverage-summary.json', 'utf8'));
+                base = baseJson.total;
+              } catch { /* no base */ }
+
+              const rows = [
+                { key: 'lines',      label: 'Lines',      threshold: THRESHOLDS.lines },
+                { key: 'statements', label: 'Statements', threshold: THRESHOLDS.statements },
+                { key: 'functions',  label: 'Functions',  threshold: THRESHOLDS.functions },
+                { key: 'branches',   label: 'Branches',   threshold: THRESHOLDS.branches },
+              ];
+
+              const tableRows = rows.map(({ key, label, threshold }) => {
+                const cur = t[key];
+                const pct = cur.pct;
+                const delta = base ? pct - base[key].pct : 0;
+                const covered = cur.covered;
+                const total = cur.total;
+                return `| ${statusIcon(pct, threshold)} | ${label} | ${pct.toFixed(2)}% (🎯 ${threshold}%) | ${changeIcon(delta)} | ${covered} / ${total} |`;
+              });
+
               summary = [
                 '## Coverage Report',
                 '',
-                '| Metric | Coverage | Status |',
-                '|--------|----------|--------|',
-                `| Statements | ${pct(t.statements)} | ${icon(t.statements)} |`,
-                `| Branches | ${pct(t.branches)} | ${icon(t.branches)} |`,
-                `| Functions | ${pct(t.functions)} | ${icon(t.functions)} |`,
-                `| Lines | ${pct(t.lines)} | ${icon(t.lines)} |`,
+                '| Status | Category | Percentage | Change | Covered / Total |',
+                '|--------|----------|------------|--------|-----------------|',
+                ...tableRows,
                 '',
-                '_Thresholds: statements ≥ 80%, branches ≥ 70%, functions ≥ 80%, lines ≥ 80%_',
+                `_Generated on commit ${context.sha}_`,
               ].join('\n');
-            } catch {
-              summary = '## Coverage Report\n\n⚠️ Coverage data not available.';
+            } catch (e) {
+              summary = `## Coverage Report\n\n⚠️ Coverage data not available.\n\n\`${e.message}\``;
             }
 
             const { data: comments } = await github.rest.issues.listComments({
@@ -74,3 +139,11 @@ jobs:
                 body: summary,
               });
             }
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-summary
+          path: coverage/coverage-summary.json
+          retention-days: 30
