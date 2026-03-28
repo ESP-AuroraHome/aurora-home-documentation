@@ -1,0 +1,76 @@
+name: Coverage
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  test-and-coverage:
+    name: Run Tests & Post Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Run tests with coverage
+        run: npx vitest run --coverage
+
+      - name: Post coverage comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let summary = '';
+            try {
+              const json = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json', 'utf8'));
+              const t = json.total;
+              const pct = (v) => `${v.pct.toFixed(1)}%`;
+              const icon = (v) => v.pct >= 80 ? '✅' : '❌';
+              summary = [
+                '## Coverage Report',
+                '',
+                '| Metric | Coverage | Status |',
+                '|--------|----------|--------|',
+                `| Statements | ${pct(t.statements)} | ${icon(t.statements)} |`,
+                `| Branches | ${pct(t.branches)} | ${icon(t.branches)} |`,
+                `| Functions | ${pct(t.functions)} | ${icon(t.functions)} |`,
+                `| Lines | ${pct(t.lines)} | ${icon(t.lines)} |`,
+                '',
+                '_Thresholds: statements ≥ 80%, branches ≥ 70%, functions ≥ 80%, lines ≥ 80%_',
+              ].join('\n');
+            } catch {
+              summary = '## Coverage Report\n\n⚠️ Coverage data not available.';
+            }
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body.startsWith('## Coverage Report'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: summary,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: summary,
+              });
+            }
