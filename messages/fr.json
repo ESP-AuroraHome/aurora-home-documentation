@@ -20,7 +20,8 @@
 		"codeApp": "Conventions App",
 		"codeEsp32": "Conventions ESP32",
 		"contribution": "Contribuer",
-		"marketing": "Conventions Marketing"
+		"marketing": "Conventions Marketing",
+		"ciCd": "CI/CD & Qualité"
 	},
 	"layout": {
 		"previous": "Précédent",
@@ -871,5 +872,39 @@
 		"checkoutDesc": "La navigation du panier est modélisée comme une machine à états avec le type discriminé",
 		"setupTitle": "Lancer le projet",
 		"liveSiteLabel": "Site en production :"
+	},
+	"ciCd": {
+		"breadcrumbDocs": "Docs",
+		"breadcrumbSection": "Pour les développeurs",
+		"breadcrumbCurrent": "CI/CD & Qualité",
+		"title": "Infrastructure CI/CD & Qualité",
+		"description": "Vue d'ensemble des pipelines automatisés, des outils qualité et des règles de protection des branches utilisés dans tous les dépôts Aurora Home.",
+		"ciTitle": "Pipeline CI (GitHub Actions)",
+		"ciDescription": "Les vérifications de lint et de build s'exécutent sur chaque pull request pour garantir la qualité du code avant la fusion.",
+		"ciNextjs": "Exécute Biome pour le lint et le formatage sur les projets Next.js.",
+		"ciNuxt": "Exécute ESLint pour le lint sur les projets Nuxt.",
+		"coverageTitle": "Couverture (Vitest + v8)",
+		"coverageDescription": "Les tests s'exécutent sur chaque pull request. Un tableau de couverture est posté en commentaire de PR et le rapport est uploadé comme artefact pour la comparaison de delta.",
+		"coverageThresholds": "Les objectifs de couverture sont suivis par catégorie (Instructions, Branches, Fonctions, Lignes). L'icône 🎯 indique le seuil cible actuel.",
+		"coverageComment": "Chaque exécution poste un commentaire avec le statut (🔵 OK / 🔴 sous le seuil), le pourcentage, le delta de changement (🟢 hausse / 🔴 baisse / 🟰 stable) et les compteurs couvert/total.",
+		"prAgentTitle": "PR Agent (GitHub Models)",
+		"prAgentDescription": "Génère automatiquement des descriptions de PR via l'API GitHub Models (gpt-4o-mini) lorsqu'une pull request est ouverte ou réouverte avec un corps vide.",
+		"prAgentSetup": "Le workflow se déclenche uniquement sur les événements opened et reopened, et seulement quand le corps de la PR est vide — il n'écrase jamais une description rédigée par l'auteur.",
+		"prAgentSecret": "Nécessite le secret de dépôt suivant :",
+		"vercelTitle": "Déploiements Vercel",
+		"vercelDescription": "Chaque pull request bénéficie d'un déploiement de prévisualisation automatique. La fusion sur main déclenche un déploiement en production.",
+		"vercelPreview": "Déploiement de prévisualisation",
+		"vercelProd": "Déploiement en production",
+		"coderabbitTitle": "Revue de code CodeRabbit",
+		"coderabbitDescription": "CodeRabbit effectue une revue de code assistée par IA sur chaque pull request. Configuré via .coderabbit.yaml à la racine du dépôt.",
+		"coderabbitConfig": "Le profil est réglé sur chill pour une expérience de revue moins bruyante. Des instructions spécifiques par chemin fournissent des conseils contextuels par répertoire.",
+		"branchTitle": "Protection des branches (GitHub Rulesets)",
+		"branchDescription": "Les GitHub Rulesets imposent des contrôles qualité sur la branche main. Les vérifications de statut requises doivent passer avant la fusion. Le force push et la suppression de branche sont désactivés.",
+		"branchChecks": "Vérifications de statut requises : CI (lint + build), Coverage (Vitest), Vercel (déploiement de prévisualisation).",
+		"branchBypass": "Le propriétaire du dépôt dispose de permissions de contournement pour débloquer des correctifs d'urgence.",
+		"precommitTitle": "Hooks pre-commit",
+		"precommitDescription": "Husky et lint-staged exécutent automatiquement les formateurs et linters avant chaque commit, assurant un style de code cohérent en local.",
+		"precommitNextjs": "Projets Next.js",
+		"precommitNuxt": "Projets Nuxt"
 	}
 }

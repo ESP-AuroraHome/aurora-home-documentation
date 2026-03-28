@@ -20,7 +20,8 @@
 		"codeApp": "App conventions",
 		"codeEsp32": "ESP32 conventions",
 		"contribution": "Contributing",
-		"marketing": "Marketing Conventions"
+		"marketing": "Marketing Conventions",
+		"ciCd": "CI/CD & Quality"
 	},
 	"layout": {
 		"previous": "Previous",
@@ -871,5 +872,39 @@
 		"checkoutDesc": "The cart navigation is modeled as a state machine with the discriminated type",
 		"setupTitle": "Running the project",
 		"liveSiteLabel": "Live site:"
+	},
+	"ciCd": {
+		"breadcrumbDocs": "Docs",
+		"breadcrumbSection": "For developers",
+		"breadcrumbCurrent": "CI/CD & Quality",
+		"title": "CI/CD & Quality Infrastructure",
+		"description": "Overview of the automated pipelines, quality tools and branch protection rules used across all Aurora Home repositories.",
+		"ciTitle": "CI Pipeline (GitHub Actions)",
+		"ciDescription": "Lint and build checks run on every pull request to ensure code quality before merging.",
+		"ciNextjs": "Runs Biome for linting and formatting on Next.js projects.",
+		"ciNuxt": "Runs ESLint for linting on Nuxt projects.",
+		"coverageTitle": "Coverage (Vitest + v8)",
+		"coverageDescription": "Tests run on every pull request. A coverage table is posted as a PR comment and the report is uploaded as an artifact for delta comparison.",
+		"coverageThresholds": "Coverage targets are tracked per category (Statements, Branches, Functions, Lines). The 🎯 icon marks the current target threshold.",
+		"coverageComment": "Each run posts a comment with status (🔵 passing / 🔴 below threshold), percentage, change delta (🟢 up / 🔴 down / 🟰 same) and covered/total counts.",
+		"prAgentTitle": "PR Agent (GitHub Models)",
+		"prAgentDescription": "Automatically generates PR descriptions using the GitHub Models API (gpt-4o-mini) when a pull request is opened or reopened with an empty body.",
+		"prAgentSetup": "The workflow triggers only on opened and reopened events, and only when the PR body is empty — it never overwrites a description written by the author.",
+		"prAgentSecret": "Requires the following repository secret:",
+		"vercelTitle": "Vercel Deployments",
+		"vercelDescription": "Every pull request gets an automatic preview deployment. Merging to main triggers a production deployment.",
+		"vercelPreview": "Preview deployment",
+		"vercelProd": "Production deployment",
+		"coderabbitTitle": "CodeRabbit AI Review",
+		"coderabbitDescription": "CodeRabbit performs an AI-powered code review on every pull request. Configured via .coderabbit.yaml at the root of the repository.",
+		"coderabbitConfig": "The profile is set to chill for a less noisy review experience. Path-specific instructions provide context-aware guidance per directory.",
+		"branchTitle": "Branch Protection (GitHub Rulesets)",
+		"branchDescription": "GitHub Rulesets enforce quality gates on the main branch. Required status checks must pass before merging. Force push and branch deletion are disabled.",
+		"branchChecks": "Required status checks: CI (lint + build), Coverage (Vitest), Vercel (preview deployment).",
+		"branchBypass": "The repository owner has bypass permissions to unblock emergency fixes.",
+		"precommitTitle": "Pre-commit Hooks",
+		"precommitDescription": "Husky and lint-staged run formatters and linters automatically before each commit, ensuring consistent code style locally.",
+		"precommitNextjs": "Next.js projects",
+		"precommitNuxt": "Nuxt projects"
 	}
 }

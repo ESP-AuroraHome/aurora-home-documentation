@@ -13,6 +13,7 @@ import {
 	Megaphone,
 	Microchip,
 	Server,
+	ShieldCheck,
 	Terminal,
 	UserCircle,
 	UserPlus,
@@ -66,6 +67,7 @@ export const navigation: NavSection[] = [
 			{ titleKey: "codeEsp32", href: "/docs/code-esp32", icon: Microchip },
 			{ titleKey: "marketing", href: "/docs/marketing", icon: Megaphone },
 			{ titleKey: "contribution", href: "/docs/contribution", icon: GitBranch },
+			{ titleKey: "ciCd", href: "/docs/ci-cd", icon: ShieldCheck },
 		],
 	},
 ];

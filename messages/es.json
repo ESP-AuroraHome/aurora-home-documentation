@@ -20,7 +20,8 @@
 		"codeApp": "Convenciones App",
 		"codeEsp32": "Convenciones ESP32",
 		"contribution": "Contribuir",
-		"marketing": "Convenciones Marketing"
+		"marketing": "Convenciones Marketing",
+		"ciCd": "CI/CD & Calidad"
 	},
 	"layout": {
 		"previous": "Anterior",
@@ -871,5 +872,39 @@
 		"checkoutDesc": "La navegación del carrito se modela como una máquina de estados con el tipo discriminado",
 		"setupTitle": "Ejecutar el proyecto",
 		"liveSiteLabel": "Sitio en producción:"
+	},
+	"ciCd": {
+		"breadcrumbDocs": "Docs",
+		"breadcrumbSection": "Para desarrolladores",
+		"breadcrumbCurrent": "CI/CD & Calidad",
+		"title": "Infraestructura CI/CD & Calidad",
+		"description": "Visión general de los pipelines automatizados, las herramientas de calidad y las reglas de protección de ramas utilizadas en todos los repositorios de Aurora Home.",
+		"ciTitle": "Pipeline CI (GitHub Actions)",
+		"ciDescription": "Las verificaciones de lint y build se ejecutan en cada pull request para garantizar la calidad del código antes de fusionar.",
+		"ciNextjs": "Ejecuta Biome para lint y formateo en proyectos Next.js.",
+		"ciNuxt": "Ejecuta ESLint para lint en proyectos Nuxt.",
+		"coverageTitle": "Cobertura (Vitest + v8)",
+		"coverageDescription": "Las pruebas se ejecutan en cada pull request. Se publica una tabla de cobertura como comentario en la PR y el informe se sube como artefacto para comparación de delta.",
+		"coverageThresholds": "Los objetivos de cobertura se rastrean por categoría (Declaraciones, Ramas, Funciones, Líneas). El icono 🎯 marca el umbral objetivo actual.",
+		"coverageComment": "Cada ejecución publica un comentario con el estado (🔵 OK / 🔴 por debajo del umbral), porcentaje, delta de cambio (🟢 sube / 🔴 baja / 🟰 igual) y contadores cubierto/total.",
+		"prAgentTitle": "PR Agent (GitHub Models)",
+		"prAgentDescription": "Genera automáticamente descripciones de PR usando la API de GitHub Models (gpt-4o-mini) cuando una pull request se abre o reabre con el cuerpo vacío.",
+		"prAgentSetup": "El workflow se dispara solo en los eventos opened y reopened, y solo cuando el cuerpo de la PR está vacío — nunca sobreescribe una descripción escrita por el autor.",
+		"prAgentSecret": "Requiere el siguiente secreto de repositorio:",
+		"vercelTitle": "Despliegues en Vercel",
+		"vercelDescription": "Cada pull request obtiene un despliegue de vista previa automático. Fusionar en main dispara un despliegue en producción.",
+		"vercelPreview": "Despliegue de vista previa",
+		"vercelProd": "Despliegue en producción",
+		"coderabbitTitle": "Revisión de código CodeRabbit",
+		"coderabbitDescription": "CodeRabbit realiza una revisión de código asistida por IA en cada pull request. Se configura mediante .coderabbit.yaml en la raíz del repositorio.",
+		"coderabbitConfig": "El perfil se establece en chill para una experiencia de revisión menos ruidosa. Las instrucciones específicas por ruta proporcionan orientación contextual por directorio.",
+		"branchTitle": "Protección de ramas (GitHub Rulesets)",
+		"branchDescription": "Los GitHub Rulesets imponen controles de calidad en la rama main. Las verificaciones de estado requeridas deben pasar antes de fusionar. El force push y la eliminación de ramas están deshabilitados.",
+		"branchChecks": "Verificaciones de estado requeridas: CI (lint + build), Coverage (Vitest), Vercel (despliegue de vista previa).",
+		"branchBypass": "El propietario del repositorio tiene permisos de omisión para desbloquear correcciones de emergencia.",
+		"precommitTitle": "Hooks pre-commit",
+		"precommitDescription": "Husky y lint-staged ejecutan automáticamente formateadores y linters antes de cada commit, garantizando un estilo de código consistente localmente.",
+		"precommitNextjs": "Proyectos Next.js",
+		"precommitNuxt": "Proyectos Nuxt"
 	}
 }

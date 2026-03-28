@@ -20,7 +20,8 @@
 		"codeApp": "应用规范",
 		"codeEsp32": "ESP32 规范",
 		"contribution": "贡献指南",
-		"marketing": "营销规范"
+		"marketing": "营销规范",
+		"ciCd": "CI/CD 与质量"
 	},
 	"layout": {
 		"previous": "上一页",
@@ -871,5 +872,39 @@
 		"checkoutDesc": "购物车导航被建模为带有判别类型的状态机",
 		"setupTitle": "运行项目",
 		"liveSiteLabel": "线上站点："
+	},
+	"ciCd": {
+		"breadcrumbDocs": "文档",
+		"breadcrumbSection": "开发者",
+		"breadcrumbCurrent": "CI/CD 与质量",
+		"title": "CI/CD 与质量基础设施",
+		"description": "概述 Aurora Home 所有仓库中使用的自动化流水线、质量工具和分支保护规则。",
+		"ciTitle": "CI 流水线（GitHub Actions）",
+		"ciDescription": "每个拉取请求都会运行 lint 和构建检查，以确保合并前的代码质量。",
+		"ciNextjs": "在 Next.js 项目中运行 Biome 进行 lint 和格式化。",
+		"ciNuxt": "在 Nuxt 项目中运行 ESLint 进行 lint。",
+		"coverageTitle": "覆盖率（Vitest + v8）",
+		"coverageDescription": "测试在每个拉取请求上运行。覆盖率表格作为 PR 评论发布，报告作为制品上传用于增量比较。",
+		"coverageThresholds": "覆盖率目标按类别（语句、分支、函数、行）追踪。🎯 图标标记当前目标阈值。",
+		"coverageComment": "每次运行发布包含状态（🔵 通过 / 🔴 低于阈值）、百分比、变化增量（🟢 上升 / 🔴 下降 / 🟰 不变）和已覆盖/总计数的评论。",
+		"prAgentTitle": "PR Agent（GitHub Models）",
+		"prAgentDescription": "当拉取请求以空正文打开或重新打开时，使用 GitHub Models API（gpt-4o-mini）自动生成 PR 描述。",
+		"prAgentSetup": "工作流仅在 opened 和 reopened 事件上触发，且仅当 PR 正文为空时 — 它绝不会覆盖作者编写的描述。",
+		"prAgentSecret": "需要以下仓库密钥：",
+		"vercelTitle": "Vercel 部署",
+		"vercelDescription": "每个拉取请求自动获得预览部署。合并到 main 触发生产部署。",
+		"vercelPreview": "预览部署",
+		"vercelProd": "生产部署",
+		"coderabbitTitle": "CodeRabbit AI 代码审查",
+		"coderabbitDescription": "CodeRabbit 在每个拉取请求上执行 AI 驱动的代码审查。通过仓库根目录的 .coderabbit.yaml 进行配置。",
+		"coderabbitConfig": "配置文件设置为 chill 以减少审查噪音。路径特定指令按目录提供上下文感知指导。",
+		"branchTitle": "分支保护（GitHub Rulesets）",
+		"branchDescription": "GitHub Rulesets 在 main 分支上强制执行质量门控。合并前必须通过所需状态检查。禁止强制推送和分支删除。",
+		"branchChecks": "所需状态检查：CI（lint + 构建）、Coverage（Vitest）、Vercel（预览部署）。",
+		"branchBypass": "仓库所有者拥有绕过权限以解除紧急修复的阻塞。",
+		"precommitTitle": "预提交钩子",
+		"precommitDescription": "Husky 和 lint-staged 在每次提交前自动运行格式化工具和 linter，确保本地代码风格一致。",
+		"precommitNextjs": "Next.js 项目",
+		"precommitNuxt": "Nuxt 项目"
 	}
 }
