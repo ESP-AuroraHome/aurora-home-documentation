@@ -17,9 +17,18 @@ export default defineConfig({
 			all: true,
 			include: [
 				"src/lib/docs-navigation.ts",
+				"src/i18n/routing.ts",
 				"src/components/ThemeProvider.tsx",
 				"src/components/ThemeToggle.tsx",
 				"src/components/TreeView.tsx",
+				"src/components/CommandPalette.tsx",
+				"src/components/LanguageSwitcher.tsx",
+				"src/components/demos/AlertsPreview.tsx",
+				"src/components/demos/AuthPreview.tsx",
+				"src/components/demos/DashboardPreview.tsx",
+				"src/components/demos/OnboardingPreview.tsx",
+				"src/components/demos/ProfilePreview.tsx",
+				"src/components/demos/SettingsPreview.tsx",
 			],
 			exclude: ["**/__tests__/**", "**/*.test.ts", "**/*.test.tsx"],
 			thresholds: {
