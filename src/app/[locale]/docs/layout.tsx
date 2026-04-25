@@ -192,6 +192,54 @@ export default function DocsLayout({
 					</div>
 				</main>
 			</div>
+
+			<footer className="lg:ml-64 border-t border-[var(--border-subtle)]">
+				<div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-4 text-xs text-[var(--text-muted)]">
+					<Link
+						href="/docs"
+						className="flex items-center gap-2 hover:text-[var(--text-primary)] transition-colors"
+					>
+						<Image
+							src="/assets/logo.png"
+							alt="Aurora Home"
+							width={16}
+							height={16}
+							className="w-4 h-4 object-contain invert dark:invert-0"
+						/>
+						<span>Aurora Home</span>
+					</Link>
+					<span>·</span>
+					<Link
+						href="/docs/legal/terms"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Terms
+					</Link>
+					<Link
+						href="/docs/legal/privacy"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Privacy
+					</Link>
+					<Link
+						href="/docs/legal/security"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Security
+					</Link>
+					<span className="ml-auto flex items-center gap-3">
+						<span>© {new Date().getFullYear()} MIT License</span>
+						<a
+							href="https://github.com/ESP-AuroraHome"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-[var(--text-primary)] transition-colors"
+						>
+							<Github className="w-4 h-4" />
+						</a>
+					</span>
+				</div>
+			</footer>
 		</div>
 	);
 }
