@@ -185,22 +185,26 @@ ESP32 GPIO22 (SCL) ──→  SCL (tous les capteurs)`}</CodeBlock>
 					<Step number={1} title={t("step1Title")}>
 						<p>{t("step1Desc")}</p>
 						<CodeBlock title="Terminal">{`git clone https://github.com/antoinegourgue/aurora-home-esp32.git
-cd aurora-home-esp32/platformio_IDE`}</CodeBlock>
+cd aurora-home-esp32`}</CodeBlock>
 					</Step>
 
 					<Step number={2} title={t("step2Title")}>
 						<p>
 							{t("step2Desc")}{" "}
 							<code className="px-1.5 py-0.5 bg-white/5 rounded text-green-400">
-								src/main.cpp
+								include/Config.h.example
 							</code>{" "}
 							{t("step2Desc2")}
 						</p>
-						<CodeBlock title="src/main.cpp">{`// --- Configuration ---
-const char *ssid = "ESP32-AP-Broker";  // Nom du réseau WiFi créé par l'ESP32
-const char *password = "password123";  // Mot de passe WiFi
-const int mqtt_port = 1883;
-const char* mqtt_topic = "sensor/data";`}</CodeBlock>
+						<CodeBlock title="Terminal">{`cp include/Config.h.example include/Config.h`}</CodeBlock>
+						<CodeBlock title="include/Config.h">{`#define AURORA_WIFI_AP_SSID     "ESP32-AP-Broker"
+#define AURORA_WIFI_AP_PASSWORD "password123"
+
+#define AURORA_MQTT_PORT           1883
+#define AURORA_MQTT_TOPIC_DATA     "sensor/data"
+
+#define AURORA_PUBLISH_INTERVAL_MS 30000  // 30s entre chaque publication
+#define AURORA_WATCHDOG_TIMEOUT_S  30`}</CodeBlock>
 						<div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
 							<div className="flex items-start gap-3">
 								<Terminal className="w-4 h-4 text-orange-400 mt-0.5" />
@@ -238,19 +242,18 @@ platformio run -e esp32dev -t upload --upload-port /dev/ttyUSB0`}</CodeBlock>
 						<p>{t("step5Desc")}</p>
 						<CodeBlock title="Terminal">{`platformio device monitor --baud 115200`}</CodeBlock>
 						<p>{t("step5ExpectedOutput")}</p>
-						<CodeBlock title="Sortie série">{`--- 1. Sensor Initialization ---
-BH1750 OK
-SCD30 OK
-BME280 OK
-
---- 2. Starting Access Point ---
-AP Created. SSID: ESP32-AP-Broker
-ESP32 IP: 192.168.4.1
-
---- 3. Waiting for Client Connection... ---
-.....
-✅ Client Connected! Starting Main Loop...
-Publishing MQTT: {"temperature": "22.50 °C", "humidity": "55.10 %", "pressure": "1013.25 hPa", "co2": "650 ppm", "light": "320 lx"}`}</CodeBlock>
+						<CodeBlock title="Sortie série">{`[INFO] --- 1. Sensor initialization ---
+[INFO] BH1750: OK
+[INFO] SCD30:  OK
+[INFO] BME280: OK
+[INFO] --- 2. Starting access point ---
+[INFO] AP SSID: ESP32-AP-Broker
+[INFO] ESP32 IP: 192.168.4.1
+[INFO] mDNS responder up as esp32-aurora.local
+[INFO] --- 3. Watchdog + waiting for client ---
+[INFO] Client connected. IP: 192.168.4.2
+[INFO] MQTT connected.
+[INFO] MQTT publish [sensor/data]: {"temperature":"22.50","humidity":"55.10","pressure":"1013.25","co2":"650.00","light":"320.00"}`}</CodeBlock>
 					</Step>
 				</div>
 			</div>
@@ -269,7 +272,8 @@ Publishing MQTT: {"temperature": "22.50 °C", "humidity": "55.10 %", "pressure":
     sensirion/Sensirion I2C SCD30@^1.0.0
     claws/BH1750@^1.3.0
     adafruit/Adafruit BME280 Library@^2.3.0
-    knolleary/PubSubClient@^2.8`}</CodeBlock>
+    knolleary/PubSubClient@^2.8
+    bblanchon/ArduinoJson@^7.2.0`}</CodeBlock>
 			</div>
 
 			<div className="p-6 rounded-xl bg-green-500/5 border border-green-500/20">
