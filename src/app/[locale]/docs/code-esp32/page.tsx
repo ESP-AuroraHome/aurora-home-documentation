@@ -23,78 +23,92 @@ const esp32Tree: TreeItem[] = [
 		type: "folder",
 		children: [
 			{
-				name: "platformio_IDE",
+				name: "platformio.ini",
+				type: "file",
+				comment: "Configuration build & dépendances",
+			},
+			{
+				name: "include",
 				type: "folder",
-				comment: "Build principal",
+				comment: "Headers publics",
 				children: [
 					{
-						name: "platformio.ini",
+						name: "Config.h",
 						type: "file",
-						comment: "Configuration build & dépendances",
+						comment: "Paramètres firmware (gitignored)",
 					},
 					{
-						name: "src",
-						type: "folder",
-						children: [
-							{
-								name: "main.cpp",
-								type: "file",
-								comment: "Code source unique (~217 lignes)",
-							},
-						],
+						name: "Config.h.example",
+						type: "file",
+						comment: "Template — cp → Config.h",
 					},
-					{ name: "include", type: "folder", comment: "Headers (.h)" },
-					{ name: "lib", type: "folder", comment: "Librairies locales" },
-					{ name: "test", type: "folder", comment: "Tests unitaires" },
+					{
+						name: "Logger.h",
+						type: "file",
+						comment: "Macros LOG_INFO / LOG_WARN / LOG_ERROR",
+					},
+					{ name: "sensors.h", type: "file", comment: "API capteurs I2C" },
+					{
+						name: "net.h",
+						type: "file",
+						comment: "API WiFi Soft-AP + MQTT + mDNS",
+					},
+					{
+						name: "telemetry.h",
+						type: "file",
+						comment: "Sérialisation JSON (ArduinoJson)",
+					},
+					{
+						name: "fusion.h",
+						type: "file",
+						comment: "Fusion capteurs (header-only)",
+					},
 				],
 			},
 			{
-				name: "arduino_IDE",
+				name: "src",
 				type: "folder",
-				comment: "Exemples par capteur",
 				children: [
 					{
-						name: "BH1750",
-						type: "folder",
-						children: [
-							{
-								name: "BH1750.ino",
-								type: "file",
-								comment: "Test luminosité seul",
-							},
-						],
+						name: "main.cpp",
+						type: "file",
+						comment: "Orchestration setup() + loop()",
 					},
 					{
-						name: "SCD30",
-						type: "folder",
-						children: [
-							{ name: "SCD30.ino", type: "file", comment: "Test CO₂ seul" },
-						],
+						name: "sensors.cpp",
+						type: "file",
+						comment: "Drivers BH1750 / SCD30 / BME280",
 					},
 					{
-						name: "BMP-E_280",
-						type: "folder",
-						children: [
-							{
-								name: "BMP-E_280.ino",
-								type: "file",
-								comment: "Test pression seul",
-							},
-						],
+						name: "net.cpp",
+						type: "file",
+						comment: "Soft-AP WiFi, mDNS, MQTT, LWT",
 					},
 					{
-						name: "sensor_fusion",
-						type: "folder",
-						children: [
-							{
-								name: "sensor_fusion.ino",
-								type: "file",
-								comment: "Fusion multi-capteurs (~360 lignes)",
-							},
-						],
+						name: "telemetry.cpp",
+						type: "file",
+						comment: "Format JSON payload",
 					},
 				],
 			},
+			{
+				name: "test",
+				type: "folder",
+				comment: "Tests Unity natifs (sans hardware)",
+				children: [
+					{
+						name: "stubs",
+						type: "folder",
+						comment: "Stubs Arduino / WiFi / PubSubClient",
+					},
+					{ name: "test_native_fusion", type: "folder" },
+					{ name: "test_native_contracts", type: "folder" },
+					{ name: "test_native_net", type: "folder" },
+					{ name: "test_native_telemetry", type: "folder" },
+				],
+			},
+			{ name: "examples", type: "folder", comment: "Exemples par capteur" },
+			{ name: "scripts", type: "folder", comment: "Scripts CI (coverage)" },
 		],
 	},
 ];
