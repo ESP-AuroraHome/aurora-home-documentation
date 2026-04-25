@@ -36,7 +36,21 @@ export default function LegalLayout({
 			<main className="max-w-3xl mx-auto px-6 py-16">{children}</main>
 
 			<footer className="border-t border-[var(--border-subtle)]">
-				<div className="max-w-3xl mx-auto px-6 py-6 flex flex-wrap gap-4 text-xs text-[var(--text-muted)]">
+				<div className="max-w-3xl mx-auto px-6 py-6 flex flex-wrap items-center gap-4 text-xs text-[var(--text-muted)]">
+					<Link
+						href="/docs"
+						className="flex items-center gap-2 hover:text-[var(--text-primary)] transition-colors"
+					>
+						<Image
+							src="/assets/logo.png"
+							alt="Aurora Home"
+							width={16}
+							height={16}
+							className="w-4 h-4 object-contain invert dark:invert-0"
+						/>
+						<span>Aurora Home</span>
+					</Link>
+					<span>·</span>
 					<Link
 						href="/legal/terms"
 						className="hover:text-[var(--text-primary)] transition-colors"
@@ -55,8 +69,16 @@ export default function LegalLayout({
 					>
 						Security
 					</Link>
-					<span className="ml-auto">
-						© {new Date().getFullYear()} Aurora Home — MIT License
+					<span className="ml-auto flex items-center gap-3">
+						<span>© {new Date().getFullYear()} MIT License</span>
+						<a
+							href="https://github.com/ESP-AuroraHome"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:text-[var(--text-primary)] transition-colors"
+						>
+							<Github className="w-4 h-4" />
+						</a>
 					</span>
 				</div>
 			</footer>
