@@ -192,6 +192,32 @@ export default function DocsLayout({
 					</div>
 				</main>
 			</div>
+
+			<footer className="lg:ml-64 border-t border-[var(--border-subtle)]">
+				<div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap gap-4 text-xs text-[var(--text-muted)]">
+					<Link
+						href="/legal/terms"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Terms
+					</Link>
+					<Link
+						href="/legal/privacy"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Privacy
+					</Link>
+					<Link
+						href="/legal/security"
+						className="hover:text-[var(--text-primary)] transition-colors"
+					>
+						Security
+					</Link>
+					<span className="ml-auto">
+						© {new Date().getFullYear()} Aurora Home — MIT License
+					</span>
+				</div>
+			</footer>
 		</div>
 	);
 }
