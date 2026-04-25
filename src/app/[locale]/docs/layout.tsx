@@ -210,19 +210,19 @@ export default function DocsLayout({
 					</Link>
 					<span>·</span>
 					<Link
-						href="/legal/terms"
+						href="/docs/legal/terms"
 						className="hover:text-[var(--text-primary)] transition-colors"
 					>
 						Terms
 					</Link>
 					<Link
-						href="/legal/privacy"
+						href="/docs/legal/privacy"
 						className="hover:text-[var(--text-primary)] transition-colors"
 					>
 						Privacy
 					</Link>
 					<Link
-						href="/legal/security"
+						href="/docs/legal/security"
 						className="hover:text-[var(--text-primary)] transition-colors"
 					>
 						Security
